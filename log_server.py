@@ -9,7 +9,7 @@ import socketserver
 import os
 import json
 from pathlib import Path
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import urlparse
 
 
 PORT = 8000

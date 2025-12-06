@@ -8,6 +8,8 @@ import sys
 import os
 import subprocess
 import datetime
+import select
+import time
 from pathlib import Path
 
 
@@ -62,10 +64,6 @@ def run_octave_logged():
             bufsize=1,
             universal_newlines=True
         )
-        
-        # Read initial Octave banner/startup messages
-        import select
-        import time
         
         # Give Octave a moment to start
         time.sleep(0.5)
