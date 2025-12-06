@@ -29,6 +29,15 @@ ENV/
 env/
 
 # IDEs
+*.egg-info/
+dist/
+build/
+
+# Logs
+logs/*.log
+logs/*.txt
+
+# IDE
 .vscode/
 .idea/
 *.swp
@@ -54,3 +63,21 @@ temp/
 
 # Node modules (if adding Node.js later)
 node_modules/
+# Temporary files
+/tmp/
+*.tmp
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
