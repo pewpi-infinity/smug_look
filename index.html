@@ -4,66 +4,112 @@
   <meta charset="UTF-8">
   <title>Infinity‑OS Cart Index</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #00ff9d;
+      text-shadow: 2px 2px #000;
+    }
+    .cart-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .cart-btn {
+      background: #ff6f61;
+      border: none;
+      border-radius: 10px;
+      padding: 0.8rem;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+      color: #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    .cart-btn:hover {
+      transform: scale(1.05);
+      background: #ff3b2e;
+    }
+    .output {
+      margin-top: 2rem;
+      text-align: left;
+      background: rgba(0,0,0,0.5);
+      padding: 1rem;
+      border-radius: 8px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .log-entry {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    .success { color: #00ff9d; }
+    .error { color: #ff3b2e; }
+  </style>
 </head>
 <body>
   <h1>Infinity‑OS Cart Index</h1>
-  <p>Run carts and view provenance 🚀</p>
+  <p>Press a cart to run it through the backend 🚀</p>
 
-  <div id="cartGrid"></div>
-  <div id="output"></div>
+  <div class="cart-grid" id="cartGrid"></div>
+  <div class="output" id="output"></div>
 
   <script>
-    const BACKEND = "http://YOUR_DEVICE_IP:5000";
-
-    // Auto‑generated list of carts
+    // All carts + JSON engines
     const carts = [
-      "cart000_run_all.py","cart001A_infinity_runcommands.py","cart002_engineering.py",
-      "cart003_computers.py","cart004_nuances.py","cart005_code.py","cart006_python.py",
-      "cart007_tokens.py","cart008_government.py","cart009_power.py","cart010_components.py",
-      "cart011_speakeasy.py","cart012_solutes.py","cart013_mercury_aluminum_growth.py",
-      "cart014_mercury_vapor_power.py","cart015_compression_hydrogen_engine.py",
-      "cart016_hot_cold_TEG.py","cart017_spiderweb_engine.py","cart018_zip_hashing.py",
-      "cart019_token_generation.py","cart020_unzip_install_strategy.py","cart021_token_tiers.py",
-      "cart022_bank_grade_tokens.py","cart023_idea_merger.py","cart024_quantum_transport.py",
-      "cart025_ai_watcher_login.py","cart026_aluminum_oxide_devices.py","cart027_robotics.py",
-      "cart028_machines.py","cart029_crystal_truths.py","cart030_superchemistry_fireproof.py",
-      "cart031_exoskeleton.py","cart032_ecosystem.py","cart033_nature.py","cart034_drones.py",
-      "cart035_signal_trace.py","cart036_rf_generation.py","cart037_mice_brainmapping.py",
-      "cart038_genetics.py","cart039_dna_engine.py","cart040_gas_shell_code.py",
-      "cart041_hydrogen_expansion.py"
+      "cart801_terminal_engine.py",
+      "cart804_feed_generator.py",
+      "cart805_wallet_engine.py",
+      "CART804_FEED_BUFFER.json",
+      "CART805_WALLET.json",
+      "CART803_TOKENS.json",
+      "WORLD_TOKEN_LEDGER.json",
+      "PEWPI_USER_CAPSULE.json"
     ];
 
-    const grid = document.getElementById('cartGrid');
+    const cartGrid = document.getElementById('cartGrid');
     const output = document.getElementById('output');
 
-    function log(msg, type="") {
+    function log(message, type="") {
       const div = document.createElement('div');
-      div.textContent = msg;
-      div.style.color = type==="error" ? "red" : "lime";
+      div.className = `log-entry ${type}`;
+      div.textContent = message;
       output.appendChild(div);
+      output.scrollTop = output.scrollHeight;
     }
 
     function runCart(cart) {
       log(`🔗 Running ${cart}…`);
-      fetch(`${BACKEND}/run?cart=${cart}`)
+      fetch(`http://192.168.1.42:5000/run?cart=${cart}`)
         .then(res => res.json())
         .then(data => {
-          if (data.output) log(`✅ ${cart}: ${data.output}`);
-          else log(`❌ ${cart}: ${data.error}`, "error");
+          if (data.output) {
+            log(`✅ ${cart} output: ${data.output}`, "success");
+          } else {
+            log(`❌ ${cart} error: ${data.error}`, "error");
+          }
         })
         .catch(err => log(`❌ Network error: ${err}`, "error"));
     }
 
+    // Build buttons dynamically
     carts.forEach(cart => {
       const btn = document.createElement('button');
+      btn.className = 'cart-btn';
       btn.textContent = cart;
       btn.onclick = () => runCart(cart);
-      btn.style.margin = "5px";
-      btn.style.padding = "10px";
-      btn.style.background = "#ff6f61";
-      btn.style.color = "#fff";
-      btn.style.borderRadius = "8px";
-      grid.appendChild(btn);
+      cartGrid.appendChild(btn);
     });
   </script>
 </body>
