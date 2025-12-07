@@ -1,3 +1,4 @@
+// File: sites.json
 [
   { "key":"infinity", "title":"Infinity Portal", "url":"https://pewpi-infinity.github.io/infinity" },
   { "key":"mongoose", "title":"Mongoose.os", "url":"https://pewpi-infinity.github.io/mongoose.os" },
