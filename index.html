@@ -320,5 +320,25 @@
       if(v!=='off'){ autoTimer = setInterval(refreshLogs, parseInt(v,10)*1000); }
     };
   </script>
+<script>
+async function loadSites() {
+  try {
+    // fetch sites.json from the same repo root
+    const res = await fetch('sites.json');
+    if (!res.ok) throw new Error("sites.json not found");
+    const sites = await res.json();
+
+    // render into the sitesLog div
+    const sitesLog = document.getElementById('sitesLog');
+    sitesLog.textContent = sites
+      .map(s => `- ${s.key} · ${s.title} · ${s.url}`)
+      .join("\n");
+  } catch (e) {
+    document.getElementById('sitesLog').textContent =
+      "Sites index unavailable. Add sites.json at repo root.";
+  }
+}
+loadSites();
+</script>
 </body>
 </html>
