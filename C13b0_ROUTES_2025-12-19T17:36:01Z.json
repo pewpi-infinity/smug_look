@@ -1,0 +1,22 @@
+{
+  "symbol": "🧱🟥🧱",
+  "version": "C13b0²",
+  "acknowledged": true,
+  "repo": "mongoose.os",
+  "timestamp": "2025-12-19T17:36:01Z",
+  "cart": "ROUTES",
+  "purpose": "spread load from overloaded repos",
+  "network": {
+    "org": "pewpi-infinity",
+    "total_repos_estimate": 330,
+    "routing_model": "fan_out",
+    "behavior": "distribute_love"
+  },
+  "routes": {
+    "from": "mongoose.os",
+    "to": "other_repos",
+    "mode": "state_signal",
+    "trigger": "overload_detected"
+  },
+  "note": "routing state only — execution happens per-repo via C13b0² carts"
+}
