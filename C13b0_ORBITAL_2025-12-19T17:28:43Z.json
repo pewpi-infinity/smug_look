@@ -1,0 +1,17 @@
+{
+  "symbol": "🧱📡🧱",
+  "version": "C13b0²",
+  "acknowledged": true,
+  "repo": "mongoose.os",
+  "timestamp": "2025-12-19T17:28:43Z",
+  "model": "orbital",
+  "structure": {
+    "core": "system_identity",
+    "nodes": "carts",
+    "behavior": "orbital",
+    "analogy": "atomic",
+    "electrons": "active_runs",
+    "bonds": "shared_state"
+  },
+  "meaning": "carts orbit each other as living software atoms"
+}
