@@ -1,10 +1,25 @@
 #!/usr/bin/env python3
-
 import subprocess
+from pathlib import Path
+from datetime import datetime
 
-print("[SYNC] Starting multi‑device sync...")
+HERE = Path(__file__).resolve().parent
 
-subprocess.call(["python3","cart1015_sync_tokens.py"])
-subprocess.call(["python3","cart1016_sync_ledger.py"])
+def run(cart_name):
+    cart_path = HERE / cart_name
+    if not cart_path.exists():
+        print(f"[WARN] Missing {cart_name}, skipping")
+        return
+    print(f"[RUN] {cart_name}")
+    subprocess.run(
+        ["python", str(cart_path)],
+        cwd=str(HERE),
+        check=False
+    )
 
-print("[SYNC] Multi‑device sync complete. Login now.")
+print("[SYNC] Starting multi-device sync...")
+
+run("cart1015_sync_tokens.py")
+run("cart1016_sync_ledger.py")
+
+print("[SYNC] Multi-device sync complete. Login now.")

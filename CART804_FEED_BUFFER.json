@@ -19,6 +19,26 @@
             "message": "Logic-placed tile via Infinity-OS feed engine.",
             "crossover_links": 0,
             "ruo_count": 0
+        },
+        {
+            "type": "earn",
+            "time": 1766142834,
+            "inf": 1,
+            "message": "Earned 1 INF from thinking cycle."
+        },
+        {
+            "time": 1766142834,
+            "terms": [],
+            "message": "Logic-placed tile via Infinity-OS feed engine.",
+            "crossover_links": 0,
+            "ruo_count": 0
+        },
+        {
+            "time": 1766144095,
+            "terms": [],
+            "message": "Logic-placed tile via Infinity-OS feed engine.",
+            "crossover_links": 0,
+            "ruo_count": 0
         }
     ]
 }

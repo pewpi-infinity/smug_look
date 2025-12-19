@@ -1,0 +1,185 @@
+{
+    "timestamp": 1766145694,
+    "calculators": {
+        "RUO_STORE": {
+            "load": 13,
+            "entropy": -0.113609,
+            "probability_trigger": 0.628708,
+            "stability": 0.9518,
+            "rebuild_need": true,
+            "hash_delta": 116,
+            "time_decay": 0.36152,
+            "priority": 4
+        },
+        "CROSSOVER": {
+            "load": 64,
+            "entropy": -0.171029,
+            "probability_trigger": 0.421165,
+            "stability": 0.0071,
+            "rebuild_need": false,
+            "hash_delta": 36,
+            "time_decay": 0.34412,
+            "priority": 10
+        },
+        "MASTERHASH": {
+            "load": 15,
+            "entropy": -0.129266,
+            "probability_trigger": 0.076381,
+            "stability": 0.5422,
+            "rebuild_need": false,
+            "hash_delta": 24,
+            "time_decay": 0.71894,
+            "priority": 1
+        },
+        "MASTERZIP": {
+            "load": 59,
+            "entropy": -0.126201,
+            "probability_trigger": 0.183932,
+            "stability": 0.348,
+            "rebuild_need": true,
+            "hash_delta": 2,
+            "time_decay": 0.04999,
+            "priority": 3
+        },
+        "GRANDMASTER": {
+            "load": 74,
+            "entropy": -0.13288,
+            "probability_trigger": 0.472532,
+            "stability": 0.8377,
+            "rebuild_need": false,
+            "hash_delta": 70,
+            "time_decay": 0.55283,
+            "priority": 2
+        },
+        "TOKEN": {
+            "load": 62,
+            "entropy": -0.128456,
+            "probability_trigger": 0.026108,
+            "stability": 0.0433,
+            "rebuild_need": true,
+            "hash_delta": 127,
+            "time_decay": 0.36618,
+            "priority": 10
+        },
+        "LINEAGE": {
+            "load": 31,
+            "entropy": -0.118185,
+            "probability_trigger": 0.70036,
+            "stability": 0.9257,
+            "rebuild_need": false,
+            "hash_delta": 105,
+            "time_decay": 0.58423,
+            "priority": 3
+        },
+        "VERSION": {
+            "load": 67,
+            "entropy": -0.125062,
+            "probability_trigger": 0.81326,
+            "stability": 0.4675,
+            "rebuild_need": false,
+            "hash_delta": 53,
+            "time_decay": 0.43611,
+            "priority": 9
+        },
+        "REGISTER": {
+            "load": 56,
+            "entropy": -0.169029,
+            "probability_trigger": 0.936104,
+            "stability": 0.0218,
+            "rebuild_need": false,
+            "hash_delta": 128,
+            "time_decay": 0.46797,
+            "priority": 4
+        },
+        "WATCHDOG": {
+            "load": 12,
+            "entropy": -0.152099,
+            "probability_trigger": 0.355618,
+            "stability": 0.7964,
+            "rebuild_need": false,
+            "hash_delta": 123,
+            "time_decay": 0.13227,
+            "priority": 9
+        },
+        "SCHEDULER": {
+            "load": 63,
+            "entropy": -0.127886,
+            "probability_trigger": 0.608692,
+            "stability": 0.2135,
+            "rebuild_need": true,
+            "hash_delta": 58,
+            "time_decay": 0.62479,
+            "priority": 2
+        },
+        "REBUILD": {
+            "load": 98,
+            "entropy": -0.13028,
+            "probability_trigger": 0.970654,
+            "stability": 0.4286,
+            "rebuild_need": false,
+            "hash_delta": 15,
+            "time_decay": 0.52053,
+            "priority": 5
+        },
+        "AUTONOMY": {
+            "load": 54,
+            "entropy": -0.109791,
+            "probability_trigger": 0.142085,
+            "stability": 0.6499,
+            "rebuild_need": true,
+            "hash_delta": 49,
+            "time_decay": 0.93919,
+            "priority": 8
+        },
+        "ENGINE": {
+            "load": 32,
+            "entropy": -0.144886,
+            "probability_trigger": 0.517707,
+            "stability": 0.6544,
+            "rebuild_need": false,
+            "hash_delta": 69,
+            "time_decay": 0.82045,
+            "priority": 3
+        },
+        "SCRAPER": {
+            "load": 32,
+            "entropy": -0.127574,
+            "probability_trigger": 0.668901,
+            "stability": 0.1949,
+            "rebuild_need": false,
+            "hash_delta": 65,
+            "time_decay": 0.33496,
+            "priority": 3
+        },
+        "PATTERN": {
+            "load": 100,
+            "entropy": -0.14534,
+            "probability_trigger": 0.973557,
+            "stability": 0.8333,
+            "rebuild_need": false,
+            "hash_delta": 122,
+            "time_decay": 0.13674,
+            "priority": 4
+        },
+        "COLOR": {
+            "load": 11,
+            "entropy": -0.113515,
+            "probability_trigger": 0.672013,
+            "stability": 0.8318,
+            "rebuild_need": true,
+            "hash_delta": 33,
+            "time_decay": 0.05569,
+            "priority": 2
+        },
+        "CATEGORY": {
+            "load": 0,
+            "entropy": -0.133025,
+            "probability_trigger": 0.179242,
+            "stability": 0.9325,
+            "rebuild_need": false,
+            "hash_delta": 0,
+            "time_decay": 0.11953,
+            "priority": 1
+        }
+    }
+}

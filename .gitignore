@@ -122,3 +122,8 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+# Nested repos (C13b0² rule: no recursion)
+infinity_repo/
+mongoose.os/
+ledger/
+capsules/

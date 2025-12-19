@@ -1,11 +1,19 @@
 #!/usr/bin/env python3
-# CART1010 — Export encrypted capsule for IPFS or transfer
+from pathlib import Path
+from c13b0_fs import cart_dir, ensure_dir, load_json, timestamp
 
-import json, time, shutil
+HERE = cart_dir(__file__)
+STATE = ensure_dir(HERE / "state")
+USER = load_json(
+    HERE / "CURRENT_USER.json",
+    {"user": "default", "created": timestamp()}
+)
 
-SRC = "PEWPI_USER_CAPSULE.json"
-DST = f"CART1010_EXPORT_{int(time.time())}.capsule"
+OUT = ensure_dir(HERE / "capsules")
+capsule = OUT / f"capsule_{timestamp().replace(':','_')}.txt"
 
-shutil.copy(SRC, DST)
+capsule.write_text(
+    f"Capsule export\nUser: {USER['user']}\nTime: {timestamp()}\n"
+)
 
-print("[CART1010] Capsule exported as:", DST)
+print("[OK] Capsule exported:", capsule.name)
