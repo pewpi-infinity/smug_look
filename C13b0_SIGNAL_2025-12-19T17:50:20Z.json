@@ -1,0 +1,17 @@
+{
+  "symbol": "🧱🚦🧱",
+  "version": "C13b0²",
+  "acknowledged": true,
+  "repo": "mongoose.os",
+  "timestamp": "2025-12-19T17:50:20Z",
+  "signal": {
+    "first_color": "YELLOW",
+    "second_color": "GREEN",
+    "result": "PROCEED"
+  },
+  "meaning": {
+    "GREEN": "advance to next operation",
+    "NOT_GREEN": "pause system, present context, discuss complexity"
+  },
+  "note": "non-green states indicate unresolved or quantum-level problems"
+}
