@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- 👑 Infinity Legend Meta Tags - CROWN_INDEX -->
-  <meta name="infinity-legend-roles" content="CROWN_INDEX,ORCHESTRATOR,CONTROLLER,RUNTIME,MEMORY_NODE">
-  <meta name="infinity-legend-symbols" content="👑,🛒,🕹️,⭐,🪐">
+  <meta name="infinity-legend-roles" content="CROWN_INDEX,CONTROLLER,RUNTIME,MEMORY_NODE">
+  <meta name="infinity-legend-symbols" content="👑,🕹️,⭐,🪐">
   <meta name="infinity-legend-version" content="1.0.0">
   <meta name="infinity-legend-signature" content="🍄🍄👲🏻🏰🏰👸🏼🍄🐢💗⚡⚡⚡🌟👻🎮🕹️👾">
   
@@ -398,9 +398,16 @@
           <div class="playlist-item-title">${track.title}</div>
           <div class="playlist-item-meta">${track.collection}</div>
         </div>
-        <button class="btn btn-yellow" style="padding: 8px 12px;" onclick="playTrack('${track.id}')">▶️</button>
-        <button class="btn btn-yellow" style="padding: 8px 12px;" onclick="starTrack('${track.id}')">⭐</button>
+        <button class="btn btn-yellow play-track-btn" style="padding: 8px 12px;" data-track-id="${track.id}">▶️</button>
+        <button class="btn btn-yellow star-track-btn" style="padding: 8px 12px;" data-track-id="${track.id}">⭐</button>
       `;
+      
+      // Add event listeners
+      const playBtn = div.querySelector('.play-track-btn');
+      const starBtn = div.querySelector('.star-track-btn');
+      
+      playBtn.addEventListener('click', () => playTrack(track.id));
+      starBtn.addEventListener('click', () => starTrack(track.id));
       
       return div;
     }
