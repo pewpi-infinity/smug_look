@@ -1,0 +1,154 @@
+{
+  "infinity-legend-version": "1.0.0",
+  "repository": "smug_look",
+  "roles": {
+    "CROWN_INDEX": {
+      "symbol": "👑",
+      "description": "Main catalog of all audio sources",
+      "never": "executes",
+      "only": "references and catalogs"
+    },
+    "ROBOT_CORE": {
+      "symbol": "🦾",
+      "description": "Autonomous audio playback engine",
+      "never": "deletes playlists",
+      "only": "additive operations"
+    },
+    "MEMORY_NODE": {
+      "symbol": "🪐",
+      "description": "Persistent storage",
+      "stores": ["user preferences", "play history", "custom playlists", "favorite tracks"],
+      "never": "overwrites",
+      "only": "appends"
+    },
+    "RUNTIME": {
+      "symbol": "⭐",
+      "description": "Real-time audio stream management",
+      "handles": ["dynamic loading", "runtime state"]
+    },
+    "CONTROLLER": {
+      "symbol": "🕹️",
+      "description": "Mario-themed playback controls",
+      "features": ["interactive interface", "power-ups", "coin collection"]
+    },
+    "ENCODE": {
+      "symbol": "🧱",
+      "description": "Audio format conversion and metadata",
+      "handles": ["format conversion", "token generation", "hash-based tracking"]
+    },
+    "TOKEN_VIEWER": {
+      "symbol": "👁️",
+      "description": "Visual track token display",
+      "displays": ["track tokens", "semantic meanings", "emoji representations"]
+    },
+    "SYNC": {
+      "symbol": "🎵",
+      "description": "Multi-repo audio synchronization",
+      "handles": ["cross-system playlists", "beat detection", "visual sync"]
+    },
+    "WEAVER": {
+      "symbol": "🪡",
+      "description": "Connects audio from multiple sources",
+      "sources": ["Internet Archive", "multiple repositories"],
+      "never": "cuts",
+      "only": "adds"
+    },
+    "FLOW": {
+      "symbol": "🔀",
+      "description": "Routes audio streams",
+      "handles": ["playback queue", "dynamic routing"]
+    },
+    "SEMANTIC": {
+      "symbol": "🔗",
+      "description": "Track relationship mapping",
+      "handles": ["genre connections", "mood connections", "discovery"]
+    },
+    "AUDITOR": {
+      "symbol": "🍄",
+      "description": "Quality checking",
+      "validates": ["audio files", "Internet Archive sources", "playback integrity"]
+    },
+    "MODULATOR": {
+      "symbol": "🎛️",
+      "description": "Audio effect controls",
+      "handles": ["volume", "eq", "filters", "effects"]
+    },
+    "STAR": {
+      "symbol": "💫",
+      "description": "Star favorite system",
+      "features": ["favorites", "power stars", "unlockables"]
+    },
+    "MULTISTAR": {
+      "symbol": "✨",
+      "description": "Multi-user favorites",
+      "features": ["shared collections", "community playlists"]
+    },
+    "CHAIN": {
+      "symbol": "⛓️",
+      "description": "Blockchain-inspired linking",
+      "tracks": ["play history", "provenance", "token chains"]
+    },
+    "SPINE_INDEX": {
+      "symbol": "🔀",
+      "description": "Central backbone routing",
+      "handles": ["main navigation", "structural support", "core routing"]
+    }
+  },
+  "color_system": {
+    "GREEN": {
+      "hex": "#10B981",
+      "purpose": "Input controls",
+      "uses": ["record", "import"]
+    },
+    "ORANGE": {
+      "hex": "#F97316",
+      "purpose": "Processing indicators",
+      "uses": ["loading", "buffering"]
+    },
+    "BLUE": {
+      "hex": "#3B82F6",
+      "purpose": "Logic controls",
+      "uses": ["playlist management", "settings"]
+    },
+    "RED": {
+      "hex": "#EF4444",
+      "purpose": "Output controls",
+      "uses": ["play", "volume", "emit"]
+    },
+    "PURPLE": {
+      "hex": "#A855F7",
+      "purpose": "Memory displays",
+      "uses": ["history", "saved content"]
+    },
+    "YELLOW": {
+      "hex": "#EAB308",
+      "purpose": "Navigation",
+      "uses": ["links", "bridges"]
+    },
+    "PINK": {
+      "hex": "#EC4899",
+      "purpose": "Core vitals",
+      "uses": ["health display", "system status"]
+    }
+  },
+  "integration_status": {
+    "crown_index": true,
+    "robot_core": true,
+    "memory_node": true,
+    "runtime": true,
+    "controller": true,
+    "encode": true,
+    "token_viewer": true,
+    "sync": true,
+    "weaver": true,
+    "flow": true,
+    "semantic": true,
+    "auditor": true,
+    "modulator": true,
+    "star": true,
+    "multistar": true,
+    "chain": true,
+    "spine_index": true
+  },
+  "emoji_signature": "🍄🍄👲🏻🏰🏰👸🏼🍄🐢💗⚡⚡⚡🌟👻🎮🕹️👾"
+}
