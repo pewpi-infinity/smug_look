@@ -1,0 +1,208 @@
+/**
+ * Joystick Control Styles
+ * Styling for on-screen joystick and game buttons
+ */
+
+.mrw-joystick-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 500;
+  user-select: none;
+}
+
+.mrw-joystick-base {
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, #2d3748 0%, #1a202c 100%);
+  border: 4px solid #4a5568;
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2),
+    inset 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.mrw-joystick-stick {
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle, #718096 0%, #4a5568 100%);
+  border: 3px solid #2d3748;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  transition: transform 0.1s ease-out;
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+.mrw-joystick-stick:active {
+  cursor: grabbing;
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.mrw-joystick-directions {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.mrw-joystick-dir {
+  position: absolute;
+  font-size: 20px;
+  opacity: 0.6;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.mrw-joystick-dir.up {
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mrw-joystick-dir.down {
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mrw-joystick-dir.left {
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.mrw-joystick-dir.right {
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.mrw-joystick-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.mrw-joystick-buttons button {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 3px solid #4a5568;
+  font-family: monospace;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.1s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.mrw-btn-a {
+  background: linear-gradient(145deg, #48bb78, #38a169);
+  color: white;
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.mrw-btn-b {
+  background: linear-gradient(145deg, #f56565, #e53e3e);
+  color: white;
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.mrw-btn-x {
+  background: linear-gradient(145deg, #4299e1, #3182ce);
+  color: white;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.mrw-btn-y {
+  background: linear-gradient(145deg, #ecc94b, #d69e2e);
+  color: white;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.mrw-joystick-buttons button:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.mrw-joystick-buttons button:hover {
+  filter: brightness(1.1);
+}
+
+.mrw-joystick-action {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #48bb78;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 12px;
+  text-align: center;
+  min-height: 20px;
+  border: 1px solid #4a5568;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .mrw-joystick-container {
+    bottom: 10px;
+    right: 10px;
+  }
+  
+  .mrw-joystick-base {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .mrw-joystick-stick {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .mrw-joystick-buttons button {
+    width: 48px;
+    height: 48px;
+    font-size: 16px;
+  }
+}
+
+/* Landscape mode - move to left side */
+@media (max-height: 500px) and (orientation: landscape) {
+  .mrw-joystick-container {
+    left: 20px;
+    right: auto;
+  }
+}
+
+/* Button press feedback animation */
+@keyframes button-press {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.mrw-joystick-buttons button:active {
+  animation: button-press 0.2s ease-out;
+}
