@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍄 MRW Interactive Terminal - Multi-Interest Jukebox</title>
+  
+  <!-- Meta tags for cross-repo discovery -->
+  <meta name="description" content="Advanced Multi-Interest Jukebox with Animated MRW Terminal, Mario Physics, and Technical Interest Labs">
+  <meta name="keywords" content="MRW, Mario, Luigi, Electronics, Chemistry, Mathematics, Robotics, Construction, Terminal, Interactive">
+  <meta name="interests" content="electronics,chemistry,mathematics,robotics,construction,signal-processing">
+  <meta name="tokens" content="👑📶⚪,🗄️🧵📶,🖇️📍🕹️,🪡🤓⭐,👑🧲🪐">
+  
+  <!-- Kris Token Integration -->
+  <meta name="token-formula" content="👑📶⚪ - Powerful orchestrator coordinates interests">
+  <meta name="token-formula" content="🗄️🧵📶 - Memory threads store all interactions">
+  <meta name="token-formula" content="🖇️📍🕹️(📀) - Joystick pinned to disk storage">
+  <meta name="token-formula" content="🪡🤓⭐ - Smart weaver connects all disciplines">
+  <meta name="token-formula" content="👑🧲🪐 - Crown magnet memory loop running">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles/terminal.css">
+  <link rel="stylesheet" href="styles/joystick.css">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+      background: linear-gradient(135deg, #0b0f14 0%, #161b22 100%);
+      color: #e6edf3;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .mrw-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .mrw-header h1 {
+      font-size: 48px;
+      margin-bottom: 12px;
+      background: linear-gradient(45deg, #58a6ff, #3fb950, #d29922);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .mrw-header p {
+      font-size: 18px;
+      color: #8b949e;
+    }
+    
+    .mrw-interests-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .mrw-interest-card {
+      background: rgba(22, 27, 34, 0.8);
+      border: 2px solid #30363d;
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    
+    .mrw-interest-card:hover {
+      border-color: #58a6ff;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(88, 166, 255, 0.3);
+    }
+    
+    .mrw-interest-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+    
+    .mrw-interest-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    
+    .mrw-interest-desc {
+      font-size: 14px;
+      color: #8b949e;
+      line-height: 1.5;
+    }
+    
+    .mrw-token-display {
+      background: rgba(63, 185, 80, 0.1);
+      border: 2px solid #3fb950;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 40px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .mrw-token-display h3 {
+      color: #3fb950;
+      margin-bottom: 12px;
+    }
+    
+    .mrw-token-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-family: monospace;
+      font-size: 18px;
+    }
+    
+    .mrw-footer {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid #30363d;
+      color: #8b949e;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="mrw-header">
+    <h1>🍄 MRW Interactive Terminal</h1>
+    <p>Advanced Multi-Interest Jukebox with Mario Physics & Animated Characters</p>
+  </div>
+  
+  <!-- Main Terminal -->
+  <div id="mrw-terminal-container"></div>
+  
+  <!-- Interests Grid -->
+  <div class="mrw-interests-grid">
+    <a href="interests/electronics/index.html" class="mrw-interest-card">
+      <div class="mrw-interest-icon">🔌</div>
+      <div class="mrw-interest-title">Electronics Lab</div>
+      <div class="mrw-interest-desc">
+        Oscilloscope, signal generators, circuit design, and breadboard simulation
+      </div>
+    </a>
+    
+    <a href="interests/chemistry/index.html" class="mrw-interest-card">
+      <div class="mrw-interest-icon">🧪</div>
+      <div class="mrw-interest-title">Chemistry Lab</div>
+      <div class="mrw-interest-desc">
+        Periodic table, molecular builder, reactions, and quantum chemistry
+      </div>
+    </a>
+    
+    <a href="interests/mathematics/index.html" class="mrw-interest-card">
+      <div class="mrw-interest-icon">📐</div>
+      <div class="mrw-interest-title">Math Studio</div>
+      <div class="mrw-interest-desc">
+        Equation solver, graph plotter, fractals, and proof visualization
+      </div>
+    </a>
+    
+    <a href="interests/robotics/index.html" class="mrw-interest-card">
+      <div class="mrw-interest-icon">🤖</div>
+      <div class="mrw-interest-title">Robot Workshop</div>
+      <div class="mrw-interest-desc">
+        Robot designer, automation sequences, sensors, and servo control
+      </div>
+    </a>
+    
+    <a href="interests/construction/index.html" class="mrw-interest-card">
+      <div class="mrw-interest-icon">🏗️</div>
+      <div class="mrw-interest-title">Construction Site</div>
+      <div class="mrw-interest-desc">
+        Blueprint editor, structure builder, materials, and load calculations
+      </div>
+    </a>
+  </div>
+  
+  <!-- Kris Token Integration Display -->
+  <div class="mrw-token-display">
+    <h3>🧱 Integrated Token System</h3>
+    <div class="mrw-token-list">
+      <span>👑📶⚪</span>
+      <span>🗄️🧵📶</span>
+      <span>🖇️📍🕹️(📀)</span>
+      <span>🪡🤓⭐</span>
+      <span>👑🧲🪐</span>
+    </div>
+  </div>
+  
+  <!-- Joystick Container -->
+  <div id="mrw-joystick-container"></div>
+  
+  <div class="mrw-footer">
+    <p>🍄 MRW Terminal - Part of the Infinity Ecosystem 🌟</p>
+    <p>Building the ultimate adaptive, animated, technically-accurate, multi-interest system!</p>
+  </div>
+  
+  <!-- Scripts -->
+  <script src="scripts/capacitor-model.js"></script>
+  <script src="scripts/mushroom-physics.js"></script>
+  <script src="scripts/mario-character.js"></script>
+  <script src="scripts/luigi-character.js"></script>
+  <script src="scripts/joystick-controls.js"></script>
+  <script src="scripts/terminal-engine.js"></script>
+  
+  <script>
+    // Initialize systems on load
+    document.addEventListener('DOMContentLoaded', () => {
+      // Create capacitor physics
+      const capacitor = new CapacitorPhysics();
+      
+      // Create mushroom system
+      const mushroom = new MushroomSystem();
+      
+      // Create joystick
+      const joystick = new JoystickSystem('mrw-joystick-container');
+      joystick.setCapacitor(capacitor);
+      
+      // Create characters
+      window.marioCharacter = new MarioCharacter(window.mrwTerminal);
+      window.luigiCharacter = new LuigiCharacter(window.mrwTerminal);
+      
+      // Listen for joystick actions
+      document.addEventListener('joystick-action', (e) => {
+        const { action } = e.detail;
+        
+        if (window.mrwTerminal) {
+          window.mrwTerminal.addOutput(`🎮 Joystick: ${action.replace(/_/g, ' ')}`);
+        }
+        
+        // Special actions
+        if (action === 'compress_code') {
+          // Simulate mushroom bump
+          const sampleCode = `
+            function example() {
+              // This is a comment
+              let x = 10;
+              
+              
+              if (x > 5) {
+                console.log("Greater than 5");
+              }
+            }
+          `;
+          
+          const result = mushroom.bumpMushroom(sampleCode);
+          mushroom.showMushroomAnimation(result.improvements);
+          
+          if (window.mrwTerminal) {
+            window.mrwTerminal.addOutput(result.improvements.message);
+          }
+        }
+      });
+      
+      // Random Mario appearances
+      setInterval(() => {
+        if (Math.random() > 0.9 && window.marioCharacter) {
+          window.marioCharacter.suggest();
+        }
+      }, 30000);
+      
+      // Luigi support messages
+      setInterval(() => {
+        if (Math.random() > 0.85 && window.luigiCharacter) {
+          window.luigiCharacter.support();
+        }
+      }, 45000);
+      
+      console.log('🍄 MRW Terminal initialized!');
+      console.log('🎮 Use joystick or type commands to explore!');
+    });
+  </script>
+</body>
+</html>

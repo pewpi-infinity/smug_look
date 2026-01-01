@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔌 Electronics Lab - Signal Processing & Circuits</title>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Courier New', monospace;
+      background: #000;
+      color: #0f0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    .lab-header {
+      background: linear-gradient(180deg, #001100 0%, #000 100%);
+      border-bottom: 2px solid #0f0;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .lab-header h1 {
+      font-size: 36px;
+      text-shadow: 0 0 10px #0f0;
+      margin-bottom: 8px;
+    }
+    
+    .lab-header p {
+      color: #0a0;
+    }
+    
+    .back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      background: #001100;
+      border: 2px solid #0f0;
+      color: #0f0;
+      text-decoration: none;
+      border-radius: 4px;
+      z-index: 1000;
+    }
+    
+    .back-btn:hover {
+      background: #0f0;
+      color: #000;
+    }
+    
+    .lab-workspace {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .lab-module {
+      background: rgba(0, 255, 0, 0.05);
+      border: 2px solid #0f0;
+      border-radius: 8px;
+      padding: 20px;
+    }
+    
+    .module-title {
+      font-size: 20px;
+      margin-bottom: 16px;
+      text-shadow: 0 0 5px #0f0;
+    }
+    
+    /* Oscilloscope */
+    .oscilloscope {
+      width: 100%;
+      height: 300px;
+      background: #001100;
+      border: 3px solid #0f0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .oscilloscope canvas {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .oscilloscope-grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
+      background-size: 30px 30px;
+      pointer-events: none;
+    }
+    
+    /* Signal Generator Controls */
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .control-group label {
+      font-size: 12px;
+      color: #0a0;
+    }
+    
+    .control-group input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 8px;
+      background: #001100;
+      border: 1px solid #0f0;
+      border-radius: 4px;
+      outline: none;
+    }
+    
+    .control-group input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      background: #0f0;
+      cursor: pointer;
+      border-radius: 50%;
+      box-shadow: 0 0 5px #0f0;
+    }
+    
+    .control-group select {
+      background: #001100;
+      color: #0f0;
+      border: 2px solid #0f0;
+      padding: 8px;
+      font-family: inherit;
+      border-radius: 4px;
+    }
+    
+    .value-display {
+      font-size: 16px;
+      text-align: center;
+      padding: 8px;
+      background: #001100;
+      border: 1px solid #0f0;
+      border-radius: 4px;
+    }
+    
+    /* Component symbols */
+    .components-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+    
+    .component {
+      background: #001100;
+      border: 2px solid #0f0;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    
+    .component:hover {
+      background: rgba(0, 255, 0, 0.2);
+      transform: scale(1.05);
+    }
+    
+    .component-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    
+    .component-label {
+      font-size: 12px;
+    }
+    
+    /* LED Meters */
+    .led-meters {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    
+    .led-meter {
+      flex: 1;
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 4px;
+    }
+    
+    .led {
+      width: 100%;
+      height: 20px;
+      background: #001100;
+      border: 1px solid #0f0;
+      border-radius: 2px;
+      transition: all 0.1s;
+    }
+    
+    .led.active {
+      background: #0f0;
+      box-shadow: 0 0 10px #0f0;
+    }
+    
+    /* Breadboard */
+    .breadboard {
+      background: #2a2a2a;
+      border: 3px solid #0f0;
+      padding: 20px;
+      border-radius: 8px;
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 8px;
+    }
+    
+    .breadboard-hole {
+      width: 100%;
+      aspect-ratio: 1;
+      background: #000;
+      border: 2px solid #0f0;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    
+    .breadboard-hole:hover {
+      background: rgba(0, 255, 0, 0.3);
+    }
+    
+    @media (max-width: 768px) {
+      .lab-workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back-btn">← Back to Terminal</a>
+  
+  <div class="lab-header">
+    <h1>🔌 Electronics & Signal Processing Lab</h1>
+    <p>Oscilloscope/Lab Bench Aesthetic</p>
+  </div>
+  
+  <div class="lab-workspace">
+    <!-- Oscilloscope -->
+    <div class="lab-module">
+      <div class="module-title">📊 Oscilloscope Display</div>
+      <div class="oscilloscope">
+        <div class="oscilloscope-grid"></div>
+        <canvas id="oscilloscope-canvas"></canvas>
+      </div>
+      
+      <div class="controls">
+        <div class="control-group">
+          <label>Frequency: <span id="freq-display">440</span> Hz</label>
+          <input type="range" id="frequency" min="20" max="2000" value="440">
+        </div>
+        
+        <div class="control-group">
+          <label>Amplitude: <span id="amp-display">50</span>%</label>
+          <input type="range" id="amplitude" min="0" max="100" value="50">
+        </div>
+        
+        <div class="control-group">
+          <label>Waveform:</label>
+          <select id="waveform">
+            <option value="sine">Sine Wave</option>
+            <option value="square">Square Wave</option>
+            <option value="triangle">Triangle Wave</option>
+            <option value="sawtooth">Sawtooth Wave</option>
+          </select>
+        </div>
+        
+        <div class="control-group">
+          <label>Timebase:</label>
+          <select id="timebase">
+            <option value="1">1ms/div</option>
+            <option value="2" selected>2ms/div</option>
+            <option value="5">5ms/div</option>
+            <option value="10">10ms/div</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Signal Generator -->
+    <div class="lab-module">
+      <div class="module-title">⚡ Signal Generator</div>
+      <div class="value-display">
+        <div>Output: <span id="output-display">440 Hz @ 50%</span></div>
+      </div>
+      
+      <div class="led-meters">
+        <div class="led-meter" id="meter-1">
+          <div class="led"></div>
+          <div class="led"></div>
+          <div class="led"></div>
+          <div class="led"></div>
+          <div class="led"></div>
+          <div class="led"></div>
+          <div class="led"></div>
+          <div class="led"></div>
+          <div class="led"></div>
+          <div class="led"></div>
+        </div>
+        <div class="led-meter" id="meter-2">
+          <div class="led"></div>
+          <div class="led"></div>
+          <div class="led"></div>
+          <div class="led"></div>
+          <div class="led"></div>
+          <div class="led"></div>
+          <div class="led"></div>
+          <div class="led"></div>
+          <div class="led"></div>
+          <div class="led"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Circuit Components -->
+    <div class="lab-module">
+      <div class="module-title">🔧 Component Library</div>
+      <div class="components-grid">
+        <div class="component" onclick="selectComponent('resistor')">
+          <div class="component-icon">⚡</div>
+          <div class="component-label">Resistor</div>
+        </div>
+        <div class="component" onclick="selectComponent('capacitor')">
+          <div class="component-icon">🔋</div>
+          <div class="component-label">Capacitor</div>
+        </div>
+        <div class="component" onclick="selectComponent('inductor')">
+          <div class="component-icon">🧲</div>
+          <div class="component-label">Inductor</div>
+        </div>
+        <div class="component" onclick="selectComponent('transistor')">
+          <div class="component-icon">📡</div>
+          <div class="component-label">Transistor</div>
+        </div>
+        <div class="component" onclick="selectComponent('led')">
+          <div class="component-icon">💡</div>
+          <div class="component-label">LED</div>
+        </div>
+        <div class="component" onclick="selectComponent('diode')">
+          <div class="component-icon">➡️</div>
+          <div class="component-label">Diode</div>
+        </div>
+        <div class="component" onclick="selectComponent('ic')">
+          <div class="component-icon">🖥️</div>
+          <div class="component-label">IC Chip</div>
+        </div>
+        <div class="component" onclick="selectComponent('wire')">
+          <div class="component-icon">〰️</div>
+          <div class="component-label">Wire</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Breadboard -->
+    <div class="lab-module">
+      <div class="module-title">🔌 Virtual Breadboard</div>
+      <div class="breadboard" id="breadboard">
+        <!-- Generated by script -->
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Oscilloscope rendering
+    const canvas = document.getElementById('oscilloscope-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    
+    let frequency = 440;
+    let amplitude = 0.5;
+    let waveform = 'sine';
+    let timebase = 2;
+    let time = 0;
+    
+    function drawWaveform() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.strokeStyle = '#0f0';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      
+      const points = 500;
+      const step = canvas.width / points;
+      
+      for (let i = 0; i < points; i++) {
+        const x = i * step;
+        const t = (time + i / points) * frequency * Math.PI * 2 / 60;
+        let y;
+        
+        switch(waveform) {
+          case 'sine':
+            y = Math.sin(t);
+            break;
+          case 'square':
+            y = Math.sin(t) > 0 ? 1 : -1;
+            break;
+          case 'triangle':
+            y = 2 * Math.abs(2 * (t / (2 * Math.PI) - Math.floor(t / (2 * Math.PI) + 0.5))) - 1;
+            break;
+          case 'sawtooth':
+            y = 2 * (t / (2 * Math.PI) - Math.floor(t / (2 * Math.PI) + 0.5));
+            break;
+        }
+        
+        y = canvas.height / 2 + (y * amplitude * canvas.height / 2);
+        
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      
+      ctx.stroke();
+      time += 1;
+      
+      // Update LED meters
+      updateLEDMeters();
+      
+      requestAnimationFrame(drawWaveform);
+    }
+    
+    function updateLEDMeters() {
+      const level = Math.abs(Math.sin(time * frequency * Math.PI * 2 / 60)) * amplitude;
+      const ledsToLight = Math.floor(level * 10);
+      
+      [1, 2].forEach(meterNum => {
+        const meter = document.getElementById(`meter-${meterNum}`);
+        const leds = meter.querySelectorAll('.led');
+        
+        leds.forEach((led, i) => {
+          if (i < ledsToLight) {
+            led.classList.add('active');
+          } else {
+            led.classList.remove('active');
+          }
+        });
+      });
+    }
+    
+    // Control listeners
+    document.getElementById('frequency').addEventListener('input', (e) => {
+      frequency = parseFloat(e.target.value);
+      document.getElementById('freq-display').textContent = frequency.toFixed(0);
+      updateOutput();
+    });
+    
+    document.getElementById('amplitude').addEventListener('input', (e) => {
+      amplitude = parseFloat(e.target.value) / 100;
+      document.getElementById('amp-display').textContent = e.target.value;
+      updateOutput();
+    });
+    
+    document.getElementById('waveform').addEventListener('change', (e) => {
+      waveform = e.target.value;
+      updateOutput();
+    });
+    
+    document.getElementById('timebase').addEventListener('change', (e) => {
+      timebase = parseFloat(e.target.value);
+    });
+    
+    function updateOutput() {
+      const ampPercent = Math.round(amplitude * 100);
+      document.getElementById('output-display').textContent = 
+        `${frequency.toFixed(0)} Hz @ ${ampPercent}%`;
+    }
+    
+    // Generate breadboard holes
+    const breadboard = document.getElementById('breadboard');
+    for (let i = 0; i < 100; i++) {
+      const hole = document.createElement('div');
+      hole.className = 'breadboard-hole';
+      breadboard.appendChild(hole);
+    }
+    
+    // Component selection
+    let selectedComponent = null;
+    
+    function selectComponent(type) {
+      selectedComponent = type;
+      console.log(`🔧 Selected component: ${type}`);
+    }
+    
+    // Start animation
+    drawWaveform();
+    
+    console.log('🔌 Electronics Lab initialized!');
+  </script>
+</body>
+</html>
