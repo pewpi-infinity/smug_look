@@ -6,10 +6,13 @@ An interactive terminal experience where animated characters and vehicles intera
 
 ## 🚀 Quick Start
 
-1. **Open the Terminal**: Navigate to [mrw-animated-terminal.html](mrw-animated-terminal.html)
-2. **Type Commands**: Use the `infinity-*` commands
-3. **Watch the Magic**: See Mario, Luigi, cars, and mushrooms come to life!
-4. **Use the Joystick**: Control characters with on-screen joystick
+1. **Open the Main Page**: Navigate to [index.html](index.html) or open the repository in a browser
+2. **Click the Launch Button**: Click "🎮 Launch MRW Animated Terminal 🍄"
+3. **Try Commands**: Type `infinity-help` to see all available commands
+4. **Watch the Magic**: See Mario, Luigi, cars, and mushrooms come to life!
+5. **Use the Joystick**: Control characters with on-screen joystick
+
+Or go directly to: [mrw-animated-terminal.html](mrw-animated-terminal.html)
 
 ## ✨ Features
 
