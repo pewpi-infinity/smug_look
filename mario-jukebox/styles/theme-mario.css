@@ -1,0 +1,540 @@
+/* 
+ * 🍄 Mario Bros Theme
+ * 8-bit nostalgia with power-ups and question blocks
+ */
+
+.theme-mario {
+    --theme-primary: #0088ff;
+    --theme-secondary: #00ff00;
+    --theme-accent: #ffd700;
+    --theme-bg-gradient: linear-gradient(135deg, #0088ff 0%, #00cc44 50%, #88ddff 100%);
+    --theme-font: 'Press Start 2P', monospace;
+}
+
+/* Welcome Quiz for Mario Theme */
+.theme-mario .quiz-container {
+    background: var(--theme-bg-gradient);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 1s ease;
+}
+
+.theme-mario .quiz-content {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 900px;
+    border: 4px solid var(--theme-accent);
+    box-shadow: 0 10px 40px rgba(255, 215, 0, 0.3);
+}
+
+.theme-mario .quiz-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-align: center;
+    color: var(--theme-accent);
+    text-shadow: 3px 3px 0 var(--theme-primary);
+}
+
+.theme-mario .quiz-content h2 {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.theme-mario .interest-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.theme-mario .interest-btn {
+    background: linear-gradient(180deg, #ffcc00, #ff8800);
+    border: 4px solid #fff;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-mario .interest-btn::before {
+    content: '?';
+    position: absolute;
+    font-size: 80px;
+    color: rgba(255, 255, 255, 0.2);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+}
+
+.theme-mario .interest-btn:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
+}
+
+.theme-mario .interest-btn .icon {
+    font-size: 3rem;
+    z-index: 1;
+    animation: coinBounce 0.6s infinite;
+}
+
+.theme-mario .interest-btn .label {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #000;
+    z-index: 1;
+}
+
+.theme-mario .interest-btn .description {
+    font-size: 0.85rem;
+    color: #333;
+    z-index: 1;
+}
+
+@keyframes coinBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Main Jukebox Container */
+.theme-mario .jukebox-container {
+    background: var(--theme-bg-gradient);
+    min-height: 100vh;
+}
+
+.theme-mario .jukebox-header {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    border-bottom: 5px solid var(--theme-accent);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.theme-mario .jukebox-title {
+    font-size: 2.5rem;
+    text-align: center;
+    color: var(--theme-accent);
+    text-shadow: 4px 4px 0 var(--theme-primary);
+    margin-bottom: 10px;
+}
+
+.theme-mario .icon-crown {
+    animation: coinBounce 1s infinite;
+    display: inline-block;
+}
+
+.theme-mario .token-id {
+    font-size: 1.2rem;
+    color: var(--theme-secondary);
+}
+
+.theme-mario .tagline {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+/* Theme Switcher */
+.theme-mario .theme-switcher {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.theme-mario .theme-btn {
+    font-size: 2rem;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 3px solid transparent;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.theme-mario .theme-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.2) rotate(360deg);
+}
+
+.theme-mario .theme-btn.active {
+    background: var(--theme-accent);
+    border-color: #fff;
+    box-shadow: 0 0 20px var(--theme-accent);
+}
+
+/* Content Sections */
+.theme-mario .jukebox-content {
+    padding: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.theme-mario .audio-section,
+.theme-mario .playlist-section,
+.theme-mario .archive-section,
+.theme-mario .token-section,
+.theme-mario .arena-section,
+.theme-mario .legend-section {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 30px;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Audio Player */
+.theme-mario .player-container {
+    display: grid;
+    gap: 20px;
+}
+
+.theme-mario .now-playing {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary));
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.theme-mario .album-art {
+    width: 150px;
+    height: 150px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid var(--theme-accent);
+}
+
+.theme-mario .art-placeholder {
+    font-size: 4rem;
+    animation: pulse 2s infinite;
+}
+
+.theme-mario .track-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.theme-mario .track-info p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 5px;
+}
+
+/* Playback Controls */
+.theme-mario .playback-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+}
+
+.theme-mario .control-btn,
+.theme-mario .control-btn-main {
+    font-size: 1.5rem;
+    padding: 15px 25px;
+    background: var(--theme-accent);
+    border: 3px solid #fff;
+    color: #000;
+    font-weight: bold;
+}
+
+.theme-mario .control-btn:hover,
+.theme-mario .control-btn-main:hover {
+    background: #fff;
+    color: var(--theme-accent);
+    transform: scale(1.1);
+}
+
+/* Progress Bar */
+.theme-mario .progress-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+}
+
+.theme-mario .progress-bar {
+    flex: 1;
+    height: 10px;
+    background: linear-gradient(90deg, var(--theme-primary), var(--theme-secondary));
+}
+
+.theme-mario .progress-bar::-webkit-slider-thumb {
+    background: var(--theme-accent);
+    width: 20px;
+    height: 20px;
+}
+
+/* Playlist */
+.theme-mario .playlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.theme-mario .playlist-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.theme-mario .action-btn {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+}
+
+.theme-mario .playlist-items,
+.theme-mario .history-items {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    min-height: 150px;
+}
+
+.theme-mario .empty-playlist {
+    text-align: center;
+    padding: 40px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Collections Grid */
+.theme-mario .collections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Token Visualization */
+.theme-mario .token-viz {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+}
+
+.theme-mario .token-tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.theme-mario .token-node {
+    background: linear-gradient(135deg, var(--theme-primary), var(--theme-accent));
+    padding: 15px 25px;
+    border-radius: 12px;
+    border: 3px solid #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+}
+
+.theme-mario .token-node:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px var(--theme-accent);
+}
+
+.theme-mario .token-node.root {
+    font-size: 1.5rem;
+    background: var(--theme-accent);
+    color: #000;
+}
+
+.theme-mario .token-node.heartbeat {
+    animation: heartbeat 2s infinite;
+}
+
+.theme-mario .token-node.highlight {
+    animation: glow 2s infinite;
+}
+
+.theme-mario .token-branches {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+.theme-mario .token-branch {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.theme-mario .token-symbol {
+    font-size: 1.5rem;
+}
+
+.theme-mario .token-name {
+    font-size: 0.8rem;
+    color: #fff;
+    text-align: center;
+}
+
+/* Arena Section */
+.theme-mario .arena-progress {
+    margin: 20px 0;
+}
+
+.theme-mario .progress-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.theme-mario .stat {
+    background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary));
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    border: 3px solid var(--theme-accent);
+}
+
+.theme-mario .stat-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.theme-mario .stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    display: block;
+    color: var(--theme-accent);
+}
+
+.theme-mario .stat-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.theme-mario .arena-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.theme-mario .arena-btn {
+    flex: 1;
+    min-width: 200px;
+    padding: 15px 30px;
+    font-size: 1rem;
+}
+
+/* Legend Roles */
+.theme-mario .legend-roles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.theme-mario .role {
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.theme-mario .role-icon {
+    font-size: 1.3rem;
+}
+
+/* Footer */
+.theme-mario .jukebox-footer {
+    background: rgba(0, 0, 0, 0.95);
+    padding: 30px;
+    border-top: 5px solid var(--theme-accent);
+}
+
+.theme-mario .footer-content h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--theme-accent);
+}
+
+.theme-mario .repo-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.theme-mario .repo-link {
+    background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary));
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #fff;
+    border: 2px solid var(--theme-accent);
+    transition: all 0.3s ease;
+}
+
+.theme-mario .repo-link:hover {
+    background: var(--theme-accent);
+    color: #000;
+    transform: translateY(-3px);
+}
+
+.theme-mario .footer-note {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .theme-mario .jukebox-title {
+        font-size: 1.8rem;
+    }
+    
+    .theme-mario .now-playing {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .theme-mario .playlist-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .theme-mario .progress-stats {
+        grid-template-columns: 1fr 1fr;
+    }
+}

@@ -1,0 +1,178 @@
+/* 
+ * 🎷 Jazz Club Theme
+ * Smooth club aesthetic with vinyl records
+ */
+
+.theme-jazz {
+    --theme-primary: #1a1a2e;
+    --theme-secondary: #0f3460;
+    --theme-accent: #d4af37;
+    --theme-brown: #8b4513;
+    --theme-bg-gradient: linear-gradient(180deg, #1a1a2e 0%, #0f3460 50%, #16213e 100%);
+    --theme-font: 'Crimson Text', serif;
+}
+
+.theme-jazz .quiz-container,
+.theme-jazz .jukebox-container {
+    background: var(--theme-bg-gradient);
+}
+
+.theme-jazz .quiz-content,
+.theme-jazz .jukebox-header,
+.theme-jazz .audio-section,
+.theme-jazz .playlist-section,
+.theme-jazz .archive-section,
+.theme-jazz .token-section,
+.theme-jazz .arena-section,
+.theme-jazz .legend-section {
+    background: rgba(26, 26, 46, 0.95);
+    border: 2px solid var(--theme-accent);
+    box-shadow: 0 5px 30px rgba(212, 175, 55, 0.3);
+}
+
+.theme-jazz .interest-btn {
+    background: linear-gradient(180deg, var(--theme-secondary), var(--theme-primary));
+    border: 2px solid var(--theme-accent);
+}
+
+.theme-jazz .interest-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
+    transition: all 0.5s ease;
+}
+
+.theme-jazz .interest-btn .icon {
+    font-size: 3rem;
+    z-index: 1;
+    animation: smoothFade 3s infinite;
+}
+
+@keyframes smoothFade {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.theme-jazz .jukebox-title {
+    font-size: 2.5rem;
+    color: var(--theme-accent);
+    font-family: var(--theme-font);
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-style: italic;
+}
+
+.theme-jazz .tagline {
+    color: var(--theme-accent);
+    font-family: var(--theme-font);
+    font-style: italic;
+}
+
+.theme-jazz .theme-btn {
+    background: rgba(212, 175, 55, 0.2);
+    border: 2px solid var(--theme-accent);
+    transition: all 0.5s ease;
+}
+
+.theme-jazz .theme-btn:hover {
+    background: var(--theme-accent);
+    color: #000;
+    transform: scale(1.1);
+}
+
+.theme-jazz .theme-btn.active {
+    background: var(--theme-accent);
+    color: #000;
+    box-shadow: 0 0 20px var(--theme-accent);
+}
+
+.theme-jazz .now-playing {
+    background: linear-gradient(135deg, var(--theme-secondary), var(--theme-primary));
+    border: 2px solid var(--theme-accent);
+}
+
+.theme-jazz .album-art {
+    border: 3px solid var(--theme-accent);
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-jazz .art-placeholder {
+    animation: vinylSpin 3s linear infinite;
+}
+
+@keyframes vinylSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.theme-jazz .control-btn,
+.theme-jazz .control-btn-main {
+    background: var(--theme-accent);
+    border: 2px solid var(--theme-brown);
+    color: #000;
+    font-family: var(--theme-font);
+    font-weight: 700;
+}
+
+.theme-jazz .control-btn:hover,
+.theme-jazz .control-btn-main:hover {
+    background: var(--theme-brown);
+    color: var(--theme-accent);
+    transition: all 0.5s ease;
+}
+
+.theme-jazz .progress-bar {
+    background: linear-gradient(90deg, var(--theme-brown), var(--theme-accent));
+}
+
+.theme-jazz .progress-bar::-webkit-slider-thumb {
+    background: var(--theme-accent);
+    box-shadow: 0 0 10px var(--theme-accent);
+}
+
+.theme-jazz .token-node {
+    background: linear-gradient(135deg, var(--theme-secondary), var(--theme-primary));
+    border: 2px solid var(--theme-accent);
+}
+
+.theme-jazz .token-node:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--theme-accent);
+    transition: all 0.5s ease;
+}
+
+.theme-jazz .token-node.root {
+    background: var(--theme-accent);
+    color: #000;
+}
+
+.theme-jazz .stat {
+    background: linear-gradient(135deg, var(--theme-secondary), var(--theme-primary));
+    border: 2px solid var(--theme-accent);
+}
+
+.theme-jazz .stat-value {
+    color: var(--theme-accent);
+}
+
+.theme-jazz .repo-link {
+    background: linear-gradient(135deg, var(--theme-secondary), var(--theme-primary));
+    border: 2px solid var(--theme-accent);
+    color: var(--theme-accent);
+}
+
+.theme-jazz .repo-link:hover {
+    background: var(--theme-accent);
+    color: #000;
+}
+
+.theme-jazz h1, .theme-jazz h2, .theme-jazz h3 {
+    font-family: var(--theme-font);
+    font-style: italic;
+}
+
+/* Smooth transitions for everything */
+.theme-jazz * {
+    transition: all 0.5s ease;
+}

@@ -1,0 +1,61 @@
+{
+  "version": "1.0.0",
+  "core_id": "🧱Kris🔑",
+  "formulas": [
+    {
+      "symbol": "👑📶⚪",
+      "name": "powerful_orchestrator",
+      "description": "Crown + Nuances + Token",
+      "roles": ["CROWN_INDEX", "ORCHESTRATOR"]
+    },
+    {
+      "symbol": "💎👑🍄",
+      "name": "facet_crown_growth",
+      "description": "Facet + Crown + Mushroom",
+      "roles": ["CROWN_INDEX", "AUDITOR"]
+    },
+    {
+      "symbol": "⚪👑🔗",
+      "name": "semantic_authority",
+      "description": "Token + Crown + Link",
+      "roles": ["CROWN_INDEX", "BRIDGE"]
+    },
+    {
+      "symbol": "🗄️🧵📶",
+      "name": "memory_thread",
+      "description": "Storage + Thread + Nuances",
+      "roles": ["MEMORY_NODE", "WEAVER"]
+    },
+    {
+      "symbol": "💎🎛️👑",
+      "name": "modulation_authority",
+      "description": "Facet + Modulator + Crown",
+      "roles": ["MODULATOR", "CROWN_INDEX"]
+    },
+    {
+      "symbol": "⚪💰🎵",
+      "name": "value_audio",
+      "description": "Token + Coin + Music",
+      "roles": ["ENCODE", "SYNC"]
+    },
+    {
+      "symbol": "🖇️📍🕹️(📀)",
+      "name": "pinned_control",
+      "description": "Clip + Pin + Controller + Disk",
+      "roles": ["CONTROLLER", "MEMORY_NODE"]
+    },
+    {
+      "symbol": "🪡🤓⭐",
+      "name": "smart_weaver",
+      "description": "Weaver + Smart + Star",
+      "roles": ["WEAVER", "RUNTIME"]
+    },
+    {
+      "symbol": "👑🧲🪐",
+      "name": "crown_magnet_memory",
+      "description": "Crown + Magnet + Memory (THE HEARTBEAT)",
+      "roles": ["CROWN_INDEX", "MEMORY_NODE"],
+      "special": "heartbeat"
+    }
+  ]
+}

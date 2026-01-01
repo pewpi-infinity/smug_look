@@ -1,0 +1,293 @@
+/* 
+ * 🎧 Electronic/EDM Arena Theme
+ * Neon lights, synthesizers, and waveforms
+ */
+
+.theme-edm {
+    --theme-primary: #00ffff;
+    --theme-secondary: #ff00ff;
+    --theme-accent: #8800ff;
+    --theme-blue: #0088ff;
+    --theme-bg-gradient: linear-gradient(135deg, #000033 0%, #000066 50%, #330066 100%);
+    --theme-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.theme-edm .quiz-container,
+.theme-edm .jukebox-container {
+    background: var(--theme-bg-gradient);
+}
+
+.theme-edm .quiz-content,
+.theme-edm .jukebox-header,
+.theme-edm .audio-section,
+.theme-edm .playlist-section,
+.theme-edm .archive-section,
+.theme-edm .token-section,
+.theme-edm .arena-section,
+.theme-edm .legend-section {
+    background: rgba(0, 0, 0, 0.9);
+    border: 3px solid var(--theme-primary);
+    box-shadow: 
+        0 0 20px var(--theme-primary),
+        0 0 40px var(--theme-secondary),
+        inset 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.theme-edm .interest-btn {
+    background: linear-gradient(180deg, rgba(0, 255, 255, 0.3), rgba(255, 0, 255, 0.3));
+    border: 2px solid var(--theme-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-edm .interest-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(0, 255, 255, 0.3) 50%,
+        transparent 70%
+    );
+    animation: laserSweep 2s linear infinite;
+}
+
+@keyframes laserSweep {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.theme-edm .interest-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 
+        0 0 30px var(--theme-primary),
+        0 0 50px var(--theme-secondary);
+    animation: beatPulse 0.5s infinite;
+}
+
+@keyframes beatPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.theme-edm .interest-btn .icon {
+    font-size: 3rem;
+    z-index: 1;
+    animation: neonFlicker 3s infinite;
+}
+
+@keyframes neonFlicker {
+    0%, 100% { 
+        filter: drop-shadow(0 0 10px var(--theme-primary));
+    }
+    50% { 
+        filter: drop-shadow(0 0 30px var(--theme-primary)) drop-shadow(0 0 40px var(--theme-secondary));
+    }
+}
+
+.theme-edm .jukebox-title {
+    font-size: 2.8rem;
+    background: linear-gradient(90deg, var(--theme-primary), var(--theme-secondary), var(--theme-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    animation: colorShift 3s linear infinite;
+}
+
+@keyframes colorShift {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+.theme-edm .tagline {
+    color: var(--theme-primary);
+    text-shadow: 0 0 10px var(--theme-primary);
+    animation: neonPulse 2s infinite;
+}
+
+@keyframes neonPulse {
+    0%, 100% { 
+        text-shadow: 0 0 10px var(--theme-primary);
+    }
+    50% { 
+        text-shadow: 0 0 20px var(--theme-primary), 0 0 30px var(--theme-secondary);
+    }
+}
+
+.theme-edm .theme-btn {
+    background: rgba(0, 255, 255, 0.2);
+    border: 2px solid var(--theme-primary);
+}
+
+.theme-edm .theme-btn:hover {
+    background: var(--theme-primary);
+    color: #000;
+    box-shadow: 0 0 30px var(--theme-primary);
+    animation: beatPulse 0.3s infinite;
+}
+
+.theme-edm .theme-btn.active {
+    background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary));
+    color: #000;
+    box-shadow: 
+        0 0 30px var(--theme-primary),
+        0 0 50px var(--theme-secondary);
+}
+
+.theme-edm .now-playing {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 255, 0.2));
+    border: 2px solid var(--theme-primary);
+    box-shadow: 0 0 20px var(--theme-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-edm .now-playing::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
+    animation: waveformMove 2s linear infinite;
+}
+
+@keyframes waveformMove {
+    from { left: -100%; }
+    to { left: 100%; }
+}
+
+.theme-edm .album-art {
+    border: 3px solid var(--theme-primary);
+    box-shadow: 
+        0 0 20px var(--theme-primary),
+        inset 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+.theme-edm .art-placeholder {
+    animation: synthPulse 1s infinite;
+}
+
+@keyframes synthPulse {
+    0%, 100% { 
+        transform: scale(1);
+        filter: drop-shadow(0 0 10px var(--theme-primary));
+    }
+    50% { 
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 30px var(--theme-primary));
+    }
+}
+
+.theme-edm .control-btn,
+.theme-edm .control-btn-main {
+    background: linear-gradient(135deg, var(--theme-primary), var(--theme-accent));
+    border: 2px solid var(--theme-secondary);
+    color: #000;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.theme-edm .control-btn:hover,
+.theme-edm .control-btn-main:hover {
+    background: var(--theme-secondary);
+    color: #fff;
+    box-shadow: 0 0 30px var(--theme-secondary);
+}
+
+.theme-edm .progress-bar {
+    background: linear-gradient(90deg, 
+        var(--theme-accent), 
+        var(--theme-primary), 
+        var(--theme-secondary),
+        var(--theme-accent)
+    );
+    background-size: 200% 100%;
+    animation: progressGradient 3s linear infinite;
+}
+
+@keyframes progressGradient {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+.theme-edm .progress-bar::-webkit-slider-thumb {
+    background: #fff;
+    box-shadow: 
+        0 0 10px var(--theme-primary),
+        0 0 20px var(--theme-secondary);
+}
+
+.theme-edm .token-node {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.3), rgba(255, 0, 255, 0.3));
+    border: 2px solid var(--theme-primary);
+    box-shadow: 0 0 15px var(--theme-primary);
+}
+
+.theme-edm .token-node:hover {
+    transform: scale(1.1);
+    box-shadow: 
+        0 0 30px var(--theme-primary),
+        0 0 50px var(--theme-secondary);
+    animation: beatPulse 0.5s infinite;
+}
+
+.theme-edm .token-node.root {
+    background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary));
+    color: #000;
+    box-shadow: 
+        0 0 40px var(--theme-primary),
+        0 0 60px var(--theme-secondary);
+}
+
+.theme-edm .stat {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 255, 0.2));
+    border: 2px solid var(--theme-primary);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+.theme-edm .stat-icon {
+    filter: drop-shadow(0 0 10px var(--theme-primary));
+}
+
+.theme-edm .stat-value {
+    color: var(--theme-primary);
+    text-shadow: 0 0 10px var(--theme-primary);
+    font-weight: 900;
+}
+
+.theme-edm .repo-link {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.3), rgba(255, 0, 255, 0.3));
+    border: 2px solid var(--theme-primary);
+    color: var(--theme-primary);
+}
+
+.theme-edm .repo-link:hover {
+    background: var(--theme-primary);
+    color: #000;
+    box-shadow: 0 0 30px var(--theme-primary);
+}
+
+.theme-edm h1, .theme-edm h2, .theme-edm h3 {
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+/* Bass drop effect on interactive elements */
+.theme-edm button:active {
+    animation: bassDrop 0.3s ease;
+}
+
+@keyframes bassDrop {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}

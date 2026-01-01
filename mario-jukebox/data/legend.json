@@ -1,0 +1,143 @@
+{
+  "version": "1.0.0",
+  "system": "Infinity Legend Architecture",
+  "roles": [
+    {
+      "symbol": "👑",
+      "name": "CROWN_INDEX",
+      "color": "red",
+      "description": "Central catalog of all audio/themes",
+      "priority": 1
+    },
+    {
+      "symbol": "🦾",
+      "name": "ROBOT_CORE",
+      "color": "red",
+      "description": "Autonomous playback engine",
+      "priority": 2
+    },
+    {
+      "symbol": "🪐",
+      "name": "MEMORY_NODE",
+      "color": "purple",
+      "description": "Persistent storage (never deletes)",
+      "priority": 3
+    },
+    {
+      "symbol": "⭐",
+      "name": "RUNTIME",
+      "color": "red",
+      "description": "Real-time audio streaming",
+      "priority": 4
+    },
+    {
+      "symbol": "🕹️",
+      "name": "CONTROLLER",
+      "color": "red",
+      "description": "Interactive controls per theme",
+      "priority": 5
+    },
+    {
+      "symbol": "🧱",
+      "name": "ENCODE",
+      "color": "orange",
+      "description": "Audio format handling, token generation",
+      "priority": 6
+    },
+    {
+      "symbol": "👁️",
+      "name": "MONITOR",
+      "color": "yellow",
+      "description": "Visual track display, token viewer",
+      "priority": 7
+    },
+    {
+      "symbol": "🎵",
+      "name": "SYNC",
+      "color": "blue",
+      "description": "Multi-repo synchronization",
+      "priority": 8
+    },
+    {
+      "symbol": "🪡",
+      "name": "WEAVER",
+      "color": "yellow",
+      "description": "Content threading between sources",
+      "priority": 9
+    },
+    {
+      "symbol": "🔀",
+      "name": "ROUTER",
+      "color": "yellow",
+      "description": "Smart audio routing",
+      "priority": 10
+    },
+    {
+      "symbol": "🔗",
+      "name": "BRIDGE",
+      "color": "yellow",
+      "description": "Cross-repo semantic linking",
+      "priority": 11
+    },
+    {
+      "symbol": "🍄",
+      "name": "AUDITOR",
+      "color": "green",
+      "description": "Quality validation",
+      "priority": 12
+    },
+    {
+      "symbol": "🎛️",
+      "name": "MODULATOR",
+      "color": "blue",
+      "description": "Audio effects per theme",
+      "priority": 13
+    },
+    {
+      "symbol": "💫",
+      "name": "BEACON",
+      "color": "yellow",
+      "description": "Star favorites system",
+      "priority": 14
+    },
+    {
+      "symbol": "✨",
+      "name": "AGGREGATOR",
+      "color": "blue",
+      "description": "Community playlists",
+      "priority": 15
+    },
+    {
+      "symbol": "⛓️",
+      "name": "CHAIN",
+      "color": "purple",
+      "description": "Immutable play history",
+      "priority": 16
+    },
+    {
+      "symbol": "🎛️",
+      "name": "SPINE",
+      "color": "blue",
+      "description": "Central routing backbone",
+      "priority": 17
+    }
+  ],
+  "colors": {
+    "green": "#00ff00",
+    "orange": "#ff8800",
+    "blue": "#0088ff",
+    "red": "#ff0000",
+    "purple": "#8800ff",
+    "yellow": "#ffff00",
+    "pink": "#ff69b4"
+  },
+  "color_meanings": {
+    "green": "Input controls (import, record)",
+    "orange": "Processing (loading, buffering)",
+    "blue": "Logic controls (settings, playlists)",
+    "red": "Output controls (play, volume)",
+    "purple": "Memory displays (history, saved)",
+    "yellow": "Navigation (links, bridges)",
+    "pink": "Core vitals (status, health)"
+  }
+}
