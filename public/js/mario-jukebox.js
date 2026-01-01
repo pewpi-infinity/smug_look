@@ -239,7 +239,7 @@ class MarioJukebox {
         document.getElementById('volumeValue').textContent = `${value}%`;
         
         const volumeIcon = document.querySelector('.volume-icon');
-        if (value == 0) {
+        if (value === 0) {
             volumeIcon.textContent = '🔇';
         } else if (value < 50) {
             volumeIcon.textContent = '🔉';
@@ -291,16 +291,40 @@ class MarioJukebox {
                 item.classList.add('active');
             }
             
-            item.innerHTML = `
-                <div class="playlist-item-info">
-                    <div class="playlist-item-title">${track.title}</div>
-                    <div class="playlist-item-artist">${track.artist}</div>
-                </div>
-                <div class="playlist-item-actions">
-                    <button class="playlist-item-btn" onclick="jukebox.playTrack(${index})">▶️</button>
-                    <button class="playlist-item-btn" onclick="jukebox.removeTrack(${index})">🗑️</button>
-                </div>
-            `;
+            // Create info container
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'playlist-item-info';
+            
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'playlist-item-title';
+            titleDiv.textContent = track.title;
+            
+            const artistDiv = document.createElement('div');
+            artistDiv.className = 'playlist-item-artist';
+            artistDiv.textContent = track.artist;
+            
+            infoDiv.appendChild(titleDiv);
+            infoDiv.appendChild(artistDiv);
+            
+            // Create actions container
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'playlist-item-actions';
+            
+            const playBtn = document.createElement('button');
+            playBtn.className = 'playlist-item-btn';
+            playBtn.textContent = '▶️';
+            playBtn.onclick = () => this.playTrack(index);
+            
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'playlist-item-btn';
+            removeBtn.textContent = '🗑️';
+            removeBtn.onclick = () => this.removeTrack(index);
+            
+            actionsDiv.appendChild(playBtn);
+            actionsDiv.appendChild(removeBtn);
+            
+            item.appendChild(infoDiv);
+            item.appendChild(actionsDiv);
             
             playlistContainer.appendChild(item);
         });
@@ -384,14 +408,29 @@ class MarioJukebox {
             data.response.docs.forEach(doc => {
                 const resultItem = document.createElement('div');
                 resultItem.className = 'result-item';
-                resultItem.innerHTML = `
-                    <div class="result-title">${doc.title || 'Untitled'}</div>
-                    <div class="result-description">${doc.creator || 'Unknown Artist'}</div>
-                    <div class="result-description">${doc.description ? doc.description.substring(0, 100) + '...' : ''}</div>
-                    <button class="result-btn" onclick="jukebox.loadFromArchive('${doc.identifier}', '${(doc.title || 'Untitled').replace(/'/g, "\\'")}', '${(doc.creator || 'Unknown').replace(/'/g, "\\'")}')">
-                        ➕ Add to Playlist
-                    </button>
-                `;
+                
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'result-title';
+                titleDiv.textContent = doc.title || 'Untitled';
+                
+                const creatorDiv = document.createElement('div');
+                creatorDiv.className = 'result-description';
+                creatorDiv.textContent = doc.creator || 'Unknown Artist';
+                
+                const descDiv = document.createElement('div');
+                descDiv.className = 'result-description';
+                descDiv.textContent = doc.description ? doc.description.substring(0, 100) + '...' : '';
+                
+                const addBtn = document.createElement('button');
+                addBtn.className = 'result-btn';
+                addBtn.textContent = '➕ Add to Playlist';
+                addBtn.onclick = () => this.loadFromArchive(doc.identifier, doc.title || 'Untitled', doc.creator || 'Unknown');
+                
+                resultItem.appendChild(titleDiv);
+                resultItem.appendChild(creatorDiv);
+                resultItem.appendChild(descDiv);
+                resultItem.appendChild(addBtn);
+                
                 resultsContainer.appendChild(resultItem);
             });
             
