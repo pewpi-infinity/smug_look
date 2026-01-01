@@ -24,7 +24,7 @@ class AudioEngine {
             return;
         }
 
-        // Set up audio context for effects
+        // Set up audio context for effects (NOTE: Effects not fully implemented in MVP)
         try {
             this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
             this.gainNode = this.audioContext.createGain();
@@ -224,7 +224,7 @@ class AudioEngine {
 
     applyEffect(effect) {
         this.currentEffect = effect;
-        console.log('🎛️ Effect applied:', effect);
+        console.log('🎛️ Effect applied:', effect, '(Note: Full Web Audio API implementation coming in future update)');
         
         // Update effect button states
         const effectBtns = document.querySelectorAll('.effect-btn');
@@ -237,6 +237,7 @@ class AudioEngine {
         });
         
         // TODO: Implement actual audio effects using Web Audio API
+        // This is a placeholder for MVP - effects buttons show UI but don't apply filters yet
     }
 
     updateProgress() {
