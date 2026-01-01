@@ -1,5 +1,5 @@
 {
-  "balance": 31,
+  "balance": 51,
   "history": [
     {
       "time": 1767259155,
@@ -13,6 +13,11 @@
     },
     {
       "time": 1767259183,
+      "type": "power_up_collection",
+      "amount": 20
+    },
+    {
+      "time": 1767259561,
       "type": "power_up_collection",
       "amount": 20
     }

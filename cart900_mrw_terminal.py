@@ -267,7 +267,7 @@ class InfinityTerminalProcessor:
             parts = formula.split()
             try:
                 amount = int(parts[0])
-            except:
+            except (ValueError, IndexError):
                 amount = 1
         
         # Ensure wallet has required keys

@@ -18,6 +18,10 @@ class MRWTerminalEngine {
     this.coins = 0;
     this.commandHistory = [];
     
+    // Configuration constants
+    this.TYPING_SPEED_THRESHOLD = 10; // Typing speed to trigger car animation
+    this.MOUSE_TRACKING_PROBABILITY = 0.1; // 10% chance to react to mouse
+    
     this.init();
   }
   
@@ -432,7 +436,7 @@ class MRWTerminalEngine {
       this.typingSpeed++;
       
       // Fast typing triggers car
-      if (this.typingSpeed > 10) {
+      if (this.typingSpeed > this.TYPING_SPEED_THRESHOLD) {
         this.showCar();
         this.typingSpeed = 0;
       }
@@ -446,7 +450,7 @@ class MRWTerminalEngine {
   // Mouse Tracking
   trackMouse(e) {
     // Characters subtly follow the mouse
-    if (Math.random() < 0.1) { // Occasional following
+    if (Math.random() < this.MOUSE_TRACKING_PROBABILITY) { // Configurable probability
       const marioRect = this.mario.getBoundingClientRect();
       const luigiRect = this.luigi.getBoundingClientRect();
       
