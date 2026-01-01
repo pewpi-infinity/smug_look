@@ -1,0 +1,49 @@
+{
+  "characters": {
+    "mario": {
+      "enabled": true,
+      "phrases": [
+        "Let's-a-go build repos! 🍄",
+        "Wahoo! Great commit! ⭐",
+        "Mamma mia! That's-a nice code! 👨‍💻",
+        "Here we go! 🎮"
+      ],
+      "animations": ["walk", "jump", "spin", "celebrate"],
+      "spawn_position": "bottom-left",
+      "speed": "medium"
+    },
+    "luigi": {
+      "enabled": true,
+      "phrases": [
+        "Stay here! Check this out! 🟢",
+        "Luigi number one! 💚",
+        "Don't-a forget about me! 👋",
+        "This feature is-a better! ✨"
+      ],
+      "animations": ["walk", "jump", "point", "compete"],
+      "spawn_position": "bottom-right",
+      "speed": "medium"
+    },
+    "cars": {
+      "enabled": true,
+      "types": ["sedan", "sports", "truck", "luxury"],
+      "arrival_triggers": ["typing_start", "command_execute"],
+      "departure_triggers": ["task_complete", "idle_timeout"],
+      "honk_sound": true
+    },
+    "mushrooms": {
+      "enabled": true,
+      "spawn_chance": 0.1,
+      "power_duration": 30,
+      "multiplier": 2.0,
+      "celebration_message": "You jumped it loose! 🍄✨"
+    }
+  },
+  "interactions": {
+    "typing_response": true,
+    "mouse_follow": true,
+    "click_reaction": true,
+    "idle_behavior": true,
+    "celebration_on_success": true
+  }
+}

@@ -1,6 +1,9 @@
 {
-    "last_tick": 1766142834,
-    "inf_rate": 1,
-    "inf_interval": 1800,
-    "inf_accumulated": 0
+  "last_tick": 1766142834,
+  "inf_rate": 1,
+  "inf_interval": 1800,
+  "inf_accumulated": 0,
+  "commands_executed": 0,
+  "themes_switched": 1,
+  "powerups_collected": 1
 }

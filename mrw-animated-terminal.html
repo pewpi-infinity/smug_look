@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎮 MRW Animated Terminal System</title>
+  
+  <!-- Infinity Meta Tags -->
+  <meta name="infinity-token-id" content="🧱Kris🔑">
+  <meta name="infinity-legend-roles" content="Research Hub, Interactive Terminal, Growth System, Multi-Theme, Cross-Repo Intelligence">
+  <meta name="infinity-themes" content="mario,rock,jazz,edm,classical,hiphop,electronics,chemistry,math,construction,robotics">
+  <meta name="infinity-terminal" content="mrw-animated">
+  <meta name="infinity-characters" content="mario,luigi,mushrooms,cars">
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Courier New', monospace;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      overflow: hidden;
+      height: 100vh;
+    }
+    
+    /* Terminal Container */
+    .terminal-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    /* Terminal Screen */
+    .terminal-screen {
+      width: 90%;
+      height: 80%;
+      margin: 5% auto;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 20px;
+      border: 4px solid #FFD700;
+      box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
+      padding: 20px;
+      position: relative;
+      overflow-y: auto;
+    }
+    
+    /* Terminal Header */
+    .terminal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #FFD700;
+      margin-bottom: 15px;
+    }
+    
+    .terminal-title {
+      font-size: 24px;
+      font-weight: bold;
+      text-shadow: 0 0 10px #FFD700;
+    }
+    
+    .theme-selector {
+      padding: 8px 15px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border: 2px solid #FFD700;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    
+    .theme-selector:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    }
+    
+    /* Terminal Output */
+    .terminal-output {
+      min-height: 300px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    
+    .output-line {
+      margin: 5px 0;
+      animation: fadeIn 0.3s;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(-10px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    /* Terminal Input */
+    .terminal-input-area {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .terminal-input {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid #FFD700;
+      border-radius: 10px;
+      padding: 12px;
+      color: white;
+      font-family: 'Courier New', monospace;
+      font-size: 16px;
+    }
+    
+    .terminal-input:focus {
+      outline: none;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+    
+    .execute-btn {
+      padding: 12px 30px;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      border: none;
+      border-radius: 10px;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+    
+    .execute-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 20px rgba(255, 215, 0, 0.6);
+    }
+    
+    /* Characters */
+    .character {
+      position: absolute;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+    
+    .mario {
+      bottom: 20px;
+      left: 50px;
+      font-size: 48px;
+      animation: bounce 1s infinite;
+    }
+    
+    .luigi {
+      bottom: 20px;
+      right: 50px;
+      font-size: 48px;
+      animation: bounce 1s infinite 0.5s;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    /* Speech Bubble */
+    .speech-bubble {
+      position: absolute;
+      background: white;
+      color: black;
+      padding: 10px 15px;
+      border-radius: 15px;
+      font-size: 14px;
+      font-weight: bold;
+      max-width: 200px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      animation: popIn 0.3s;
+      z-index: 100;
+    }
+    
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 20px;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid white;
+    }
+    
+    @keyframes popIn {
+      from { transform: scale(0); }
+      to { transform: scale(1); }
+    }
+    
+    /* Car Animation */
+    .car {
+      position: absolute;
+      font-size: 40px;
+      transition: all 2s ease-in-out;
+    }
+    
+    .car.arriving {
+      animation: driveIn 2s forwards;
+    }
+    
+    .car.departing {
+      animation: driveOut 2s forwards;
+    }
+    
+    @keyframes driveIn {
+      from { left: -100px; }
+      to { left: 200px; }
+    }
+    
+    @keyframes driveOut {
+      from { right: 200px; }
+      to { right: -100px; }
+    }
+    
+    /* Mushroom Power-up */
+    .mushroom {
+      position: absolute;
+      font-size: 36px;
+      cursor: pointer;
+      animation: mushroomFloat 2s infinite;
+      user-select: none;
+    }
+    
+    @keyframes mushroomFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(5deg); }
+    }
+    
+    .mushroom.collected {
+      animation: mushroomCollect 0.6s forwards;
+    }
+    
+    @keyframes mushroomCollect {
+      to {
+        transform: scale(0) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    /* Joystick Controls */
+    .joystick-container {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      z-index: 1000;
+    }
+    
+    .joystick {
+      display: grid;
+      grid-template-columns: repeat(3, 50px);
+      grid-template-rows: repeat(3, 50px);
+      gap: 5px;
+    }
+    
+    .joystick-btn {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border: 3px solid #FFD700;
+      border-radius: 10px;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .joystick-btn:hover {
+      background: linear-gradient(135deg, #764ba2, #667eea);
+      transform: scale(1.1);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    }
+    
+    .joystick-btn:active {
+      transform: scale(0.95);
+    }
+    
+    .btn-up { grid-column: 2; grid-row: 1; }
+    .btn-left { grid-column: 1; grid-row: 2; }
+    .btn-center { grid-column: 2; grid-row: 2; background: rgba(0,0,0,0.5); cursor: default; }
+    .btn-right { grid-column: 3; grid-row: 2; }
+    .btn-down { grid-column: 2; grid-row: 3; }
+    
+    .action-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .action-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid;
+    }
+    
+    .btn-a {
+      background: linear-gradient(135deg, #FF0000, #CC0000);
+      border-color: #FFD700;
+      color: white;
+    }
+    
+    .btn-b {
+      background: linear-gradient(135deg, #00FF00, #00CC00);
+      border-color: #FFD700;
+      color: white;
+    }
+    
+    .action-btn:hover {
+      transform: scale(1.15);
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.9);
+    }
+    
+    .action-btn:active {
+      transform: scale(0.95);
+    }
+    
+    /* Particle Effects */
+    .particle {
+      position: absolute;
+      pointer-events: none;
+      animation: particleRise 1s forwards;
+    }
+    
+    @keyframes particleRise {
+      to {
+        transform: translateY(-100px);
+        opacity: 0;
+      }
+    }
+    
+    /* Power-up Active Indicator */
+    .powerup-indicator {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      padding: 15px 25px;
+      border-radius: 15px;
+      font-weight: bold;
+      color: black;
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+      animation: pulse 1s infinite;
+      display: none;
+    }
+    
+    .powerup-indicator.active {
+      display: block;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    /* Theme-specific backgrounds */
+    body.theme-mario { background: linear-gradient(135deg, #FF0000 0%, #0000FF 100%); }
+    body.theme-rock { background: linear-gradient(135deg, #8B0000 0%, #000000 100%); }
+    body.theme-jazz { background: linear-gradient(135deg, #1A1A2E 0%, #16213E 100%); }
+    body.theme-edm { background: linear-gradient(135deg, #FF00FF 0%, #00FFFF 100%); }
+    body.theme-classical { background: linear-gradient(135deg, #2C1810 0%, #8B4513 100%); }
+    body.theme-hiphop { background: linear-gradient(135deg, #FFD700 0%, #FF4500 100%); }
+    body.theme-electronics { background: linear-gradient(135deg, #00FF00 0%, #0000FF 100%); }
+    body.theme-chemistry { background: linear-gradient(135deg, #00CED1 0%, #FF6347 100%); }
+    body.theme-math { background: linear-gradient(135deg, #FFFFFF 0%, #4169E1 100%); }
+    body.theme-construction { background: linear-gradient(135deg, #FFD700 0%, #8B4513 100%); }
+    body.theme-robotics { background: linear-gradient(135deg, #708090 0%, #FF4500 100%); }
+    
+    /* Coin Effect */
+    .coin {
+      position: absolute;
+      font-size: 24px;
+      animation: coinSpin 0.6s ease-out forwards;
+      pointer-events: none;
+    }
+    
+    @keyframes coinSpin {
+      0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-100px) scale(1.5) rotate(720deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body class="theme-mario">
+  <div class="terminal-container">
+    <!-- Terminal Screen -->
+    <div class="terminal-screen">
+      <div class="terminal-header">
+        <div class="terminal-title">🎮 MRW Animated Terminal 🍄</div>
+        <select class="theme-selector" id="themeSelect">
+          <option value="mario">🍄 Mario World</option>
+          <option value="rock">🎸 Rock & Roll</option>
+          <option value="jazz">🎷 Jazz Lounge</option>
+          <option value="edm">🎵 EDM Arena</option>
+          <option value="classical">🎻 Classical Symphony</option>
+          <option value="hiphop">🎤 Hip Hop Studio</option>
+          <option value="electronics">🔌 Electronics Lab</option>
+          <option value="chemistry">🧪 Chemistry Lab</option>
+          <option value="math">📐 Mathematics Realm</option>
+          <option value="construction">🏗️ Construction Site</option>
+          <option value="robotics">🤖 Robotics Factory</option>
+        </select>
+      </div>
+      
+      <div class="terminal-output" id="terminalOutput">
+        <div class="output-line">🍄 Welcome to the MRW Animated Terminal System! 🎮</div>
+        <div class="output-line">✨ Type commands to see Mario, Luigi, and cars in action!</div>
+        <div class="output-line">💡 Try: infinity-show, infinity-help, infinity-boost, infinity-theme</div>
+        <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+      </div>
+      
+      <div class="terminal-input-area">
+        <input type="text" class="terminal-input" id="terminalInput" placeholder="Enter command... 🎮">
+        <button class="execute-btn" id="executeBtn">EXECUTE ⚡</button>
+      </div>
+    </div>
+    
+    <!-- Characters -->
+    <div class="character mario" id="mario" title="Mario">🧑‍🔧</div>
+    <div class="character luigi" id="luigi" title="Luigi">👨‍🔧</div>
+    
+    <!-- Joystick Controls -->
+    <div class="joystick-container">
+      <div class="joystick">
+        <button class="joystick-btn btn-up" data-action="up">⬆️</button>
+        <button class="joystick-btn btn-left" data-action="left">⬅️</button>
+        <div class="joystick-btn btn-center">🕹️</div>
+        <button class="joystick-btn btn-right" data-action="right">➡️</button>
+        <button class="joystick-btn btn-down" data-action="down">⬇️</button>
+      </div>
+      
+      <div class="action-buttons">
+        <button class="action-btn btn-a" data-action="a">🅰️</button>
+        <button class="action-btn btn-b" data-action="b">🅱️</button>
+      </div>
+    </div>
+    
+    <!-- Power-up Indicator -->
+    <div class="powerup-indicator" id="powerupIndicator">
+      🍄 POWER-UP ACTIVE! 2X PROGRESS! 🍄
+    </div>
+  </div>
+  
+  <script src="mrw-terminal-engine.js"></script>
+</body>
+</html>

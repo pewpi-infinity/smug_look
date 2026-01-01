@@ -1,1 +1,20 @@
-{}
+{
+  "balance": 31,
+  "history": [
+    {
+      "time": 1767259155,
+      "type": "terminal_interaction",
+      "amount": 1
+    },
+    {
+      "time": 1767259183,
+      "type": "theme_switch",
+      "amount": 10
+    },
+    {
+      "time": 1767259183,
+      "type": "power_up_collection",
+      "amount": 20
+    }
+  ]
+}

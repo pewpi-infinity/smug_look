@@ -1,0 +1,17 @@
+{
+  "token_id": "🧱Kris🔑",
+  "formulas": {
+    "terminal_interaction": "1 INF per command",
+    "character_interaction": "5 INF per character action",
+    "theme_switch": "10 INF per theme activation",
+    "power_up_collection": "20 INF per mushroom collected",
+    "joystick_usage": "2 INF per joystick action",
+    "typing_speed_bonus": "typing_wpm / 10 INF",
+    "achievement_unlock": "50 INF per achievement"
+  },
+  "multipliers": {
+    "mushroom_active": 2.0,
+    "combo_mode": 1.5,
+    "theme_mastery": 1.3
+  }
+}

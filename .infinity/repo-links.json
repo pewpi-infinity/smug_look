@@ -1,0 +1,23 @@
+{
+  "repo": "pewpi-infinity/smug_look",
+  "related_repos": [
+    {
+      "name": "mongoose.os",
+      "url": "https://github.com/pewpi-infinity/mongoose.os",
+      "relationship": "parent-ecosystem"
+    }
+  ],
+  "discovery_tags": [
+    "animated-terminal",
+    "interactive-ui",
+    "mario-theme",
+    "multi-theme-system",
+    "research-hub"
+  ],
+  "api_endpoints": {
+    "terminal_commands": "/api/terminal",
+    "theme_switch": "/api/theme",
+    "character_state": "/api/characters",
+    "power_ups": "/api/powerups"
+  }
+}
