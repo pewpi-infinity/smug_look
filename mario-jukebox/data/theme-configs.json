@@ -1,0 +1,114 @@
+{
+  "themes": {
+    "mario": {
+      "name": "Mario Bros Theme",
+      "icon": "🍄",
+      "description": "8-bit nostalgia with power-ups and question blocks",
+      "tagline": "Build your own Mushroom Kingdom of repos! 🍄👑",
+      "arena_description": "Welcome to your Mushroom Kingdom! Every repo is a new level. Collect power-ups to unlock features!",
+      "colors": {
+        "primary": "#0088ff",
+        "secondary": "#00ff00",
+        "accent": "#ffd700"
+      },
+      "font": "Press Start 2P",
+      "archive_collections": [
+        "opensource_audio",
+        "audio"
+      ]
+    },
+    "rock": {
+      "name": "Rock Arena Theme",
+      "icon": "🎸",
+      "description": "Concert stage with amplifiers and guitar hero vibes",
+      "tagline": "Create your legendary band's repo tour! 🎸⚡",
+      "arena_description": "Welcome to the stage! Each repo is a new venue on your world tour. Build your setlist!",
+      "colors": {
+        "primary": "#ff0000",
+        "secondary": "#000000",
+        "accent": "#ff00ff"
+      },
+      "font": "Metal Mania",
+      "archive_collections": [
+        "etree",
+        "audio"
+      ]
+    },
+    "jazz": {
+      "name": "Jazz Club Theme",
+      "icon": "🎷",
+      "description": "Smooth club aesthetic with vinyl records",
+      "tagline": "Compose your jazz-inspired code symphony! 🎷✨",
+      "arena_description": "Welcome to the club! Each repo is a new composition. Improvise your code symphony!",
+      "colors": {
+        "primary": "#1a1a2e",
+        "secondary": "#0f3460",
+        "accent": "#d4af37"
+      },
+      "font": "Crimson Text",
+      "archive_collections": [
+        "audio",
+        "opensource_audio"
+      ]
+    },
+    "edm": {
+      "name": "Electronic/EDM Arena Theme",
+      "icon": "🎧",
+      "description": "Neon lights, synthesizers, and waveforms",
+      "tagline": "Build your own music production chain! 🎧💫",
+      "arena_description": "Welcome to the studio! Each repo is a new track. Drop the bass on your codebase!",
+      "colors": {
+        "primary": "#00ffff",
+        "secondary": "#ff00ff",
+        "accent": "#8800ff"
+      },
+      "font": "Segoe UI",
+      "archive_collections": [
+        "opensource_audio",
+        "audio"
+      ]
+    },
+    "classical": {
+      "name": "Symphony Hall Theme",
+      "icon": "🎻",
+      "description": "Orchestra layout with conductor podium",
+      "tagline": "Orchestrate your repo symphony! 🎻🎼",
+      "arena_description": "Welcome to the hall! Each repo is a new movement. Conduct your masterpiece!",
+      "colors": {
+        "primary": "#8b0000",
+        "secondary": "#d4af37",
+        "accent": "#f5f5dc"
+      },
+      "font": "Crimson Text",
+      "archive_collections": [
+        "audio",
+        "opensource_audio"
+      ]
+    },
+    "hiphop": {
+      "name": "Hip-Hop Studio Theme",
+      "icon": "🎤",
+      "description": "Turntables, mixing boards, and urban vibes",
+      "tagline": "Drop your own repo mixtape! 🎤🔥",
+      "arena_description": "Welcome to the booth! Each repo is a new track. Spit your code bars!",
+      "colors": {
+        "primary": "#ffd700",
+        "secondary": "#000000",
+        "accent": "#ff6600"
+      },
+      "font": "Arial Black",
+      "archive_collections": [
+        "opensource_audio",
+        "audio"
+      ]
+    }
+  },
+  "animations": {
+    "mario": ["coinBounce", "powerUp", "jump"],
+    "rock": ["guitarFlame", "stageLights", "ampDistortion"],
+    "jazz": ["vinylSpin", "smoothFade", "saxSway"],
+    "edm": ["neonPulse", "beatDrop", "laserSweep", "waveform"],
+    "classical": ["conductorWave", "sheetMusicFlow", "orchestraRise"],
+    "hiphop": ["turntableScratch", "beatBounce", "sprayPaint"]
+  }
+}

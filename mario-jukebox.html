@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- 👑 Infinity Legend Meta Tags - CROWN_INDEX -->
+  <meta name="infinity-legend-roles" content="CROWN_INDEX,CONTROLLER,RUNTIME,MEMORY_NODE">
+  <meta name="infinity-legend-symbols" content="👑,🕹️,⭐,🪐">
+  <meta name="infinity-legend-version" content="1.0.0">
+  <meta name="infinity-legend-signature" content="🍄🍄👲🏻🏰🏰👸🏼🍄🐢💗⚡⚡⚡🌟👻🎮🕹️👾">
+  
+  <!-- 🔗 Links to Legend Repositories -->
+  <link rel="legend-core" href="https://github.com/pewpi-infinity/legend-core">
+  <link rel="legend-robot" href="https://github.com/pewpi-infinity/legend-🦾-robot-core">
+  <link rel="legend-memory" href="https://github.com/pewpi-infinity/legend-🪐-memory">
+  <link rel="legend-runtime" href="https://github.com/pewpi-infinity/legend-⭐-runtime">
+  <link rel="legend-controller" href="https://github.com/pewpi-infinity/legend-🕹️-mario-exit">
+  <link rel="legend-encode" href="https://github.com/pewpi-infinity/legend-🧱-encode">
+  <link rel="legend-token-viewer" href="https://github.com/pewpi-infinity/legend-👁️-token-viewer">
+  <link rel="legend-sync" href="https://github.com/pewpi-infinity/legend-🎵-sync">
+  <link rel="legend-weaver" href="https://github.com/pewpi-infinity/legend-🪡-assembler">
+  <link rel="legend-flow" href="https://github.com/pewpi-infinity/legend-🔀-flow">
+  <link rel="legend-semantic" href="https://github.com/pewpi-infinity/legend-🔗-semantic">
+  <link rel="legend-auditor" href="https://github.com/pewpi-infinity/legend-🍄-auditor">
+  <link rel="legend-modulator" href="https://github.com/pewpi-infinity/legend-🎛️-modulator">
+  <link rel="legend-star" href="https://github.com/pewpi-infinity/legend-💫-star">
+  <link rel="legend-multistar" href="https://github.com/pewpi-infinity/legend-✨-multistar">
+  <link rel="legend-chain" href="https://github.com/pewpi-infinity/legend-⛓️-chain">
+  <link rel="legend-spine" href="https://github.com/pewpi-infinity/legend-spine-index">
+  
+  <!-- Infinity Ecosystem Links -->
+  <link rel="infinity-portal" href="https://github.com/pewpi-infinity/infinity-portal">
+  <link rel="design-depo" href="https://github.com/pewpi-infinity/Design-Depo">
+  <link rel="gpt-vector" href="https://github.com/pewpi-infinity/GPT-Vector-Design">
+  <link rel="mongoose-os" href="https://github.com/pewpi-infinity/mongoose.os">
+  <link rel="rooster-os" href="https://github.com/pewpi-infinity/rooster.os">
+  <link rel="gutenberg" href="https://github.com/pewpi-infinity/Gutenberg">
+  <link rel="osprey-terminal" href="https://github.com/pewpi-infinity/Osprey-Terminal">
+  
+  <title>🍄🎮 Mario Bros Jukebox - Infinity Legend System</title>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="mario-styles.css">
+  
+  <!-- Press Start 2P Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- 💰 Coin Counter -->
+  <div class="coin-counter">
+    <span>🪙</span>
+    <span id="coin-count">0</span>
+  </div>
+
+  <!-- 💫 Star Counter -->
+  <div class="star-counter">
+    <span>⭐</span>
+    <span id="star-count">0</span>
+  </div>
+
+  <div class="mario-jukebox">
+    <!-- 👑 Header - CROWN_INDEX -->
+    <header class="jukebox-header">
+      <h1 class="jukebox-title">🍄 MARIO BROS JUKEBOX 🎮</h1>
+      <p class="jukebox-subtitle">🎵 Infinity Legend System Integration 🎵</p>
+      <p class="jukebox-subtitle">👑 CROWN INDEX • 🦾 ROBOT CORE • 🪐 MEMORY NODE • ⭐ RUNTIME</p>
+    </header>
+
+    <!-- 🎵 Now Playing - RED Output Display -->
+    <section class="now-playing" id="now-playing">
+      <h2 class="now-playing-title">🔴 NOW PLAYING 🔴</h2>
+      <div id="track-display">
+        <div class="track-info">
+          <span id="track-emoji">🎮</span>
+          <span id="track-title">Ready to Play!</span>
+        </div>
+        <div class="track-info">
+          <span id="track-artist">Internet Archive • Mario Collection</span>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="track-info">
+        <span id="current-time">0:00</span> / <span id="total-time">0:00</span>
+      </div>
+      <div class="health-display">
+        <span class="heart">💗</span>
+        <span class="heart">💗</span>
+        <span class="heart">💗</span>
+      </div>
+    </section>
+
+    <!-- 🕹️ Control Panel - CONTROLLER -->
+    <section class="control-panel">
+      <!-- 🔴 Play Controls (RED - Output) -->
+      <div class="control-section play-controls">
+        <h3>🔴 PLAY CONTROLS</h3>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <button class="btn btn-red" id="btn-play">▶️ PLAY</button>
+          <button class="btn btn-red" id="btn-pause">⏸️ PAUSE</button>
+          <button class="btn btn-red" id="btn-stop">⏹️ STOP</button>
+          <button class="btn btn-red" id="btn-prev">⏮️ PREVIOUS</button>
+          <button class="btn btn-red" id="btn-next">⏭️ NEXT</button>
+        </div>
+        <div class="volume-control">
+          <span>🔊</span>
+          <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="70">
+        </div>
+      </div>
+
+      <!-- 🟩 Import Controls (GREEN - Input) -->
+      <div class="control-section import-controls">
+        <h3>🟩 IMPORT AUDIO</h3>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <button class="btn btn-green" id="btn-import-default">🍄 LOAD MARIO OST</button>
+          <button class="btn btn-green" id="btn-search-archive">🔍 SEARCH ARCHIVE</button>
+          <input type="text" id="search-input" placeholder="Search Internet Archive..." 
+                 style="padding: 10px; border-radius: 8px; border: 2px solid var(--legend-green); background: rgba(0,0,0,0.3); color: white; font-size: 10px;">
+          <button class="btn btn-green" id="btn-custom-url">🔗 CUSTOM URL</button>
+        </div>
+      </div>
+
+      <!-- 🟦 Playlist Controls (BLUE - Logic) -->
+      <div class="control-section playlist-controls">
+        <h3>🟦 PLAYLIST</h3>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <button class="btn btn-blue" id="btn-shuffle">🔀 SHUFFLE</button>
+          <button class="btn btn-blue" id="btn-repeat">🔁 REPEAT ALL</button>
+          <button class="btn btn-blue" id="btn-clear">🗑️ CLEAR QUEUE</button>
+          <button class="btn btn-purple" id="btn-save-playlist">💾 SAVE PLAYLIST</button>
+        </div>
+      </div>
+
+      <!-- 🎛️ Effects (MODULATOR) -->
+      <div class="control-section" style="border-color: var(--legend-orange);">
+        <h3 style="color: var(--legend-orange);">🎛️ EFFECTS</h3>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <label style="font-size: 9px; color: var(--text-muted);">
+            Speed: <span id="speed-value">1.0x</span>
+          </label>
+          <input type="range" id="speed-slider" min="50" max="200" value="100" 
+                 style="width: 100%; border: 2px solid var(--legend-orange);">
+          <button class="btn btn-yellow" id="btn-power-up">⚡ POWER UP!</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 📀 Playlist Display -->
+    <section class="playlist-display" id="playlist-display">
+      <h3 style="color: var(--legend-blue); margin-bottom: 15px; font-size: 14px;">
+        📀 PLAYLIST (🦾 ROBOT CORE - Additive Only)
+      </h3>
+      <div id="playlist-items">
+        <p style="text-align: center; color: var(--text-muted); font-size: 10px;">
+          No tracks loaded yet. Import some Mario music! 🍄
+        </p>
+      </div>
+    </section>
+
+    <!-- 💫 Favorites & Stars (STAR system) -->
+    <section class="token-viewer">
+      <h3>💫 FAVORITES (STAR SYSTEM)</h3>
+      <div class="token-display" id="favorites-display">
+        <p style="font-size: 10px; color: var(--text-muted);">
+          Click ⭐ on any track to favorite it!
+        </p>
+      </div>
+    </section>
+
+    <!-- 🪐 History (MEMORY_NODE) -->
+    <section class="history-section control-section">
+      <h3>🪐 PLAY HISTORY (MEMORY NODE - Never Overwrites)</h3>
+      <div id="history-display" style="max-height: 200px; overflow-y: auto;">
+        <p style="font-size: 10px; color: var(--text-muted);">
+          Your play history will appear here.
+        </p>
+      </div>
+    </section>
+
+    <!-- ⛓️ Play Chain (CHAIN - Immutable) -->
+    <section class="chain-viewer">
+      <h3 style="color: var(--legend-yellow); margin-bottom: 15px; font-size: 14px;">
+        ⛓️ PLAY CHAIN (Blockchain-inspired • Immutable)
+      </h3>
+      <div id="chain-display">
+        <p style="font-size: 9px; color: var(--text-muted);">
+          Every track you play is recorded in an immutable chain. 🔗
+        </p>
+      </div>
+    </section>
+
+    <!-- 🎮 Interactive Elements -->
+    <section style="display: flex; gap: 20px; justify-content: center; margin: 30px 0;">
+      <div class="question-block" id="question-block" title="❓ Hit for random reward!">❓</div>
+      <div class="warp-pipe" id="warp-pipe" title="🌊 Warp to random track!"></div>
+      <div class="question-block" id="question-block-2" title="❓ Mystery track!">🎁</div>
+    </section>
+
+    <!-- 🔗 Repository Links (YELLOW - Navigation) -->
+    <section style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 12px; border: 3px solid var(--legend-yellow); margin-top: 30px;">
+      <h3 style="color: var(--legend-yellow); margin-bottom: 15px; font-size: 14px; text-align: center;">
+        🔗 INFINITY LEGEND ECOSYSTEM
+      </h3>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+        <a href="/" class="nav-link">🏠 HOME</a>
+        <a href="https://github.com/pewpi-infinity/smug_look" class="nav-link" target="_blank">👑 CROWN INDEX</a>
+        <a href="https://archive.org/details/super-mario-bros-ost-sfx" class="nav-link" target="_blank">🍄 ARCHIVE</a>
+        <a href="https://github.com/pewpi-infinity/infinity-portal" class="nav-link" target="_blank">🌀 PORTAL</a>
+        <a href="https://github.com/pewpi-infinity/Design-Depo" class="nav-link" target="_blank">🎨 DESIGN</a>
+        <a href="https://github.com/pewpi-infinity/mongoose.os" class="nav-link" target="_blank">⚙️ MONGOOSE</a>
+        <a href="legend-meta.json" class="nav-link">📋 META</a>
+        <a href="repo-integration.json" class="nav-link">🗺️ MAP</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="text-align: center; margin-top: 40px; padding: 20px; color: var(--text-muted); font-size: 9px;">
+      <p>🍄🍄👲🏻🏰🏰👸🏼🍄🐢💗⚡⚡⚡🌟👻🎮🕹️👾</p>
+      <p>Built with Infinity Legend System Architecture</p>
+      <p>✅ Additive Only • ✅ Discoverable • ✅ Linked • ✅ Immutable Core</p>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="internet-archive-connector.js"></script>
+  <script src="legend-audio-engine.js"></script>
+  <script src="mario-animations.js"></script>
+  <script>
+    // 🎮 Initialize Mario Jukebox
+    let archiveConnector;
+    let audioEngine;
+    let animations;
+    
+    // Wait for DOM to be ready
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('🍄 Mario Jukebox initializing...');
+      
+      // Initialize components
+      archiveConnector = new InternetArchiveConnector();
+      audioEngine = new LegendAudioEngine();
+      animations = new MarioAnimations();
+      
+      // Set up event listeners
+      setupControls();
+      setupAnimations();
+      
+      console.log('✅ Mario Jukebox ready!');
+      console.log('👑 CROWN_INDEX: Catalog system active');
+      console.log('🦾 ROBOT_CORE: Playback engine ready');
+      console.log('🪐 MEMORY_NODE: Storage initialized');
+      console.log('⭐ RUNTIME: Audio context ready');
+      console.log('🕹️ CONTROLLER: UI controls active');
+    });
+    
+    // 🕹️ Setup Controls
+    function setupControls() {
+      // Play controls
+      document.getElementById('btn-play').addEventListener('click', () => {
+        const track = audioEngine.playlist[audioEngine.currentIndex];
+        if (track) {
+          audioEngine.play(track);
+          animations.buttonPress(event.target);
+        }
+      });
+      
+      document.getElementById('btn-pause').addEventListener('click', (e) => {
+        audioEngine.pause();
+        animations.buttonPress(e.target);
+      });
+      
+      document.getElementById('btn-stop').addEventListener('click', (e) => {
+        audioEngine.stop();
+        animations.buttonPress(e.target);
+      });
+      
+      document.getElementById('btn-prev').addEventListener('click', (e) => {
+        audioEngine.previous();
+        animations.buttonPress(e.target);
+      });
+      
+      document.getElementById('btn-next').addEventListener('click', (e) => {
+        audioEngine.next();
+        animations.buttonPress(e.target);
+      });
+      
+      // Volume control
+      document.getElementById('volume-slider').addEventListener('input', (e) => {
+        audioEngine.setVolume(e.target.value / 100);
+      });
+      
+      // Speed control
+      document.getElementById('speed-slider').addEventListener('input', (e) => {
+        const speed = e.target.value / 100;
+        audioEngine.setSpeed(speed);
+        document.getElementById('speed-value').textContent = speed.toFixed(1) + 'x';
+      });
+      
+      // Import controls
+      document.getElementById('btn-import-default').addEventListener('click', (e) => {
+        loadDefaultTracks();
+        animations.collectCoin(e.target);
+      });
+      
+      // Interactive elements
+      document.getElementById('question-block').addEventListener('click', (e) => {
+        const reward = animations.questionBlock(e.target);
+        if (reward.type === 'coin') {
+          animations.collectCoin(e.target);
+        }
+      });
+      
+      document.getElementById('warp-pipe').addEventListener('click', (e) => {
+        animations.warpPipe(e.target, () => {
+          if (audioEngine.playlist.length > 0) {
+            const randomIndex = Math.floor(Math.random() * audioEngine.playlist.length);
+            audioEngine.currentIndex = randomIndex;
+            audioEngine.play(audioEngine.playlist[randomIndex]);
+          }
+        });
+      });
+      
+      // Power up button
+      document.getElementById('btn-power-up').addEventListener('click', (e) => {
+        animations.powerUp(e.target, 'star');
+        audioEngine.setSpeed(1.5);
+        setTimeout(() => {
+          audioEngine.setSpeed(1.0);
+        }, 10000); // 10 second power-up
+      });
+    }
+    
+    // 🎮 Setup Animations
+    function setupAnimations() {
+      // Listen for audio events
+      window.addEventListener('legendAudio:trackStarted', (e) => {
+        updateNowPlaying(e.detail);
+        const rect = document.getElementById('now-playing').getBoundingClientRect();
+        animations.musicNotes(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      });
+      
+      window.addEventListener('legendAudio:volumeChanged', (e) => {
+        console.log('🔊 Volume:', e.detail);
+      });
+      
+      window.addEventListener('legendAudio:timeUpdate', (e) => {
+        updateProgress(e.detail);
+      });
+      
+      // Update coin counter
+      window.addEventListener('marioAnimation:coinCollected', (e) => {
+        document.getElementById('coin-count').textContent = e.detail.coins;
+      });
+      
+      // Update star counter
+      window.addEventListener('marioAnimation:starCollected', () => {
+        const stars = audioEngine.stars.length;
+        document.getElementById('star-count').textContent = stars;
+      });
+      
+      // Initialize counters
+      document.getElementById('coin-count').textContent = animations.coins;
+      document.getElementById('star-count').textContent = audioEngine.stars.length;
+    }
+    
+    // 🟩 Load Default Tracks
+    function loadDefaultTracks() {
+      const sources = archiveConnector.getAllSources();
+      const playlistContainer = document.getElementById('playlist-items');
+      playlistContainer.innerHTML = '';
+      
+      sources.forEach(source => {
+        const track = {
+          ...source,
+          url: archiveConnector.buildAudioUrl(source)
+        };
+        
+        audioEngine.addToPlaylist(track);
+        
+        // Add to UI
+        const item = createPlaylistItem(track);
+        playlistContainer.appendChild(item);
+      });
+      
+      console.log('✅ Loaded', sources.length, 'tracks');
+    }
+    
+    // 📀 Create Playlist Item
+    function createPlaylistItem(track) {
+      const div = document.createElement('div');
+      div.className = 'playlist-item';
+      div.innerHTML = `
+        <div class="playlist-item-emoji">${track.emoji}</div>
+        <div class="playlist-item-info">
+          <div class="playlist-item-title">${track.title}</div>
+          <div class="playlist-item-meta">${track.collection}</div>
+        </div>
+        <button class="btn btn-yellow play-track-btn" style="padding: 8px 12px;" data-track-id="${track.id}">▶️</button>
+        <button class="btn btn-yellow star-track-btn" style="padding: 8px 12px;" data-track-id="${track.id}">⭐</button>
+      `;
+      
+      // Add event listeners
+      const playBtn = div.querySelector('.play-track-btn');
+      const starBtn = div.querySelector('.star-track-btn');
+      
+      playBtn.addEventListener('click', () => playTrack(track.id));
+      starBtn.addEventListener('click', () => starTrack(track.id));
+      
+      return div;
+    }
+    
+    // 🔴 Play Track
+    function playTrack(trackId) {
+      const index = audioEngine.playlist.findIndex(t => t.id === trackId);
+      if (index !== -1) {
+        audioEngine.currentIndex = index;
+        audioEngine.play(audioEngine.playlist[index]);
+      }
+    }
+    
+    // 💫 Star Track
+    function starTrack(trackId) {
+      const track = audioEngine.playlist.find(t => t.id === trackId);
+      if (track) {
+        audioEngine.addStar(track);
+        animations.collectStar(event.target);
+        updateStarsDisplay();
+      }
+    }
+    
+    // 🎵 Update Now Playing
+    function updateNowPlaying(track) {
+      document.getElementById('track-emoji').textContent = track.emoji || '🎮';
+      document.getElementById('track-title').textContent = track.title;
+      document.getElementById('track-artist').textContent = track.collection || 'Internet Archive';
+    }
+    
+    // 📊 Update Progress
+    function updateProgress(data) {
+      const progressFill = document.getElementById('progress-fill');
+      progressFill.style.width = (data.progress * 100) + '%';
+      
+      document.getElementById('current-time').textContent = formatTime(data.currentTime);
+      document.getElementById('total-time').textContent = formatTime(data.duration);
+    }
+    
+    // 🕐 Format Time
+    function formatTime(seconds) {
+      if (isNaN(seconds)) return '0:00';
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+    
+    // 💫 Update Stars Display
+    function updateStarsDisplay() {
+      const container = document.getElementById('favorites-display');
+      container.innerHTML = '';
+      
+      audioEngine.stars.forEach(star => {
+        const token = document.createElement('div');
+        token.className = 'token';
+        token.innerHTML = `${star.emoji} ${star.title}`;
+        container.appendChild(token);
+      });
+    }
+  </script>
+</body>
+</html>

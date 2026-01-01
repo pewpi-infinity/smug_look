@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 🧱 Infinity Legend Token System -->
+    <meta name="infinity-token-id" content="🧱Kris🔑">
+    <meta name="infinity-formulas" content="👑📶⚪,💎👑🍄,⚪👑🔗,🗄️🧵📶,💎🎛️👑,⚪💰🎵,🖇️📍🕹️(📀),🪡🤓⭐,👑🧲🪐">
+    <meta name="infinity-legend-roles" content="CROWN_INDEX,ORCHESTRATOR,MEMORY_NODE,CONTROLLER">
+    <meta name="infinity-legend-symbols" content="👑,🛒,🪐,🕹️">
+    <meta name="infinity-legend-version" content="1.0.0">
+    <meta name="infinity-ecosystem" content="smug_look,legend-core,infinity-portal,Design-Depo">
+    
+    <title>🎵 Infinity Jukebox - Adaptive Multi-Theme Music System</title>
+    
+    <!-- Theme CSS Files -->
+    <link rel="stylesheet" href="styles/legend-colors.css">
+    <link rel="stylesheet" href="styles/theme-mario.css">
+    <link rel="stylesheet" href="styles/theme-rock.css">
+    <link rel="stylesheet" href="styles/theme-jazz.css">
+    <link rel="stylesheet" href="styles/theme-edm.css">
+    <link rel="stylesheet" href="styles/theme-classical.css">
+    <link rel="stylesheet" href="styles/theme-hiphop.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Metal+Mania&family=Crimson+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body class="theme-mario">
+    
+    <!-- Welcome Quiz (First Visit) -->
+    <div id="welcome-quiz" class="quiz-container active">
+        <div class="quiz-content">
+            <h1>🎵 Welcome to Infinity Jukebox!</h1>
+            <h2>What gets you hyped? Choose your vibe!</h2>
+            
+            <div class="interest-grid">
+                <button class="interest-btn" data-theme="mario">
+                    <span class="icon">🍄</span>
+                    <span class="label">Video Games</span>
+                    <span class="description">8-bit nostalgia & power-ups</span>
+                </button>
+                
+                <button class="interest-btn" data-theme="rock">
+                    <span class="icon">🎸</span>
+                    <span class="label">Rock Arena</span>
+                    <span class="description">Stage lights & heavy riffs</span>
+                </button>
+                
+                <button class="interest-btn" data-theme="jazz">
+                    <span class="icon">🎷</span>
+                    <span class="label">Jazz Club</span>
+                    <span class="description">Smooth vibes & improvisation</span>
+                </button>
+                
+                <button class="interest-btn" data-theme="edm">
+                    <span class="icon">🎧</span>
+                    <span class="label">Electronic</span>
+                    <span class="description">Neon lights & bass drops</span>
+                </button>
+                
+                <button class="interest-btn" data-theme="classical">
+                    <span class="icon">🎻</span>
+                    <span class="label">Symphony Hall</span>
+                    <span class="description">Orchestral masterpieces</span>
+                </button>
+                
+                <button class="interest-btn" data-theme="hiphop">
+                    <span class="icon">🎤</span>
+                    <span class="label">Hip-Hop Studio</span>
+                    <span class="description">Beats, samples & bars</span>
+                </button>
+                
+                <button class="interest-btn" data-theme="surprise">
+                    <span class="icon">🌈</span>
+                    <span class="label">Surprise Me!</span>
+                    <span class="description">Random adventure</span>
+                </button>
+            </div>
+            
+            <p class="quiz-footer">
+                🧱 Powered by Infinity Legend Architecture | 
+                <a href="#legend-map">View Token Map</a>
+            </p>
+        </div>
+    </div>
+    
+    <!-- Main Jukebox Interface -->
+    <div id="jukebox-main" class="jukebox-container">
+        
+        <!-- Header with Crown Index -->
+        <header class="jukebox-header legend-color-red">
+            <div class="header-content">
+                <h1 class="jukebox-title">
+                    <span class="icon-crown">👑</span>
+                    <span class="title-text">Infinity Jukebox</span>
+                    <span class="token-id">🧱Kris🔑</span>
+                </h1>
+                <p class="tagline" id="theme-tagline">Build your own Mushroom Kingdom of repos! 🍄👑</p>
+            </div>
+            
+            <!-- Theme Switcher -->
+            <div class="theme-switcher legend-color-yellow">
+                <button class="theme-btn active" data-theme="mario" title="Mario Bros">🍄</button>
+                <button class="theme-btn" data-theme="rock" title="Rock Arena">🎸</button>
+                <button class="theme-btn" data-theme="jazz" title="Jazz Club">🎷</button>
+                <button class="theme-btn" data-theme="edm" title="Electronic">🎧</button>
+                <button class="theme-btn" data-theme="classical" title="Symphony Hall">🎻</button>
+                <button class="theme-btn" data-theme="hiphop" title="Hip-Hop Studio">🎤</button>
+            </div>
+        </header>
+        
+        <!-- Main Content Area -->
+        <main class="jukebox-content">
+            
+            <!-- Audio Player (ROBOT_CORE + RUNTIME) -->
+            <section class="audio-section legend-color-red">
+                <div class="player-container">
+                    <div class="now-playing">
+                        <div class="album-art" id="album-art">
+                            <div class="art-placeholder">🎵</div>
+                        </div>
+                        <div class="track-info">
+                            <h3 id="track-title">Select a track to play</h3>
+                            <p id="track-artist">Internet Archive</p>
+                            <p id="track-collection">Collection: None</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Audio Element -->
+                    <audio id="main-audio" preload="metadata"></audio>
+                    
+                    <!-- Playback Controls (CONTROLLER) -->
+                    <div class="playback-controls legend-color-red">
+                        <button id="btn-previous" class="control-btn" title="Previous">⏮️</button>
+                        <button id="btn-play" class="control-btn-main" title="Play">▶️</button>
+                        <button id="btn-pause" class="control-btn-main hidden" title="Pause">⏸️</button>
+                        <button id="btn-next" class="control-btn" title="Next">⏭️</button>
+                        <button id="btn-stop" class="control-btn" title="Stop">⏹️</button>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div class="progress-container">
+                        <span id="current-time">0:00</span>
+                        <input type="range" id="progress-bar" class="progress-bar" value="0" min="0" max="100">
+                        <span id="duration">0:00</span>
+                    </div>
+                    
+                    <!-- Volume & Effects (MODULATOR) -->
+                    <div class="audio-controls legend-color-blue">
+                        <div class="volume-control">
+                            <label>🔊 Volume:</label>
+                            <input type="range" id="volume-slider" min="0" max="100" value="70">
+                            <span id="volume-display">70%</span>
+                        </div>
+                        
+                        <div class="effects-control">
+                            <label>🎛️ Effects:</label>
+                            <button class="effect-btn" data-effect="none">Original</button>
+                            <button class="effect-btn" data-effect="echo">Echo</button>
+                            <button class="effect-btn" data-effect="reverb">Reverb</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Playlist (MEMORY_NODE + CHAIN) -->
+            <section class="playlist-section legend-color-purple">
+                <div class="playlist-header">
+                    <h2>🪐 Memory Node - Playlist</h2>
+                    <div class="playlist-actions">
+                        <button id="btn-load-collection" class="action-btn legend-color-green">
+                            📥 Load from Archive
+                        </button>
+                        <button id="btn-save-playlist" class="action-btn legend-color-blue">
+                            💾 Save Playlist
+                        </button>
+                        <button id="btn-clear-playlist" class="action-btn legend-color-orange">
+                            🗑️ Clear All
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="playlist-content">
+                    <div id="playlist-items" class="playlist-items">
+                        <!-- Playlist items will be dynamically added here -->
+                        <div class="empty-playlist">
+                            <p>🎵 No tracks loaded yet</p>
+                            <p>Load a collection from Internet Archive to get started!</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Play History (CHAIN - Immutable) -->
+                <div class="play-history">
+                    <h3>⛓️ Play History (Immutable Chain)</h3>
+                    <div id="history-items" class="history-items">
+                        <!-- History items added here -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Archive Browser (WEAVER + BRIDGE) -->
+            <section class="archive-section legend-color-green">
+                <div class="archive-header">
+                    <h2>🪡 Archive Browser</h2>
+                    <p>Discover music from Internet Archive collections</p>
+                </div>
+                
+                <div class="archive-search">
+                    <input 
+                        type="text" 
+                        id="archive-search-input" 
+                        placeholder="Search collections or enter collection ID..."
+                        class="search-input"
+                    >
+                    <button id="btn-search-archive" class="search-btn">🔍 Search</button>
+                </div>
+                
+                <div class="collection-browser">
+                    <h3>Popular Collections by Theme:</h3>
+                    <div id="collections-grid" class="collections-grid">
+                        <!-- Collections populated based on theme -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Token Visualization (MONITOR + BEACON) -->
+            <section class="token-section legend-color-yellow">
+                <div class="token-header">
+                    <h2>👁️ Token Monitor - Infinity Formulas</h2>
+                    <button id="btn-toggle-tokens" class="toggle-btn">Show/Hide</button>
+                </div>
+                
+                <div id="token-visualization" class="token-viz">
+                    <div class="token-tree">
+                        <div class="token-node root">
+                            <span class="token-symbol">🧱Kris🔑</span>
+                            <span class="token-name">Core ID</span>
+                        </div>
+                        
+                        <div class="token-branches">
+                            <div class="token-branch">
+                                <div class="token-node">
+                                    <span class="token-symbol">👑📶⚪</span>
+                                    <span class="token-name">Powerful Orchestrator</span>
+                                </div>
+                                <div class="token-node">
+                                    <span class="token-symbol">💎👑🍄</span>
+                                    <span class="token-name">Facet Crown Growth</span>
+                                </div>
+                            </div>
+                            
+                            <div class="token-branch">
+                                <div class="token-node">
+                                    <span class="token-symbol">⚪👑🔗</span>
+                                    <span class="token-name">Semantic Authority</span>
+                                </div>
+                                <div class="token-node">
+                                    <span class="token-symbol">🗄️🧵📶</span>
+                                    <span class="token-name">Memory Thread</span>
+                                </div>
+                            </div>
+                            
+                            <div class="token-branch">
+                                <div class="token-node">
+                                    <span class="token-symbol">💎🎛️👑</span>
+                                    <span class="token-name">Modulation Authority</span>
+                                </div>
+                                <div class="token-node highlight">
+                                    <span class="token-symbol">⚪💰🎵</span>
+                                    <span class="token-name">Value Audio</span>
+                                </div>
+                            </div>
+                            
+                            <div class="token-branch">
+                                <div class="token-node">
+                                    <span class="token-symbol">🖇️📍🕹️(📀)</span>
+                                    <span class="token-name">Pinned Control</span>
+                                </div>
+                                <div class="token-node">
+                                    <span class="token-symbol">🪡🤓⭐</span>
+                                    <span class="token-name">Smart Weaver</span>
+                                </div>
+                            </div>
+                            
+                            <div class="token-branch">
+                                <div class="token-node heartbeat">
+                                    <span class="token-symbol">👑🧲🪐</span>
+                                    <span class="token-name">Crown Magnet Memory (HEARTBEAT)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Build Your Arena (Retention Flow) -->
+            <section class="arena-section legend-color-pink">
+                <div class="arena-header">
+                    <h2>🏰 Build Your Arena</h2>
+                    <p class="arena-description" id="arena-description">
+                        Welcome to your Mushroom Kingdom! Every repo is a new level. Collect power-ups to unlock features!
+                    </p>
+                </div>
+                
+                <div class="arena-progress">
+                    <h3>Your Progress:</h3>
+                    <div class="progress-stats">
+                        <div class="stat">
+                            <span class="stat-icon">🎵</span>
+                            <span class="stat-value" id="tracks-played">0</span>
+                            <span class="stat-label">Tracks Played</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-icon">⏱️</span>
+                            <span class="stat-value" id="time-spent">0m</span>
+                            <span class="stat-label">Time Vibing</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-icon">🔗</span>
+                            <span class="stat-value" id="repos-linked">0</span>
+                            <span class="stat-label">Repos Linked</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-icon">⭐</span>
+                            <span class="stat-value" id="achievements">0</span>
+                            <span class="stat-label">Achievements</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="arena-actions">
+                    <button class="arena-btn legend-color-green">
+                        🍄 Create Your First Repo
+                    </button>
+                    <button class="arena-btn legend-color-blue">
+                        🔗 Link to Infinity Network
+                    </button>
+                    <button class="arena-btn legend-color-yellow">
+                        🎮 Explore Other Arenas
+                    </button>
+                </div>
+            </section>
+            
+            <!-- Legend System Reference -->
+            <section class="legend-section">
+                <div class="legend-header">
+                    <h2>🧱 Legend System - All Roles Active</h2>
+                </div>
+                
+                <div class="legend-roles">
+                    <div class="role legend-color-red"><span class="role-icon">👑</span> CROWN_INDEX - Central Catalog</div>
+                    <div class="role legend-color-red"><span class="role-icon">🦾</span> ROBOT_CORE - Autonomous Playback</div>
+                    <div class="role legend-color-purple"><span class="role-icon">🪐</span> MEMORY_NODE - Persistent Storage</div>
+                    <div class="role legend-color-red"><span class="role-icon">⭐</span> RUNTIME - Real-time Streaming</div>
+                    <div class="role legend-color-red"><span class="role-icon">🕹️</span> CONTROLLER - Interactive Controls</div>
+                    <div class="role legend-color-orange"><span class="role-icon">🧱</span> ENCODE - Format Handling</div>
+                    <div class="role legend-color-yellow"><span class="role-icon">👁️</span> MONITOR - Visual Display</div>
+                    <div class="role legend-color-blue"><span class="role-icon">🎵</span> SYNC - Multi-repo Sync</div>
+                    <div class="role legend-color-yellow"><span class="role-icon">🪡</span> WEAVER - Content Threading</div>
+                    <div class="role legend-color-yellow"><span class="role-icon">🔀</span> ROUTER - Audio Routing</div>
+                    <div class="role legend-color-yellow"><span class="role-icon">🔗</span> BRIDGE - Cross-repo Linking</div>
+                    <div class="role legend-color-green"><span class="role-icon">🍄</span> AUDITOR - Quality Validation</div>
+                    <div class="role legend-color-blue"><span class="role-icon">🎛️</span> MODULATOR - Audio Effects</div>
+                    <div class="role legend-color-yellow"><span class="role-icon">💫</span> BEACON - Star Favorites</div>
+                    <div class="role legend-color-blue"><span class="role-icon">✨</span> AGGREGATOR - Community Playlists</div>
+                    <div class="role legend-color-purple"><span class="role-icon">⛓️</span> CHAIN - Immutable History</div>
+                    <div class="role legend-color-blue"><span class="role-icon">🎛️</span> SPINE - Central Routing</div>
+                </div>
+            </section>
+            
+        </main>
+        
+        <!-- Footer with Repo Links -->
+        <footer class="jukebox-footer">
+            <div class="footer-content">
+                <h3>🔗 Infinity Ecosystem Links</h3>
+                <div class="repo-links">
+                    <a href="https://github.com/pewpi-infinity/smug_look" target="_blank" class="repo-link">🧱 smug_look</a>
+                    <a href="https://github.com/pewpi-infinity/legend-core" target="_blank" class="repo-link">👑 legend-core</a>
+                    <a href="https://github.com/pewpi-infinity/infinity-portal" target="_blank" class="repo-link">🌀 infinity-portal</a>
+                    <a href="https://github.com/pewpi-infinity/Design-Depo" target="_blank" class="repo-link">🎨 Design-Depo</a>
+                    <a href="../index.html" class="repo-link">🏠 Back to Hub</a>
+                </div>
+                <p class="footer-note">
+                    🧲🪐🔁 The legend never stops growing. Every moment adds, never subtracts.
+                </p>
+            </div>
+        </footer>
+        
+    </div>
+    
+    <!-- Scripts -->
+    <script src="scripts/legend-engine.js"></script>
+    <script src="scripts/audio-engine.js"></script>
+    <script src="scripts/memory-node.js"></script>
+    <script src="scripts/theme-morpher.js"></script>
+    <script src="scripts/interest-detector.js"></script>
+    <script src="scripts/archive-connector.js"></script>
+    <script src="scripts/token-propagator.js"></script>
+    <script src="scripts/repo-linker.js"></script>
+    <script src="scripts/animations.js"></script>
+    
+</body>
+</html>

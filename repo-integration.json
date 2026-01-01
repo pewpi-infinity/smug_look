@@ -1,0 +1,158 @@
+{
+  "integration_map": {
+    "pewpi-infinity/smug_look": {
+      "role": "CROWN_INDEX",
+      "description": "Main Python/JS framework - hosts the jukebox",
+      "status": "active",
+      "integration_points": ["main jukebox", "catalog system", "orchestration"]
+    },
+    "pewpi-infinity/infinity-portal": {
+      "role": "SPINE_INDEX",
+      "description": "Portal navigation system",
+      "status": "linked",
+      "integration_points": ["navigation", "routing", "portal links"]
+    },
+    "pewpi-infinity/Design-Depo": {
+      "role": "TOKEN_VIEWER",
+      "description": "Design patterns",
+      "status": "linked",
+      "integration_points": ["visual patterns", "design system", "token display"]
+    },
+    "pewpi-infinity/GPT-Vector-Design": {
+      "role": "SEMANTIC",
+      "description": "Vector graphics",
+      "status": "linked",
+      "integration_points": ["visualizations", "graphics", "animations"]
+    },
+    "pewpi-infinity/mongoose.os": {
+      "role": "RUNTIME",
+      "description": "Scripting system",
+      "status": "linked",
+      "integration_points": ["scripting", "runtime execution", "automation"]
+    },
+    "pewpi-infinity/rooster.os": {
+      "role": "ROBOT_CORE",
+      "description": "Scripting system",
+      "status": "linked",
+      "integration_points": ["autonomous operations", "scheduling", "automation"]
+    },
+    "pewpi-infinity/Gutenberg": {
+      "role": "ENCODE",
+      "description": "Text/content system",
+      "status": "linked",
+      "integration_points": ["metadata", "encoding", "content processing"]
+    },
+    "pewpi-infinity/Osprey-Terminal": {
+      "role": "CONTROLLER",
+      "description": "Terminal interface patterns",
+      "status": "linked",
+      "integration_points": ["terminal UI", "commands", "controls"]
+    },
+    "legend-core": {
+      "role": "CROWN_INDEX",
+      "symbol": "👑",
+      "description": "Central catalog authority",
+      "never": "executes",
+      "only": "catalogs"
+    },
+    "legend-🦾-robot-core": {
+      "role": "ROBOT_CORE",
+      "symbol": "🦾",
+      "description": "Autonomous playback engine",
+      "never": "deletes",
+      "only": "adds"
+    },
+    "legend-🪐-memory": {
+      "role": "MEMORY_NODE",
+      "symbol": "🪐",
+      "description": "Persistent storage",
+      "never": "overwrites",
+      "only": "appends"
+    },
+    "legend-⭐-runtime": {
+      "role": "RUNTIME",
+      "symbol": "⭐",
+      "description": "Real-time management"
+    },
+    "legend-🕹️-mario-exit": {
+      "role": "CONTROLLER",
+      "symbol": "🕹️",
+      "description": "Mario-themed controls"
+    },
+    "legend-🧱-encode": {
+      "role": "ENCODE",
+      "symbol": "🧱",
+      "description": "Audio encoding"
+    },
+    "legend-👁️-token-viewer": {
+      "role": "TOKEN_VIEWER",
+      "symbol": "👁️",
+      "description": "Token visualization"
+    },
+    "legend-🎵-sync": {
+      "role": "SYNC",
+      "symbol": "🎵",
+      "description": "Audio synchronization"
+    },
+    "legend-🪡-assembler": {
+      "role": "WEAVER",
+      "symbol": "🪡",
+      "description": "Content weaver",
+      "never": "cuts",
+      "only": "adds"
+    },
+    "legend-🔀-flow": {
+      "role": "FLOW",
+      "symbol": "🔀",
+      "description": "Stream routing"
+    },
+    "legend-🔗-semantic": {
+      "role": "SEMANTIC",
+      "symbol": "🔗",
+      "description": "Relationship mapping"
+    },
+    "legend-🍄-auditor": {
+      "role": "AUDITOR",
+      "symbol": "🍄",
+      "description": "Quality validation"
+    },
+    "legend-🎛️-modulator": {
+      "role": "MODULATOR",
+      "symbol": "🎛️",
+      "description": "Audio effects"
+    },
+    "legend-💫-star": {
+      "role": "STAR",
+      "symbol": "💫",
+      "description": "Favorite system"
+    },
+    "legend-✨-multistar": {
+      "role": "MULTISTAR",
+      "symbol": "✨",
+      "description": "Multi-user favorites"
+    },
+    "legend-⛓️-chain": {
+      "role": "CHAIN",
+      "symbol": "⛓️",
+      "description": "Immutable history"
+    },
+    "legend-spine-index": {
+      "role": "SPINE_INDEX",
+      "symbol": "🔀",
+      "description": "Central routing hub"
+    }
+  },
+  "cross_references": {
+    "audio_sources": ["https://archive.org/details/super-mario-bros-ost-sfx"],
+    "design_patterns": ["Design-Depo", "GPT-Vector-Design"],
+    "scripting_systems": ["mongoose.os", "rooster.os"],
+    "navigation_systems": ["infinity-portal", "Osprey-Terminal"],
+    "content_systems": ["Gutenberg", "legend-🧱-encode"]
+  },
+  "discovery_paths": [
+    "All repos link back to smug_look/mario-jukebox.html as CROWN_INDEX",
+    "Each repo declares its Legend role in meta tags",
+    "Jukebox catalogs but never executes external code",
+    "All additions are additive, never destructive"
+  ]
+}
