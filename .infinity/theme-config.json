@@ -1,0 +1,76 @@
+{
+  "themes": {
+    "mario": {
+      "name": "Mario World",
+      "colors": ["#FF0000", "#00FF00", "#0000FF", "#FFFF00"],
+      "sounds": ["coin", "jump", "powerup"],
+      "enabled": true
+    },
+    "rock": {
+      "name": "Rock & Roll",
+      "colors": ["#8B0000", "#000000", "#FFD700"],
+      "sounds": ["guitar", "drums"],
+      "enabled": true
+    },
+    "jazz": {
+      "name": "Jazz Lounge",
+      "colors": ["#1A1A2E", "#16213E", "#FFD700"],
+      "sounds": ["saxophone", "piano"],
+      "enabled": true
+    },
+    "edm": {
+      "name": "EDM Arena",
+      "colors": ["#FF00FF", "#00FFFF", "#FFFF00"],
+      "sounds": ["synth", "bass", "beat"],
+      "enabled": true
+    },
+    "classical": {
+      "name": "Classical Symphony",
+      "colors": ["#2C1810", "#8B4513", "#FFE4B5"],
+      "sounds": ["violin", "piano", "orchestra"],
+      "enabled": true
+    },
+    "hiphop": {
+      "name": "Hip Hop Studio",
+      "colors": ["#FFD700", "#000000", "#FF4500"],
+      "sounds": ["beat", "scratch", "bass"],
+      "enabled": true
+    },
+    "electronics": {
+      "name": "Electronics Lab",
+      "colors": ["#00FF00", "#FFD700", "#0000FF"],
+      "sounds": ["beep", "buzz", "relay"],
+      "enabled": true,
+      "components": ["oscilloscope", "breadboard", "multimeter", "led-matrix"]
+    },
+    "chemistry": {
+      "name": "Chemistry Lab",
+      "colors": ["#00CED1", "#32CD32", "#FF6347"],
+      "sounds": ["bubble", "fizz", "glass-clink"],
+      "enabled": true,
+      "components": ["beaker", "flask", "burner", "microscope"]
+    },
+    "math": {
+      "name": "Mathematics Realm",
+      "colors": ["#FFFFFF", "#000000", "#4169E1"],
+      "sounds": ["chalk", "calculation", "eureka"],
+      "enabled": true,
+      "components": ["chalkboard", "graph-paper", "calculator", "compass"]
+    },
+    "construction": {
+      "name": "Construction Site",
+      "colors": ["#FFD700", "#FF8C00", "#8B4513"],
+      "sounds": ["hammer", "drill", "crane"],
+      "enabled": true,
+      "components": ["crane", "blueprint", "hardhat", "scaffold"]
+    },
+    "robotics": {
+      "name": "Robotics Factory",
+      "colors": ["#708090", "#C0C0C0", "#FF4500"],
+      "sounds": ["servo", "pneumatic", "robot-voice"],
+      "enabled": true,
+      "components": ["robot-arm", "conveyor", "circuit", "ai-brain"]
+    }
+  },
+  "default_theme": "mario"
+}

@@ -1,0 +1,19 @@
+{
+  "legend_roles": [
+    "🧱 Research Hub",
+    "🎮 Interactive Terminal",
+    "🍄 Growth & Power-ups",
+    "🎨 Multi-Theme System",
+    "🔗 Cross-Repo Intelligence"
+  ],
+  "description": "Smug Look - Animated Terminal with Interactive Characters",
+  "category": "terminal-experience",
+  "features": [
+    "Mario & Luigi animated characters",
+    "Car animation system",
+    "Mushroom power-ups",
+    "Virtual joystick controls",
+    "11 unique themes",
+    "Movement-based interactions"
+  ]
+}
