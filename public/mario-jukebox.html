@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍄 Mario Bros Jukebox - Infinity Portal</title>
+    <link rel="stylesheet" href="css/mario-jukebox.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Animated Background Layers -->
+        <div class="parallax-bg">
+            <div class="clouds-layer"></div>
+            <div class="hills-layer"></div>
+            <div class="ground-layer"></div>
+        </div>
+
+        <!-- Main Jukebox Interface -->
+        <header class="jukebox-header">
+            <div class="header-content">
+                <h1 class="game-title">
+                    <span class="coin-spin">🍄</span>
+                    MARIO BROS JUKEBOX
+                    <span class="star-spin">⭐</span>
+                </h1>
+                <p class="tagline">🎮 Retro Gaming Music Player ✨</p>
+            </div>
+        </header>
+
+        <!-- Mario Character Sprite -->
+        <div class="mario-sprite" id="mario">
+            <div class="mario-character">🎵</div>
+        </div>
+
+        <!-- Main Player Section -->
+        <main class="player-container">
+            <div class="jukebox-body">
+                <!-- Current Track Display -->
+                <div class="track-display">
+                    <div class="track-info">
+                        <div class="now-playing">NOW PLAYING</div>
+                        <div class="track-title" id="currentTrack">Super Mario Bros. Theme</div>
+                        <div class="track-artist" id="currentArtist">Nintendo - Koji Kondo</div>
+                    </div>
+                    <div class="power-ups">
+                        <span class="power-up" data-type="mushroom">🍄</span>
+                        <span class="power-up" data-type="star">⭐</span>
+                        <span class="power-up" data-type="flower">🌸</span>
+                    </div>
+                </div>
+
+                <!-- Audio Visualization -->
+                <div class="visualizer-container">
+                    <canvas id="audioVisualizer" width="600" height="150"></canvas>
+                    <div class="quantum-particles" id="particles"></div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-section">
+                    <div class="time-display">
+                        <span id="currentTime">0:00</span>
+                        <span id="duration">0:00</span>
+                    </div>
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress-fill" id="progressFill"></div>
+                        <div class="progress-coin">🪙</div>
+                    </div>
+                </div>
+
+                <!-- Player Controls -->
+                <div class="controls">
+                    <button class="control-btn" id="prevBtn" title="Previous Track">
+                        <span class="btn-icon">⏮️</span>
+                    </button>
+                    <button class="control-btn main-btn" id="playPauseBtn" title="Play/Pause">
+                        <span class="btn-icon" id="playPauseIcon">▶️</span>
+                    </button>
+                    <button class="control-btn" id="nextBtn" title="Next Track">
+                        <span class="btn-icon">⏭️</span>
+                    </button>
+                    <button class="control-btn" id="shuffleBtn" title="Shuffle">
+                        <span class="btn-icon">🔀</span>
+                    </button>
+                    <button class="control-btn" id="repeatBtn" title="Repeat">
+                        <span class="btn-icon">🔁</span>
+                    </button>
+                </div>
+
+                <!-- Volume Control -->
+                <div class="volume-control">
+                    <span class="volume-icon">🔊</span>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="70" class="volume-slider">
+                    <span class="volume-value" id="volumeValue">70%</span>
+                </div>
+            </div>
+
+            <!-- Playlist Section -->
+            <div class="playlist-section">
+                <div class="playlist-header">
+                    <h3>🎵 PLAYLIST 🎵</h3>
+                    <div class="playlist-actions">
+                        <button class="action-btn" id="addTrackBtn">➕ Add Track</button>
+                        <button class="action-btn" id="importArchiveBtn">📚 Internet Archive</button>
+                    </div>
+                </div>
+                <div class="playlist" id="playlist">
+                    <!-- Playlist items will be dynamically added here -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Internet Archive Modal -->
+        <div class="modal" id="archiveModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>📚 Internet Archive Audio Search</h2>
+                    <button class="close-btn" id="closeModal">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="search-section">
+                        <input type="text" id="archiveSearch" placeholder="Search Mario Bros, Nintendo, or any audio..." class="search-input">
+                        <button class="search-btn" id="searchArchiveBtn">🔍 Search</button>
+                    </div>
+                    <div class="quick-links">
+                        <h4>Quick Links:</h4>
+                        <button class="quick-link-btn" data-query="Super Mario Bros">Super Mario Bros OST</button>
+                        <button class="quick-link-btn" data-query="Nintendo Music">Nintendo Music</button>
+                        <button class="quick-link-btn" data-query="Video Game Music">Video Game Music</button>
+                        <button class="quick-link-btn" data-query="8-bit Chiptune">8-bit Chiptune</button>
+                    </div>
+                    <div class="search-results" id="searchResults">
+                        <!-- Search results will appear here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Track Modal -->
+        <div class="modal" id="addTrackModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>➕ Add Custom Track</h2>
+                    <button class="close-btn" id="closeAddTrackModal">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="trackUrl">Audio URL:</label>
+                        <input type="text" id="trackUrl" placeholder="https://archive.org/...">
+                    </div>
+                    <div class="form-group">
+                        <label for="trackName">Track Name:</label>
+                        <input type="text" id="trackName" placeholder="Enter track name">
+                    </div>
+                    <div class="form-group">
+                        <label for="trackArtist">Artist:</label>
+                        <input type="text" id="trackArtist" placeholder="Enter artist name">
+                    </div>
+                    <button class="add-btn" id="confirmAddTrack">Add to Playlist</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Particle Effects Container -->
+        <div class="particles-container" id="particlesContainer"></div>
+
+        <!-- Audio Element -->
+        <audio id="audioPlayer" preload="auto"></audio>
+    </div>
+
+    <script src="js/mario-jukebox.js"></script>
+</body>
+</html>
