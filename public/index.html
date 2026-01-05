@@ -5,8 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Infinity Research - Science News Feed</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/unified-nav.css">
 </head>
 <body>
+    <!-- Unified Navigation -->
+    <nav class="unified-nav">
+        <div class="nav-brand">🧠 Pewpi Infinity</div>
+        <div class="nav-repos">
+            <a href="https://pewpi-infinity.github.io/infinity-brain-searc/" class="nav-link">
+                🔍 Search & AI
+            </a>
+            <a href="https://pewpi-infinity.github.io/repo-dashboard-hub/" class="nav-link">
+                📊 Dashboard & Music
+            </a>
+            <a href="https://pewpi-infinity.github.io/banksy/" class="nav-link">
+                🎨 Art & Launcher
+            </a>
+            <a href="https://pewpi-infinity.github.io/smug_look/" class="nav-link active">
+                🔬 Research & Terminal
+            </a>
+        </div>
+        <div class="nav-user">
+            <div class="wallet-display">
+                <span title="Infinity Tokens">💎 <span id="nav-wallet-infinity">0</span></span>
+                <span title="Research Tokens">📚 <span id="nav-wallet-research">0</span></span>
+                <span title="Art Tokens">🎨 <span id="nav-wallet-art">0</span></span>
+                <span title="Music Tokens">🎵 <span id="nav-wallet-music">0</span></span>
+            </div>
+            <span class="user-name" id="nav-username">Guest</span>
+            <button class="nav-auth-btn" id="nav-auth-action">Sign In</button>
+        </div>
+    </nav>
+
     <header>
         <div class="container">
             <h1>🔬 Infinity Research Hub</h1>
@@ -74,20 +104,50 @@
 
         <!-- Tokens Section -->
         <section id="tokens" class="section">
-            <h2>Your Research Tokens</h2>
-            <div class="tokens-info">
-                <div class="token-card">
-                    <h3>Token Balance</h3>
-                    <p class="token-balance" id="token-balance">0 RT</p>
-                    <small>Research Tokens (RT)</small>
+            <h2>Your Research Profile</h2>
+            
+            <div class="wallet-overview">
+                <div class="wallet-card">
+                    <div class="wallet-icon">💎</div>
+                    <div class="wallet-label">Infinity Tokens</div>
+                    <div class="wallet-amount" id="wallet-infinity">0</div>
                 </div>
-                <div class="token-card">
-                    <h3>Papers Published</h3>
-                    <p class="token-balance" id="papers-count">0</p>
+                <div class="wallet-card">
+                    <div class="wallet-icon">📚</div>
+                    <div class="wallet-label">Research Tokens</div>
+                    <div class="wallet-amount" id="wallet-research">0</div>
                 </div>
-                <div class="token-card">
-                    <h3>Total Reads</h3>
-                    <p class="token-balance" id="total-reads">0</p>
+                <div class="wallet-card">
+                    <div class="wallet-icon">🎨</div>
+                    <div class="wallet-label">Art Tokens</div>
+                    <div class="wallet-amount" id="wallet-art">0</div>
+                </div>
+                <div class="wallet-card">
+                    <div class="wallet-icon">🎵</div>
+                    <div class="wallet-label">Music Tokens</div>
+                    <div class="wallet-amount" id="wallet-music">0</div>
+                </div>
+            </div>
+
+            <div class="research-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Papers Published:</span>
+                    <span class="stat-value" id="papers-count">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Total Citations:</span>
+                    <span class="stat-value" id="citations-count">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Research Rank:</span>
+                    <span class="stat-value" id="research-rank">Novice</span>
+                </div>
+            </div>
+
+            <div class="recent-transactions">
+                <h3>Recent Activity</h3>
+                <div id="transaction-list">
+                    <!-- Transactions rendered here -->
                 </div>
             </div>
             
@@ -128,99 +188,70 @@
         </section>
     </main>
 
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="auth-modal">
+        <div class="auth-modal-content">
+            <div class="auth-modal-header">
+                <h2>Welcome to Pewpi Infinity</h2>
+                <p>Sign in to earn tokens and track your progress</p>
+            </div>
+            
+            <div class="auth-error" id="auth-error"></div>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Sign In</button>
+                <button class="auth-tab" data-tab="register">Register</button>
+            </div>
+            
+            <!-- Login Form -->
+            <form class="auth-form active" id="login-form">
+                <div class="form-group">
+                    <label for="login-username">Username</label>
+                    <input type="text" id="login-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Sign In</button>
+                    <button type="button" class="btn-secondary" id="close-modal">Cancel</button>
+                </div>
+            </form>
+            
+            <!-- Register Form -->
+            <form class="auth-form" id="register-form">
+                <div class="form-group">
+                    <label for="register-username">Username</label>
+                    <input type="text" id="register-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Register</button>
+                    <button type="button" class="btn-secondary" id="close-modal-2">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
     <footer>
         <div class="container">
             <p>&copy; 2025 Infinity Research Hub - Advancing Science Through Tokenized Knowledge</p>
         </div>
     </footer>
 
+    <script src="lib/auth-unified.js"></script>
+    <script src="lib/wallet-unified.js"></script>
     <script src="js/app.js"></script>
-    <title>Mongoose.OS - Login & Token Wallet</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>🚴 Mongoose.OS</h1>
-            <p class="tagline">Trick bike Freestyle BMX scripting</p>
-        </header>
-
-        <!-- Colored Word Links Section -->
-        <div class="navigation-links">
-            <h2>Co-Pilot Project Links</h2>
-            <div class="word-links">
-                <a href="#projects" class="word-link color-1" data-project="freestyle">Freestyle</a>
-                <a href="#projects" class="word-link color-2" data-project="bmx">BMX</a>
-                <a href="#projects" class="word-link color-3" data-project="tricks">Tricks</a>
-                <a href="#projects" class="word-link color-4" data-project="mongoose">Mongoose</a>
-                <a href="#projects" class="word-link color-5" data-project="scripting">Scripting</a>
-                <a href="#projects" class="word-link color-6" data-project="copilot">CoPilot</a>
-                <a href="#projects" class="word-link color-7" data-project="integration">Integration</a>
-                <a href="#projects" class="word-link color-8" data-project="projects">Projects</a>
-            </div>
-        </div>
-
-        <!-- Login Section -->
-        <div id="loginSection" class="section">
-            <h2>Login</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Login</button>
-            </form>
-            <div id="loginMessage" class="message"></div>
-        </div>
-
-        <!-- Token Wallet Section -->
-        <div id="walletSection" class="section" style="display: none;">
-            <h2>Token Wallet</h2>
-            <div class="wallet-info">
-                <p>Welcome, <span id="currentUser"></span>!</p>
-                <p>Total Tokens: <span id="tokenBalance" class="balance">0</span></p>
-            </div>
-
-            <div class="add-token-form">
-                <h3>Add Tokens</h3>
-                <form id="addTokenForm">
-                    <div class="form-group">
-                        <label for="tokenType">Token Type:</label>
-                        <select id="tokenType" name="tokenType" required>
-                            <option value="trick">Trick Token</option>
-                            <option value="freestyle">Freestyle Token</option>
-                            <option value="bmx">BMX Token</option>
-                            <option value="reward">Reward Token</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="amount">Amount:</label>
-                        <input type="number" id="amount" name="amount" min="1" value="1" required>
-                    </div>
-                    <button type="submit" class="btn btn-secondary">Add Tokens</button>
-                </form>
-            </div>
-
-            <div class="wallet-tokens">
-                <h3>Your Tokens</h3>
-                <div id="tokenList"></div>
-            </div>
-
-            <button id="logoutBtn" class="btn btn-danger">Logout</button>
-        </div>
-
-        <!-- Server Commits Log -->
-        <div class="section">
-            <h2>Server-Side Commit Log</h2>
-            <div id="commitLog" class="commit-log"></div>
-            <button id="refreshCommits" class="btn btn-info">Refresh Commits</button>
-        </div>
-    </div>
-
-    <script src="app.js"></script>
 </body>
 </html>

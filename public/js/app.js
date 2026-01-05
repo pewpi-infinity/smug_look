@@ -1,10 +1,20 @@
-// Infinity Research Hub - Main Application
+// Infinity Research Hub - Main Application with Unified Auth & Wallet
 
 class ResearchHub {
     constructor() {
-        this.currentUser = this.loadUser();
+        this.currentUser = UnifiedAuth.getCurrentUser();
         this.database = this.loadDatabase();
+        this.initializeApp();
+    }
+
+    initializeApp() {
+        if (!UnifiedAuth.isAuthenticated()) {
+            this.setupAuthUI();
+        }
+        
         this.init();
+        this.setupWalletSync();
+        this.updateWalletDisplay();
     }
 
     init() {
@@ -13,32 +23,119 @@ class ResearchHub {
         this.setupSearch();
         this.loadResearchFeed();
         this.updateStats();
-        this.updateTokenDisplay();
+        this.updateUserDisplay();
     }
 
-    // User Management
-    loadUser() {
-        const user = localStorage.getItem('research_user');
+    // Auth UI Setup
+    setupAuthUI() {
+        const authBtn = document.getElementById('nav-auth-action');
+        const modal = document.getElementById('auth-modal');
+        const closeBtns = document.querySelectorAll('#close-modal, #close-modal-2');
+        
+        authBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+        });
+        
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+        });
+        
+        // Tab switching
+        const tabs = document.querySelectorAll('.auth-tab');
+        const forms = document.querySelectorAll('.auth-form');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabName = tab.dataset.tab;
+                
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                forms.forEach(f => {
+                    f.classList.remove('active');
+                    if (f.id === `${tabName}-form`) {
+                        f.classList.add('active');
+                    }
+                });
+            });
+        });
+        
+        // Login form
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            
+            const result = UnifiedAuth.login(username, password);
+            
+            if (result.success) {
+                this.currentUser = result.user;
+                modal.classList.remove('active');
+                this.updateUserDisplay();
+                this.updateWalletDisplay();
+                this.showToast(`Welcome back, ${username}! 🎉`);
+            } else {
+                this.showAuthError(result.error);
+            }
+        });
+        
+        // Register form
+        document.getElementById('register-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('register-username').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            
+            const result = UnifiedAuth.register(username, email, password);
+            
+            if (result.success) {
+                this.currentUser = result.user;
+                modal.classList.remove('active');
+                this.updateUserDisplay();
+                this.updateWalletDisplay();
+                this.showToast(`Welcome to Pewpi Infinity, ${username}! 🎉`);
+            } else {
+                this.showAuthError(result.error);
+            }
+        });
+    }
+
+    showAuthError(message) {
+        const errorEl = document.getElementById('auth-error');
+        errorEl.textContent = message;
+        errorEl.classList.add('active');
+        
+        setTimeout(() => {
+            errorEl.classList.remove('active');
+        }, 5000);
+    }
+
+    updateUserDisplay() {
+        const user = UnifiedAuth.getCurrentUser();
+        const usernameEl = document.getElementById('nav-username');
+        const authBtn = document.getElementById('nav-auth-action');
+        
         if (user) {
-            return JSON.parse(user);
+            usernameEl.textContent = user.username;
+            authBtn.textContent = 'Sign Out';
+            authBtn.onclick = () => {
+                UnifiedAuth.logout();
+                this.currentUser = null;
+                usernameEl.textContent = 'Guest';
+                authBtn.textContent = 'Sign In';
+                authBtn.onclick = null;
+                this.showToast('Signed out successfully');
+                this.updateWalletDisplay();
+            };
+        } else {
+            usernameEl.textContent = 'Guest';
+            authBtn.textContent = 'Sign In';
         }
-        const newUser = {
-            id: this.generateId(),
-            name: 'Anonymous Researcher',
-            tokens: 0,
-            papers: [],
-            joined: new Date().toISOString()
-        };
-        this.saveUser(newUser);
-        return newUser;
     }
 
-    saveUser(user) {
-        localStorage.setItem('research_user', JSON.stringify(user));
-        this.currentUser = user;
-    }
-
-    // Database Management (Infinity Database)
+    // Database Management
     loadDatabase() {
         const db = localStorage.getItem('infinity_research_db');
         if (db) {
@@ -46,7 +143,7 @@ class ResearchHub {
         }
         return {
             papers: [],
-            tokens: [],
+            citations: [],
             metadata: {
                 created: new Date().toISOString(),
                 totalPapers: 0,
@@ -62,7 +159,7 @@ class ResearchHub {
 
     // Navigation
     setupNavigation() {
-        const navLinks = document.querySelectorAll('nav a');
+        const navLinks = document.querySelectorAll('nav a:not(.nav-link)');
         const sections = document.querySelectorAll('.section');
 
         navLinks.forEach(link => {
@@ -70,7 +167,6 @@ class ResearchHub {
                 e.preventDefault();
                 const targetId = link.getAttribute('href').substring(1);
 
-                // Update active states
                 navLinks.forEach(l => l.classList.remove('active'));
                 link.classList.add('active');
 
@@ -79,9 +175,9 @@ class ResearchHub {
                     if (section.id === targetId) {
                         section.classList.add('active');
                         
-                        // Load section-specific content
                         if (targetId === 'tokens') {
                             this.loadUserPapers();
+                            this.loadTransactions();
                         } else if (targetId === 'database') {
                             this.loadDatabaseView();
                         }
@@ -94,7 +190,7 @@ class ResearchHub {
     // Research Feed
     loadResearchFeed() {
         const feedContainer = document.getElementById('research-feed');
-        const papers = this.database.papers.slice().reverse(); // Show newest first
+        const papers = this.database.papers.slice().reverse();
 
         if (papers.length === 0) {
             feedContainer.innerHTML = `
@@ -113,21 +209,28 @@ class ResearchHub {
         const keywords = paper.keywords ? paper.keywords.split(',').map(k => k.trim()) : [];
         const keywordTags = keywords.map(k => `<span class="keyword-tag">${this.escapeHtml(k)}</span>`).join('');
         
+        const author = UnifiedAuth.getUserByUsername(paper.author);
+        const authorBalance = author ? UnifiedWallet.getUserWallet(paper.author) : null;
+        
         return `
             <div class="research-card" data-paper-id="${paper.id}">
                 <h3>${this.escapeHtml(paper.title)}</h3>
-                <div class="author">By ${this.escapeHtml(paper.author)}</div>
+                <div class="paper-meta">
+                    <span class="author">👤 ${this.escapeHtml(paper.author)}</span>
+                    <span class="tokens">📚 ${paper.tokensEarned} RT</span>
+                    ${authorBalance ? `<span class="author-balance">💎 ${authorBalance.infinity_tokens}</span>` : ''}
+                </div>
                 <div class="abstract">${this.escapeHtml(paper.abstract.substring(0, 200))}${paper.abstract.length > 200 ? '...' : ''}</div>
                 <div class="keywords">${keywordTags}</div>
-                <div class="meta">
-                    <span>${new Date(paper.timestamp).toLocaleDateString()}</span>
-                    <span class="token-badge">${paper.tokenValue} RT</span>
+                <div class="paper-actions">
+                    <button onclick="window.researchHub.viewPaper('${paper.id}')">Read Paper</button>
+                    <button onclick="window.researchHub.citePaper('${paper.id}')">Cite (+1 RT)</button>
                 </div>
             </div>
         `;
     }
 
-    // Editor
+    // Paper Editor
     setupEditor() {
         const tokenizeBtn = document.getElementById('tokenize-btn');
         const saveDraftBtn = document.getElementById('save-draft-btn');
@@ -136,21 +239,40 @@ class ResearchHub {
         saveDraftBtn.addEventListener('click', () => this.saveDraft());
     }
 
-    async submitPaper() {
+    submitPaper() {
+        if (!UnifiedAuth.isAuthenticated()) {
+            this.showToast('Please sign in to publish papers');
+            document.getElementById('auth-modal').classList.add('active');
+            return;
+        }
+
+        const user = UnifiedAuth.getCurrentUser();
         const title = document.getElementById('paper-title').value.trim();
-        const author = document.getElementById('paper-author').value.trim() || 'Anonymous';
+        const author = document.getElementById('paper-author').value.trim() || user.username;
         const keywords = document.getElementById('paper-keywords').value.trim();
         const abstract = document.getElementById('paper-abstract').value.trim();
         const content = document.getElementById('paper-content').value.trim();
         const references = document.getElementById('paper-references').value.trim();
 
-        // Validation
         if (!title || !abstract || !content) {
             this.showStatus('Please fill in at least the title, abstract, and content fields.', 'error');
             return;
         }
 
-        // Create paper object
+        // Calculate tokens
+        const wordCount = content.split(/\s+/).length;
+        const baseTokens = Math.floor(wordCount / 100);
+        
+        let bonusTokens = 0;
+        const avgWordsPerSentence = this.calculateReadability(content);
+        if (avgWordsPerSentence >= 15 && avgWordsPerSentence <= 30) bonusTokens += 1;
+        if (wordCount > 500) bonusTokens += 1;
+        if (wordCount > 1000) bonusTokens += 1;
+        if (content.split('.').length > 10) bonusTokens += 1;
+        
+        const totalTokens = Math.max(1, baseTokens + bonusTokens);
+
+        // Create paper
         const paper = {
             id: this.generateId(),
             title,
@@ -160,97 +282,49 @@ class ResearchHub {
             content,
             references,
             timestamp: new Date().toISOString(),
-            userId: this.currentUser.id,
-            tokenValue: this.calculateTokenValue(content),
+            userId: user.username,
+            tokensEarned: totalTokens,
             reads: 0,
+            citations: 0,
             metadata: {
-                link: `#paper-${this.generateId()}`,
-                wordCount: content.split(/\s+/).length
+                wordCount: wordCount
             }
         };
 
-        // Add to database
         this.database.papers.push(paper);
         this.database.metadata.totalPapers++;
-        
-        // Create token
-        const token = {
-            id: this.generateId(),
-            paperId: paper.id,
-            userId: this.currentUser.id,
-            value: paper.tokenValue,
-            created: new Date().toISOString()
-        };
-        this.database.tokens.push(token);
-        this.database.metadata.totalTokens += paper.tokenValue;
+        this.saveDatabase();
 
-        // Update user
-        this.currentUser.tokens += paper.tokenValue;
-        this.currentUser.papers.push(paper.id);
-        if (!this.database.metadata.researchers.includes(this.currentUser.id)) {
-            this.database.metadata.researchers.push(this.currentUser.id);
+        // Add to unified wallet as research_tokens
+        UnifiedWallet.earnTokens(
+            'research_tokens',
+            totalTokens,
+            'smug_look',
+            `Published: ${paper.title}`
+        );
+
+        // Also earn infinity_tokens as bonus (1 infinity per 5 research)
+        const infinityBonus = Math.floor(totalTokens / 5);
+        if (infinityBonus > 0) {
+            UnifiedWallet.earnTokens(
+                'infinity_tokens',
+                infinityBonus,
+                'smug_look',
+                `Research bonus for ${paper.title}`
+            );
         }
 
-        // Save everything
-        this.saveDatabase();
-        this.saveUser(this.currentUser);
-
-        // Update UI
-        this.showStatus(`Research paper tokenized successfully! You earned ${paper.tokenValue} RT tokens.`, 'success');
+        this.showStatus(`Paper published! +${totalTokens} 📚 Research Tokens, +${infinityBonus} 💎 Infinity Tokens`, 'success');
         this.clearEditor();
         this.loadResearchFeed();
         this.updateStats();
-        this.updateTokenDisplay();
-
-        // Store the paper content as a file
-        this.savePaperToFile(paper);
+        this.updateWalletDisplay();
     }
 
-    savePaperToFile(paper) {
-        // Create a text representation of the paper
-        const paperText = `
-Title: ${paper.title}
-Author: ${paper.author}
-Keywords: ${paper.keywords}
-Date: ${new Date(paper.timestamp).toLocaleString()}
-Token ID: ${paper.id}
-Token Value: ${paper.tokenValue} RT
-
-ABSTRACT:
-${paper.abstract}
-
-CONTENT:
-${paper.content}
-
-REFERENCES:
-${paper.references}
-
----
-Metadata Link: ${paper.metadata.link}
-Word Count: ${paper.metadata.wordCount}
-        `.trim();
-
-        // Save to localStorage with a file-like key
-        localStorage.setItem(`research_paper_${paper.id}`, paperText);
-    }
-
-    calculateTokenValue(content) {
-        // Token calculation based on content quality metrics
-        const wordCount = content.split(/\s+/).length;
-        const baseTokens = Math.floor(wordCount / 100); // 1 token per 100 words
-        
-        // Deterministic quality factors
+    calculateReadability(content) {
         const sentences = content.split(/[.!?]+/).filter(s => s.trim().length > 0);
-        const avgSentenceLength = sentences.length > 0 ? wordCount / sentences.length : 0;
-        
-        // Quality bonus based on content structure (1-5 tokens)
-        let qualityBonus = 1;
-        if (avgSentenceLength > 15 && avgSentenceLength < 30) qualityBonus += 1; // Good readability
-        if (wordCount > 500) qualityBonus += 1; // Substantial content
-        if (wordCount > 1000) qualityBonus += 1; // Comprehensive content
-        if (sentences.length > 10) qualityBonus += 1; // Well-structured
-        
-        return Math.max(baseTokens + qualityBonus, 1);
+        const wordCount = content.split(/\s+/).length;
+        return sentences.length > 0 ? wordCount / sentences.length : 0;
     }
 
     saveDraft() {
@@ -266,19 +340,6 @@ Word Count: ${paper.metadata.wordCount}
 
         localStorage.setItem('research_draft', JSON.stringify(draft));
         this.showStatus('Draft saved successfully!', 'success');
-    }
-
-    loadDraft() {
-        const draft = localStorage.getItem('research_draft');
-        if (draft) {
-            const data = JSON.parse(draft);
-            document.getElementById('paper-title').value = data.title || '';
-            document.getElementById('paper-author').value = data.author || '';
-            document.getElementById('paper-keywords').value = data.keywords || '';
-            document.getElementById('paper-abstract').value = data.abstract || '';
-            document.getElementById('paper-content').value = data.content || '';
-            document.getElementById('paper-references').value = data.references || '';
-        }
     }
 
     clearEditor() {
@@ -301,22 +362,168 @@ Word Count: ${paper.metadata.wordCount}
         }, 5000);
     }
 
-    // Tokens Section
-    updateTokenDisplay() {
-        document.getElementById('token-balance').textContent = `${this.currentUser.tokens} RT`;
-        document.getElementById('papers-count').textContent = this.currentUser.papers.length;
+    // Citation System
+    citePaper(paperId) {
+        if (!UnifiedAuth.isAuthenticated()) {
+            this.showToast('Please sign in to cite papers');
+            document.getElementById('auth-modal').classList.add('active');
+            return;
+        }
+
+        const paper = this.database.papers.find(p => p.id === paperId);
+        if (!paper) return;
+
+        // Reward original author
+        UnifiedWallet.earnTokensForUser(
+            paper.author,
+            'research_tokens',
+            1,
+            'smug_look',
+            `Paper cited: ${paper.title}`
+        );
+
+        // Reward citer (smaller amount)
+        UnifiedWallet.earnTokens(
+            'research_tokens',
+            0.5,
+            'smug_look',
+            `Cited: ${paper.title}`
+        );
+
+        // Track citation
+        paper.citations = (paper.citations || 0) + 1;
+        this.saveDatabase();
+
+        this.showToast(`Citation recorded! Author +1 RT, You +0.5 RT`);
+        this.updateWalletDisplay();
+    }
+
+    viewPaper(paperId) {
+        const paper = this.database.papers.find(p => p.id === paperId);
+        if (!paper) return;
+
+        paper.reads = (paper.reads || 0) + 1;
+        this.saveDatabase();
+
+        alert(`Paper: ${paper.title}\n\nBy: ${paper.author}\n\nAbstract: ${paper.abstract}\n\n(Full paper view would open in a modal)`);
+    }
+
+    // Wallet & Token Display
+    setupWalletSync() {
+        // Listen for wallet changes
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'pewpi_unified_auth' || e.key === 'pewpi_unified_wallet') {
+                this.updateWalletDisplay();
+                this.updateUserDisplay();
+            }
+        });
+
+        // Heartbeat sync
+        setInterval(() => {
+            if (UnifiedAuth.isAuthenticated()) {
+                this.updateWalletDisplay();
+            }
+        }, 5000);
+    }
+
+    updateWalletDisplay() {
+        const balances = UnifiedWallet.getAllBalances();
         
-        const totalReads = this.database.papers
-            .filter(p => this.currentUser.papers.includes(p.id))
-            .reduce((sum, p) => sum + p.reads, 0);
-        document.getElementById('total-reads').textContent = totalReads;
+        // Update main wallet display
+        const infinityEl = document.getElementById('wallet-infinity');
+        const researchEl = document.getElementById('wallet-research');
+        const artEl = document.getElementById('wallet-art');
+        const musicEl = document.getElementById('wallet-music');
+        
+        if (infinityEl) infinityEl.textContent = balances.infinity_tokens;
+        if (researchEl) researchEl.textContent = balances.research_tokens;
+        if (artEl) artEl.textContent = balances.art_tokens;
+        if (musicEl) musicEl.textContent = balances.music_tokens;
+        
+        // Update nav display
+        const navInfinity = document.getElementById('nav-wallet-infinity');
+        const navResearch = document.getElementById('nav-wallet-research');
+        const navArt = document.getElementById('nav-wallet-art');
+        const navMusic = document.getElementById('nav-wallet-music');
+        
+        if (navInfinity) navInfinity.textContent = balances.infinity_tokens;
+        if (navResearch) navResearch.textContent = balances.research_tokens;
+        if (navArt) navArt.textContent = balances.art_tokens;
+        if (navMusic) navMusic.textContent = balances.music_tokens;
+        
+        // Update research rank
+        this.updateResearchRank(balances.research_tokens);
+    }
+
+    updateResearchRank(tokens) {
+        const rankEl = document.getElementById('research-rank');
+        if (!rankEl) return;
+        
+        let rank = 'Novice';
+        if (tokens >= 100) rank = 'Expert';
+        else if (tokens >= 50) rank = 'Advanced';
+        else if (tokens >= 20) rank = 'Intermediate';
+        else if (tokens >= 5) rank = 'Beginner';
+        
+        rankEl.textContent = rank;
+    }
+
+    loadTransactions() {
+        const transactions = UnifiedWallet.getUserTransactions(10);
+        const container = document.getElementById('transaction-list');
+        
+        if (!container) return;
+        
+        if (transactions.length === 0) {
+            container.innerHTML = '<p style="color: #9fd4ff;">No recent transactions</p>';
+            return;
+        }
+        
+        container.innerHTML = transactions.map(txn => `
+            <div class="transaction-item">
+                <div class="transaction-info">
+                    <div class="transaction-description">${this.escapeHtml(txn.description)}</div>
+                    <div class="transaction-meta">${new Date(txn.timestamp).toLocaleString()} • ${txn.source}</div>
+                </div>
+                <div class="transaction-amount ${txn.amount > 0 ? 'positive' : 'negative'}">
+                    ${txn.amount > 0 ? '+' : ''}${txn.amount} ${this.getTokenIcon(txn.tokenType)}
+                </div>
+            </div>
+        `).join('');
+    }
+
+    getTokenIcon(tokenType) {
+        const icons = {
+            'infinity_tokens': '💎',
+            'research_tokens': '📚',
+            'art_tokens': '🎨',
+            'music_tokens': '🎵'
+        };
+        return icons[tokenType] || '🪙';
     }
 
     loadUserPapers() {
         const container = document.getElementById('user-papers');
-        const userPapers = this.database.papers.filter(p => 
-            this.currentUser.papers.includes(p.id)
-        );
+        if (!container) return;
+        
+        const user = UnifiedAuth.getCurrentUser();
+        if (!user) {
+            container.innerHTML = '<div class="empty-state"><p>Sign in to see your papers</p></div>';
+            return;
+        }
+
+        const userPapers = this.database.papers.filter(p => p.author === user.username);
+        
+        // Update papers count
+        const papersCountEl = document.getElementById('papers-count');
+        if (papersCountEl) papersCountEl.textContent = userPapers.length;
+        
+        // Update citations count
+        const citationsCountEl = document.getElementById('citations-count');
+        if (citationsCountEl) {
+            const totalCitations = userPapers.reduce((sum, p) => sum + (p.citations || 0), 0);
+            citationsCountEl.textContent = totalCitations;
+        }
 
         if (userPapers.length === 0) {
             container.innerHTML = `
@@ -331,7 +538,7 @@ Word Count: ${paper.metadata.wordCount}
         container.innerHTML = userPapers.map(paper => this.createPaperCard(paper)).join('');
     }
 
-    // Database Section
+    // Search
     setupSearch() {
         const searchBtn = document.getElementById('search-btn');
         const searchInput = document.getElementById('search-input');
@@ -389,14 +596,36 @@ Word Count: ${paper.metadata.wordCount}
     }
 
     updateStats() {
-        document.getElementById('total-papers').textContent = this.database.papers.length;
-        document.getElementById('total-tokens').textContent = this.database.metadata.totalTokens;
-        document.getElementById('active-researchers').textContent = this.database.metadata.researchers.length;
+        const totalPapersEl = document.getElementById('total-papers');
+        const totalTokensEl = document.getElementById('total-tokens');
+        const activeResearchersEl = document.getElementById('active-researchers');
+        
+        if (totalPapersEl) totalPapersEl.textContent = this.database.papers.length;
+        
+        if (totalTokensEl) {
+            const totalTokens = this.database.papers.reduce((sum, p) => sum + (p.tokensEarned || 0), 0);
+            totalTokensEl.textContent = totalTokens;
+        }
+        
+        if (activeResearchersEl) {
+            const researchers = new Set(this.database.papers.map(p => p.author));
+            activeResearchersEl.textContent = researchers.size;
+        }
+    }
+
+    // Toast Notifications
+    showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.add('active');
+        
+        setTimeout(() => {
+            toast.classList.remove('active');
+        }, 3000);
     }
 
     // Utilities
     generateId() {
-        // Generate a more robust unique ID using timestamp and crypto-quality randomness
         const timestamp = Date.now().toString(36);
         const randomPart = Math.random().toString(36).substring(2, 15);
         const randomPart2 = Math.random().toString(36).substring(2, 15);
