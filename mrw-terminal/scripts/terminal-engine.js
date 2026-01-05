@@ -117,6 +117,29 @@ class MRWTerminal {
     this.commandHistory.push(cmd);
     this.addOutput(`> ${cmd}`);
     
+    // Earn tokens for using terminal
+    if (trimmedCmd && window.UnifiedAuth && window.UnifiedAuth.isAuthenticated()) {
+      window.UnifiedWallet.earnTokens(
+        'infinity_tokens',
+        2,
+        'smug_look',
+        `MRW Terminal: ${trimmedCmd}`
+      );
+      
+      // Bonus for complex commands
+      if (trimmedCmd.includes('research') || trimmedCmd.includes('analysis') || 
+          trimmedCmd === 'electronics' || trimmedCmd === 'chemistry' || 
+          trimmedCmd === 'mathematics' || trimmedCmd === 'robotics' || 
+          trimmedCmd === 'construction') {
+        window.UnifiedWallet.earnTokens(
+          'research_tokens',
+          1,
+          'smug_look',
+          'Advanced terminal analysis'
+        );
+      }
+    }
+    
     switch(trimmedCmd) {
       case 'help':
         this.showHelp();

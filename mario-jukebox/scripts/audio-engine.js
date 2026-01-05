@@ -296,6 +296,19 @@ class AudioEngine {
 
     onTrackEnd() {
         console.log('Track ended');
+        
+        // Earn tokens for listening to track
+        const track = this.getCurrentTrack();
+        if (track && window.UnifiedAuth && window.UnifiedAuth.isAuthenticated()) {
+            window.UnifiedWallet.earnTokens(
+                'music_tokens',
+                1,
+                'smug_look',
+                `Listened to ${track.title || 'track'}`
+            );
+            console.log('🎵 +1 Music Token earned!');
+        }
+        
         // Auto-play next track
         this.next();
     }
