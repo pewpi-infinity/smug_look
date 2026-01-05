@@ -1,0 +1,445 @@
+/**
+ * 🧭 Unified Navigation Styles
+ * Consistent navigation across all Pewpi Infinity repos
+ */
+
+.unified-nav {
+    background: linear-gradient(135deg, #041b3b 0%, #020818 100%);
+    border-bottom: 2px solid #2563eb;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.nav-brand {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-repos {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.nav-link {
+    color: #9fd4ff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.3s;
+    font-size: 0.95rem;
+    display: inline-block;
+}
+
+.nav-link:hover {
+    background: rgba(37, 99, 235, 0.2);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    background: rgba(37, 99, 235, 0.4);
+    color: #fff;
+    border: 1px solid rgba(37, 99, 235, 0.6);
+}
+
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.wallet-display {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    padding: 8px 16px;
+    background: rgba(37, 99, 235, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(37, 99, 235, 0.3);
+}
+
+.wallet-display span {
+    color: #9fd4ff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.wallet-display span span {
+    color: #fff;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+.user-name {
+    color: #fff;
+    font-weight: 500;
+    padding: 8px 12px;
+    background: rgba(37, 99, 235, 0.15);
+    border-radius: 6px;
+}
+
+.nav-auth-btn {
+    padding: 8px 20px;
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.nav-auth-btn:hover {
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+}
+
+/* Auth Modal */
+.auth-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.auth-modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.auth-modal-content {
+    background: linear-gradient(135deg, #071736 0%, #020712 100%);
+    border: 2px solid rgba(37, 99, 235, 0.5);
+    border-radius: 12px;
+    padding: 32px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 8px 32px rgba(37, 99, 235, 0.4);
+}
+
+.auth-modal-header {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.auth-modal-header h2 {
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.auth-modal-header p {
+    color: #9fd4ff;
+    font-size: 0.9rem;
+}
+
+.auth-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(37, 99, 235, 0.3);
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 12px;
+    background: transparent;
+    border: none;
+    color: #9fd4ff;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-bottom: 2px solid transparent;
+}
+
+.auth-tab.active {
+    color: #fff;
+    border-bottom-color: #2563eb;
+}
+
+.auth-form {
+    display: none;
+}
+
+.auth-form.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    color: #9fd4ff;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    background: rgba(37, 99, 235, 0.1);
+    border: 1px solid rgba(37, 99, 235, 0.3);
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.btn-primary {
+    flex: 1;
+    padding: 12px;
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+}
+
+.btn-secondary {
+    flex: 1;
+    padding: 12px;
+    background: transparent;
+    color: #9fd4ff;
+    border: 1px solid rgba(37, 99, 235, 0.3);
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+    border-color: #2563eb;
+    background: rgba(37, 99, 235, 0.1);
+}
+
+.auth-error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #fca5a5;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    display: none;
+}
+
+.auth-error.active {
+    display: block;
+}
+
+/* Wallet Overview */
+.wallet-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.wallet-card {
+    background: linear-gradient(135deg, #071736 0%, #020712 100%);
+    border: 1px solid rgba(37, 99, 235, 0.3);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.wallet-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
+}
+
+.wallet-icon {
+    font-size: 3rem;
+    margin-bottom: 8px;
+}
+
+.wallet-label {
+    font-size: 0.9rem;
+    color: #9fd4ff;
+    margin-bottom: 8px;
+}
+
+.wallet-amount {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    color: #fff;
+}
+
+/* Research Stats */
+.research-stats {
+    background: rgba(7, 23, 54, 0.5);
+    border: 1px solid rgba(37, 99, 235, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-label {
+    color: #9fd4ff;
+}
+
+.stat-value {
+    color: #fff;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+/* Recent Transactions */
+.recent-transactions {
+    background: rgba(7, 23, 54, 0.5);
+    border: 1px solid rgba(37, 99, 235, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 24px;
+}
+
+.recent-transactions h3 {
+    color: #fff;
+    margin-bottom: 16px;
+}
+
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: rgba(37, 99, 235, 0.05);
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.transaction-info {
+    flex: 1;
+}
+
+.transaction-description {
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.transaction-meta {
+    color: #9fd4ff;
+    font-size: 0.85rem;
+}
+
+.transaction-amount {
+    font-weight: 700;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+.transaction-amount.positive {
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.transaction-amount.negative {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+/* Toast Notifications */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: linear-gradient(135deg, #071736 0%, #020712 100%);
+    border: 2px solid #2563eb;
+    border-radius: 8px;
+    padding: 16px 24px;
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
+    z-index: 3000;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s;
+    pointer-events: none;
+}
+
+.toast.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .unified-nav {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .nav-repos {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .wallet-display {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .nav-user {
+        flex-direction: column;
+        gap: 12px;
+    }
+}

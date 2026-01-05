@@ -246,8 +246,22 @@ class MemoryNode {
         };
         
         localStorage.setItem('infinity-jukebox-playlists', JSON.stringify(savedPlaylists));
-        alert(`Playlist "${name}" saved!`);
-        console.log(`💾 Playlist saved: ${name}`);
+        
+        // Earn tokens for creating playlist
+        if (window.UnifiedAuth && window.UnifiedAuth.isAuthenticated()) {
+            const bonus = this.playlist.length >= 5 ? 5 : 3;
+            window.UnifiedWallet.earnTokens(
+                'infinity_tokens',
+                bonus,
+                'smug_look',
+                `Created playlist: ${name}`
+            );
+            alert(`Playlist "${name}" saved! +${bonus} 💎 Infinity Tokens earned!`);
+            console.log(`💾 Playlist saved: ${name}, +${bonus} tokens`);
+        } else {
+            alert(`Playlist "${name}" saved!`);
+            console.log(`💾 Playlist saved: ${name}`);
+        }
     }
 
     getSavedPlaylists() {

@@ -155,6 +155,158 @@ The platform is production-ready but could be enhanced with:
 - Collaborative editing
 - Export to PDF/LaTeX
 - Citation tracking
+
+---
+
+## Unified Authentication & Wallet System Integration (Latest Update)
+
+### Overview
+The Infinity Research Hub has been integrated with a unified authentication and wallet system that syncs across all Pewpi Infinity repositories, creating a cohesive cross-repo token economy.
+
+### New Core Modules
+
+#### 1. Authentication System (`public/lib/auth-unified.js`)
+- Centralized user management across all repos
+- Login/Register functionality
+- Session management via localStorage
+- Event-based authentication state updates
+- User profile management
+
+#### 2. Wallet System (`public/lib/wallet-unified.js`)
+- Multi-token support: Infinity Tokens 💎, Research Tokens 📚, Art Tokens 🎨, Music Tokens 🎵
+- Transaction history tracking (last 100 per user)
+- Cross-repo balance synchronization
+- Event-driven wallet updates
+- Automatic token calculation and rewards
+
+#### 3. Unified Navigation (`public/css/unified-nav.css`)
+- Consistent navigation bar across all Pewpi Infinity repos
+- Real-time wallet display
+- Responsive design
+- Cross-repo navigation links
+- Authentication UI (modals, forms, toast notifications)
+
+### Integration Points
+
+#### Research Hub (`public/`)
+- **Token Earning**: Research paper publication now earns both Research Tokens and Infinity Tokens
+- **Citation System**: Authors earn 1 RT per citation, citers earn 0.5 RT
+- **Token Calculation**:
+  - Base: 1 RT per 100 words
+  - Bonuses: +1 RT for good readability, word count milestones, structure
+  - Infinity Bonus: 1 Infinity Token per 5 Research Tokens
+- **Wallet Display**: Shows all 4 token types with real-time updates
+- **Transaction History**: Recent activity feed in My Tokens section
+- **Research Rank**: Dynamic rank based on Research Token balance (Novice → Expert)
+
+#### Mario Jukebox (`mario-jukebox/`)
+- **Track Completion**: +1 Music Token per song listened to completion
+- **Playlist Creation**: +3-5 Infinity Tokens based on playlist size (5+ tracks gets bonus)
+- **Real-time Rewards**: Tokens earned immediately with console logging
+
+#### MRW Terminal (`mrw-terminal/`)
+- **Command Execution**: +2 Infinity Tokens per command
+- **Advanced Analysis**: +1 Research Token for complex commands (electronics, chemistry, mathematics, robotics, construction)
+- **Technical Exploration**: Rewards encourage deep engagement with lab systems
+
+### Token Economy
+
+| Action | Currency | Amount | Source |
+|--------|----------|--------|--------|
+| Publish research (<500 words) | research_tokens | 1-5 | Research Hub |
+| Publish research (500-1000) | research_tokens | 6-10 | Research Hub |
+| Publish research (>1000) | research_tokens | 11-20 | Research Hub |
+| Research quality bonus | infinity_tokens | 1-4 | Research Hub (1 per 5 RT) |
+| Paper cited (author) | research_tokens | 1 | Research Hub |
+| Citing paper (citer) | research_tokens | 0.5 | Research Hub |
+| Complete song | music_tokens | 1 | Mario Jukebox |
+| Create playlist (1-4 tracks) | infinity_tokens | 3 | Mario Jukebox |
+| Create playlist (5+ tracks) | infinity_tokens | 5 | Mario Jukebox |
+| Terminal command | infinity_tokens | 2 | MRW Terminal |
+| Advanced terminal command | research_tokens | 1 | MRW Terminal |
+
+### User Experience Improvements
+
+#### Authentication Flow
+1. Guest mode by default with "Sign In" button
+2. Modal-based login/registration (no page redirects)
+3. Auto-login after registration
+4. Persistent sessions via localStorage
+5. One-click logout
+
+#### Wallet Display
+1. **Navigation Bar**: Live balance display for all 4 token types
+2. **My Tokens Section**: 
+   - Large wallet cards with icons and amounts
+   - Research statistics (papers published, citations, rank)
+   - Recent transaction history
+   - Published papers gallery
+
+#### Cross-Repo Synchronization
+- localStorage events trigger wallet updates across tabs
+- 5-second heartbeat sync for real-time balance updates
+- Consistent token display format across all pages
+- Transaction history spans all activities
+
+### Technical Implementation
+
+#### Storage Keys
+- `pewpi_unified_auth` - Current user session
+- `pewpi_unified_users` - All registered users
+- `pewpi_unified_wallet` - All user wallet balances
+- `pewpi_unified_transactions` - Transaction history
+
+#### Event System
+- `auth-login` - Fired on successful login
+- `auth-logout` - Fired on logout
+- `wallet-update` - Fired on any balance change
+- `storage` - Browser event for cross-tab sync
+
+#### Security Considerations
+- Passwords stored in localStorage (client-side only)
+- No server-side authentication (static hosting)
+- Transaction IDs use timestamp + crypto-random components
+- Input sanitization via escapeHtml utility
+
+### Files Modified/Created
+
+**New Files:**
+- `public/lib/auth-unified.js` (5,400 characters)
+- `public/lib/wallet-unified.js` (8,881 characters)
+- `public/css/unified-nav.css` (8,398 characters)
+
+**Modified Files:**
+- `public/index.html` - Added navigation, auth modal, wallet sections
+- `public/js/app.js` - Complete rewrite with unified auth integration (23,462 characters)
+- `mario-jukebox/index.html` - Imported unified modules
+- `mario-jukebox/scripts/audio-engine.js` - Added track completion rewards
+- `mario-jukebox/scripts/memory-node.js` - Added playlist creation rewards
+- `mrw-terminal/index.html` - Imported unified modules
+- `mrw-terminal/scripts/terminal-engine.js` - Added command execution rewards
+
+### Backward Compatibility
+- Existing research papers remain accessible
+- Old localStorage data (`research_user`, `infinity_research_db`) still used for papers
+- New wallet system runs parallel to existing token display
+- No breaking changes to existing functionality
+
+### Success Metrics (Unified System)
+- 3 new core modules (auth, wallet, navigation)
+- 7 files modified across 3 subsystems
+- 42,739 characters of new code
+- 11 different token earning actions
+- 4 distinct token types
+- Real-time cross-tab synchronization
+- Zero external dependencies maintained
+
+### Next Steps
+This integration creates the foundation for:
+- Cross-repo achievements and quests
+- Token trading/exchange between types
+- NFT minting from research papers
+- Collaborative multi-repo challenges
+- Social features (following researchers, sharing playlists)
+- Leaderboards and competition systems
 - Token trading marketplace
 - Blockchain integration
 - Mobile app

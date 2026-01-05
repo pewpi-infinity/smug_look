@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified Auth & Wallet Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        h1 { color: #2563eb; }
+        .test-section {
+            background: #2a2a2a;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 1px solid #3a3a3a;
+        }
+        .success { color: #10b981; }
+        .error { color: #ef4444; }
+        button {
+            padding: 10px 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #1d4ed8; }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            background: #1a1a1a;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔐 Unified Auth & Wallet System Test</h1>
+    
+    <div class="test-section">
+        <h2>1. Module Loading</h2>
+        <div id="module-test"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>2. Authentication Test</h2>
+        <button onclick="testRegister()">Register Test User</button>
+        <button onclick="testLogin()">Login</button>
+        <button onclick="testLogout()">Logout</button>
+        <button onclick="checkAuth()">Check Auth Status</button>
+        <div id="auth-test" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>3. Wallet Test</h2>
+        <button onclick="testEarnInfinity()">Earn 10 Infinity Tokens</button>
+        <button onclick="testEarnResearch()">Earn 5 Research Tokens</button>
+        <button onclick="testEarnMusic()">Earn 3 Music Tokens</button>
+        <button onclick="showBalances()">Show All Balances</button>
+        <button onclick="showTransactions()">Show Transactions</button>
+        <div id="wallet-test" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>4. Cross-Tab Sync Test</h2>
+        <p>Open this page in another tab and earn tokens. Both tabs should update.</p>
+        <div id="sync-test" class="result"></div>
+    </div>
+
+    <script src="public/lib/auth-unified.js"></script>
+    <script src="public/lib/wallet-unified.js"></script>
+    
+    <script>
+        // Test module loading
+        function testModules() {
+            const moduleTest = document.getElementById('module-test');
+            let html = '';
+            
+            if (typeof UnifiedAuth !== 'undefined') {
+                html += '<p class="success">✓ UnifiedAuth module loaded</p>';
+            } else {
+                html += '<p class="error">✗ UnifiedAuth module NOT loaded</p>';
+            }
+            
+            if (typeof UnifiedWallet !== 'undefined') {
+                html += '<p class="success">✓ UnifiedWallet module loaded</p>';
+            } else {
+                html += '<p class="error">✗ UnifiedWallet module NOT loaded</p>';
+            }
+            
+            moduleTest.innerHTML = html;
+        }
+        
+        // Test authentication
+        function testRegister() {
+            const result = UnifiedAuth.register('testuser', 'test@example.com', 'password123');
+            const authTest = document.getElementById('auth-test');
+            
+            if (result.success) {
+                authTest.innerHTML = `<p class="success">✓ User registered: ${result.user.username}</p>`;
+            } else {
+                authTest.innerHTML = `<p class="error">✗ Registration failed: ${result.error}</p>`;
+            }
+        }
+        
+        function testLogin() {
+            const result = UnifiedAuth.login('testuser', 'password123');
+            const authTest = document.getElementById('auth-test');
+            
+            if (result.success) {
+                authTest.innerHTML = `<p class="success">✓ Login successful: ${result.user.username}</p>`;
+            } else {
+                authTest.innerHTML = `<p class="error">✗ Login failed: ${result.error}</p>`;
+            }
+        }
+        
+        function testLogout() {
+            const result = UnifiedAuth.logout();
+            const authTest = document.getElementById('auth-test');
+            authTest.innerHTML = `<p class="success">✓ Logged out</p>`;
+        }
+        
+        function checkAuth() {
+            const isAuth = UnifiedAuth.isAuthenticated();
+            const user = UnifiedAuth.getCurrentUser();
+            const authTest = document.getElementById('auth-test');
+            
+            if (isAuth) {
+                authTest.innerHTML = `<p class="success">✓ Authenticated as: ${user.username}</p>`;
+            } else {
+                authTest.innerHTML = `<p>Not authenticated (Guest mode)</p>`;
+            }
+        }
+        
+        // Test wallet
+        function testEarnInfinity() {
+            if (!UnifiedAuth.isAuthenticated()) {
+                alert('Please login first');
+                return;
+            }
+            
+            const result = UnifiedWallet.earnTokens('infinity_tokens', 10, 'test', 'Test earning');
+            const walletTest = document.getElementById('wallet-test');
+            
+            if (result.success) {
+                walletTest.innerHTML = `<p class="success">✓ Earned 10 Infinity Tokens. New balance: ${result.newBalance}</p>`;
+            } else {
+                walletTest.innerHTML = `<p class="error">✗ Failed: ${result.error}</p>`;
+            }
+        }
+        
+        function testEarnResearch() {
+            if (!UnifiedAuth.isAuthenticated()) {
+                alert('Please login first');
+                return;
+            }
+            
+            const result = UnifiedWallet.earnTokens('research_tokens', 5, 'test', 'Test research');
+            const walletTest = document.getElementById('wallet-test');
+            
+            if (result.success) {
+                walletTest.innerHTML = `<p class="success">✓ Earned 5 Research Tokens. New balance: ${result.newBalance}</p>`;
+            } else {
+                walletTest.innerHTML = `<p class="error">✗ Failed: ${result.error}</p>`;
+            }
+        }
+        
+        function testEarnMusic() {
+            if (!UnifiedAuth.isAuthenticated()) {
+                alert('Please login first');
+                return;
+            }
+            
+            const result = UnifiedWallet.earnTokens('music_tokens', 3, 'test', 'Test music');
+            const walletTest = document.getElementById('wallet-test');
+            
+            if (result.success) {
+                walletTest.innerHTML = `<p class="success">✓ Earned 3 Music Tokens. New balance: ${result.newBalance}</p>`;
+            } else {
+                walletTest.innerHTML = `<p class="error">✗ Failed: ${result.error}</p>`;
+            }
+        }
+        
+        function showBalances() {
+            if (!UnifiedAuth.isAuthenticated()) {
+                alert('Please login first');
+                return;
+            }
+            
+            const balances = UnifiedWallet.getAllBalances();
+            const walletTest = document.getElementById('wallet-test');
+            
+            walletTest.innerHTML = `
+                <p class="success">Current Balances:</p>
+                <p>💎 Infinity: ${balances.infinity_tokens}</p>
+                <p>📚 Research: ${balances.research_tokens}</p>
+                <p>🎨 Art: ${balances.art_tokens}</p>
+                <p>🎵 Music: ${balances.music_tokens}</p>
+            `;
+        }
+        
+        function showTransactions() {
+            if (!UnifiedAuth.isAuthenticated()) {
+                alert('Please login first');
+                return;
+            }
+            
+            const transactions = UnifiedWallet.getUserTransactions(5);
+            const walletTest = document.getElementById('wallet-test');
+            
+            if (transactions.length === 0) {
+                walletTest.innerHTML = `<p>No transactions yet</p>`;
+                return;
+            }
+            
+            let html = '<p class="success">Recent Transactions:</p>';
+            transactions.forEach(txn => {
+                html += `<p>${txn.amount > 0 ? '+' : ''}${txn.amount} ${txn.tokenType} - ${txn.description}</p>`;
+            });
+            
+            walletTest.innerHTML = html;
+        }
+        
+        // Listen for wallet updates
+        window.addEventListener('wallet-update', () => {
+            const syncTest = document.getElementById('sync-test');
+            syncTest.innerHTML = `<p class="success">✓ Wallet updated at ${new Date().toLocaleTimeString()}</p>`;
+        });
+        
+        // Initialize
+        testModules();
+        checkAuth();
+    </script>
+</body>
+</html>
