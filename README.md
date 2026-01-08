@@ -2,6 +2,48 @@
 
 A web-based platform for publishing, tokenizing, and discovering scientific research papers.
 
+## 🚀 NEW: Pewpi Unified Auth & Wallet Integration
+
+This repository now includes the **pewpi-shared** library - a unified authentication, wallet, and token management system shared across the pewpi-infinity ecosystem.
+
+### What's New
+- **🔐 Unified Authentication**: Passwordless login with magic-link + optional GitHub OAuth
+- **💰 Token Wallet**: IndexedDB-backed token management with cross-tab synchronization
+- **🔔 Event System**: Real-time events for token creation, login changes, and P2P sync
+- **📦 Shared Library**: Located in [`src/pewpi-shared`](./src/pewpi-shared) - canonical implementation from [GPT-Vector-Design](https://github.com/pewpi-infinity/GPT-Vector-Design)
+
+### Quick Integration
+
+The pewpi services are automatically initialized when the app starts. They emit the following events:
+
+- `pewpi.token.created` - Fired when a new token is created
+- `pewpi.token.updated` - Fired when a token is updated
+- `pewpi.login.changed` - Fired when login state changes
+
+To use the services in your code:
+
+```javascript
+// Listen for login events
+window.addEventListener('pewpi.login.changed', (event) => {
+  const { user, loggedIn } = event.detail;
+  console.log('User:', user, 'Logged in:', loggedIn);
+});
+
+// Access services globally
+const tokenService = window.pewpiTokenService;
+const loginComponent = window.pewpiLogin;
+
+// Create a token
+await tokenService.createToken({
+  type: 'research',
+  value: 10,
+  userId: 'user123',
+  metadata: { paperId: 'paper-001' }
+});
+```
+
+For complete integration documentation, see [docs/INTEGRATION.md](./docs/INTEGRATION.md).
+
 ## Overview
 
 Infinity Research Hub provides a clean, politics-free environment for sharing scientific research. It features:
@@ -15,6 +57,10 @@ Infinity Research Hub provides a clean, politics-free environment for sharing sc
 ## Quick Start
 
 ```bash
+# Install dependencies (includes dexie, crypto-js for pewpi-shared)
+npm install
+
+# Start the server
 npm start
 ```
 
@@ -50,10 +96,13 @@ See [docs/README.md](docs/README.md) for complete documentation.
 
 ## Technology
 
-- **Frontend**: HTML5, CSS3, JavaScript (no frameworks)
-- **Backend**: Node.js HTTP server
-- **Storage**: Browser localStorage (no database needed)
-- **Dependencies**: None (pure Node.js built-ins)
+- **Frontend**: HTML5, CSS3, JavaScript (ES Modules)
+- **Backend**: Node.js with Express
+- **Storage**: Browser IndexedDB (Dexie) + localStorage fallback
+- **Auth & Wallet**: Pewpi-shared unified library
+- **Dependencies**: 
+  - express, cors (backend)
+  - dexie, crypto-js (pewpi-shared services)
 
 ## License
 
