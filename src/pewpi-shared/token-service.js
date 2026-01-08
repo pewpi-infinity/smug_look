@@ -242,7 +242,9 @@ class TokenService {
    */
   async saveTokenToLocalStorage(token) {
     const tokens = this.getAllFromLocalStorage();
-    token.id = tokens.length > 0 ? Math.max(...tokens.map(t => t.id || 0)) + 1 : 1;
+    // Filter tokens with valid IDs before calculating max
+    const validIds = tokens.filter(t => typeof t.id === 'number').map(t => t.id);
+    token.id = validIds.length > 0 ? Math.max(...validIds) + 1 : 1;
     tokens.push(token);
     localStorage.setItem('pewpi_tokens', JSON.stringify(tokens));
   }

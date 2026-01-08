@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pewpi Integration Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #0d1117;
+            color: #c9d1d9;
+        }
+        h1 {
+            color: #58a6ff;
+            border-bottom: 2px solid #21262d;
+            padding-bottom: 10px;
+        }
+        .test-section {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .test-section h2 {
+            color: #8b949e;
+            margin-top: 0;
+            font-size: 1.2em;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .status.success {
+            background: #1a472a;
+            color: #3fb950;
+            border: 1px solid #2ea043;
+        }
+        .status.error {
+            background: #4a1e1e;
+            color: #f85149;
+            border: 1px solid #da3633;
+        }
+        .status.pending {
+            background: #272323;
+            color: #f0883e;
+            border: 1px solid #9e6a03;
+        }
+        pre {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 0.9em;
+        }
+        button {
+            background: #238636;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 5px;
+        }
+        button:hover {
+            background: #2ea043;
+        }
+        button:active {
+            background: #1f6f2a;
+        }
+        .token-info {
+            display: inline-block;
+            background: #1f6feb;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin: 5px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔬 Pewpi Shared Services Integration Test</h1>
+    
+    <div class="test-section">
+        <h2>📦 Module Loading Status</h2>
+        <div id="module-status" class="status pending">⏳ Testing module imports...</div>
+        <pre id="module-details"></pre>
+    </div>
+
+    <div class="test-section">
+        <h2>🔐 Authentication Service</h2>
+        <div id="auth-status" class="status pending">⏳ Checking authentication...</div>
+        <div id="auth-details"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🪙 Token Service</h2>
+        <div id="token-status" class="status pending">⏳ Testing token service...</div>
+        <div id="token-details"></div>
+        <button onclick="createTestToken()">Create Test Token</button>
+        <button onclick="showBalance()">Show Balance</button>
+    </div>
+
+    <div class="test-section">
+        <h2>📡 Event System</h2>
+        <div id="event-status" class="status pending">⏳ Listening for events...</div>
+        <pre id="event-log"></pre>
+    </div>
+
+    <!-- Pewpi Initialization -->
+    <script type="module">
+        let eventLog = [];
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            eventLog.push(`[${timestamp}] ${message}`);
+            const eventLogEl = document.getElementById('event-log');
+            if (eventLogEl) {
+                eventLogEl.textContent = eventLog.slice(-10).join('\n');
+            }
+            console.log(`[Pewpi Test] ${message}`);
+        }
+
+        // Wait for pewpi services to initialize
+        let servicesReady = false;
+        
+        window.addEventListener('pewpi.services.ready', (event) => {
+            servicesReady = true;
+            const { tokenService, loginComponent, integrationListener } = event.detail;
+            
+            document.getElementById('module-status').className = 'status success';
+            document.getElementById('module-status').textContent = '✓ All modules loaded successfully';
+            document.getElementById('module-details').textContent = JSON.stringify({
+                tokenService: !!tokenService,
+                loginComponent: !!loginComponent,
+                integrationListener: !!integrationListener
+            }, null, 2);
+            
+            log('Services initialized', 'success');
+            runTests();
+        });
+
+        // Listen for pewpi events
+        window.addEventListener('pewpi.token.created', (event) => {
+            log(`Token created: ${event.detail.tokenId}`, 'token');
+            document.getElementById('event-status').className = 'status success';
+            document.getElementById('event-status').textContent = '✓ Events working!';
+        });
+
+        window.addEventListener('pewpi.login.changed', (event) => {
+            const { user, loggedIn } = event.detail;
+            log(`Login changed: ${loggedIn ? 'logged in' : 'logged out'}`, 'auth');
+        });
+
+        async function runTests() {
+            // Test authentication
+            const loginComponent = window.pewpiLogin;
+            if (loginComponent) {
+                const authStatus = document.getElementById('auth-status');
+                const authDetails = document.getElementById('auth-details');
+                
+                if (loginComponent.currentUser) {
+                    authStatus.className = 'status success';
+                    authStatus.textContent = `✓ User logged in: ${loginComponent.currentUser.userId}`;
+                    authDetails.innerHTML = `<pre>${JSON.stringify(loginComponent.currentUser, null, 2)}</pre>`;
+                } else {
+                    authStatus.className = 'status pending';
+                    authStatus.textContent = '⚠ No user logged in (dev mode)';
+                    authDetails.innerHTML = '<p>Login component available but no active session</p>';
+                }
+            } else {
+                document.getElementById('auth-status').className = 'status error';
+                document.getElementById('auth-status').textContent = '✗ Login component not available';
+            }
+
+            // Test token service
+            const tokenService = window.pewpiTokenService;
+            if (tokenService) {
+                try {
+                    const tokens = await tokenService.getAll();
+                    const balance = await tokenService.getBalance();
+                    
+                    document.getElementById('token-status').className = 'status success';
+                    document.getElementById('token-status').textContent = `✓ Token service active (${tokens.length} tokens, balance: ${balance})`;
+                    
+                    const tokenDetails = document.getElementById('token-details');
+                    tokenDetails.innerHTML = `
+                        <p>Total tokens: <span class="token-info">${tokens.length}</span></p>
+                        <p>Balance: <span class="token-info">${balance}</span></p>
+                    `;
+                } catch (error) {
+                    log(`Token service error: ${error.message}`, 'error');
+                }
+            } else {
+                document.getElementById('token-status').className = 'status error';
+                document.getElementById('token-status').textContent = '✗ Token service not available';
+            }
+
+            // Set event status
+            document.getElementById('event-status').className = 'status success';
+            document.getElementById('event-status').textContent = '✓ Listening for events...';
+        }
+
+        // Make functions available globally
+        window.createTestToken = async function() {
+            const tokenService = window.pewpiTokenService;
+            if (!tokenService) {
+                alert('Token service not available');
+                return;
+            }
+
+            try {
+                const token = await tokenService.createToken({
+                    type: 'test',
+                    value: Math.floor(Math.random() * 10) + 1,
+                    userId: 'test-user',
+                    metadata: {
+                        testId: Date.now(),
+                        source: 'integration-test'
+                    }
+                });
+                
+                log(`Created token: ${token.tokenId}`, 'success');
+                alert(`Token created: ${token.tokenId}`);
+                
+                // Refresh display
+                runTests();
+            } catch (error) {
+                log(`Error creating token: ${error.message}`, 'error');
+                alert(`Error: ${error.message}`);
+            }
+        };
+
+        window.showBalance = async function() {
+            const tokenService = window.pewpiTokenService;
+            if (!tokenService) {
+                alert('Token service not available');
+                return;
+            }
+
+            try {
+                const balance = await tokenService.getBalance();
+                const tokens = await tokenService.getAll();
+                alert(`Balance: ${balance}\nTotal tokens: ${tokens.length}`);
+            } catch (error) {
+                alert(`Error: ${error.message}`);
+            }
+        };
+
+        // Timeout check
+        setTimeout(() => {
+            if (!servicesReady) {
+                document.getElementById('module-status').className = 'status error';
+                document.getElementById('module-status').textContent = '✗ Services failed to initialize (check console for errors)';
+                log('Initialization timeout', 'error');
+            }
+        }, 5000);
+
+        log('Test page loaded, waiting for services...', 'info');
+    </script>
+
+    <!-- Load pewpi initialization -->
+    <script type="module" src="./src/pewpi-init.js"></script>
+</body>
+</html>
