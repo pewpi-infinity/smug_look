@@ -1,247 +1,376 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<!-- 👑 Infinity Legend Meta Tags - CROWN_INDEX -->
-<meta name="infinity-legend-roles" content="CROWN_INDEX">
-<meta name="infinity-legend-symbols" content="👑">
-<meta name="infinity-legend-version" content="1.0.0">
-<title>smug_look — Octave</title>
-
-<!-- Infinity Meta Tags -->
-<meta name="infinity-token-id" content="🧱Kris🔑">
-<meta name="infinity-legend-roles" content="Research Hub, Interactive Terminal, Growth System, Multi-Theme, Cross-Repo Intelligence">
-<meta name="infinity-themes" content="mario,rock,jazz,edm,classical,hiphop,electronics,chemistry,math,construction,robotics">
-<meta name="infinity-terminal" content="mrw-animated">
-<meta name="infinity-characters" content="mario,luigi,mushrooms,cars">
-
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>Octave :: smug_look</title>
+<meta name="infinity-token-id" content="🧱Kris🔑"/>
+<meta name="infinity-legend-roles" content="Research Hub, Interactive Terminal, Growth System"/>
+<meta name="infinity-themes" content="mario,rock,jazz,edm,classical,hiphop,electronics,chemistry,math,construction,robotics"/>
 <style>
-body{font-family:monospace;background:#0b0f14;color:#e6edf3;padding:20px}
-.box{border:1px solid #30363d;padding:16px}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.card{border:1px solid #444;padding:12px}
+:root{--bg:#0b0f14;--surface:#111822;--card:#161d2a;--border:#222d3d;--accent:#6366f1;--gold:#f5c542;--green:#3fb950;--red:#e94560;--text:#e6edf3;--muted:#8b949e;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;line-height:1.5;overflow-x:hidden;}
+a{color:var(--accent);text-decoration:none;}
+
+/* Header */
+.hdr{background:var(--surface);padding:10px 12px;border-bottom:2px solid var(--border);position:sticky;top:0;z-index:50;}
+.hdr-top{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.logo{font-weight:800;font-size:1.1rem;white-space:nowrap;}
+.logo em{color:var(--gold);font-style:normal;}
+.hdr-meta{font-size:0.7rem;color:var(--muted);}
+
+/* Nav row */
+.nav{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px;padding-bottom:4px;}
+.nav a{
+  font-size:0.75rem;padding:4px 8px;border:1px solid var(--border);border-radius:6px;
+  color:var(--text);white-space:nowrap;transition:all 0.15s;
+}
+.nav a:hover{background:rgba(255,255,255,0.06);text-decoration:none;}
+
+/* Launch buttons */
+.launches{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;padding:12px;}
+.launch-btn{
+  display:block;padding:10px 8px;border-radius:8px;text-align:center;
+  font-weight:700;font-size:0.8rem;color:#fff;text-decoration:none;
+  border:1px solid rgba(255,255,255,0.1);transition:all 0.2s;
+}
+.launch-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.3);text-decoration:none;}
+
+/* Sections */
+.section{padding:12px;border-bottom:1px solid var(--border);}
+.section h2{font-size:1rem;margin-bottom:8px;color:var(--gold);}
+
+/* Cart grid */
+.cart-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;}
+.cart-card{
+  background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:8px;font-size:0.7rem;transition:all 0.15s;cursor:default;
+  overflow:hidden;
+}
+.cart-card:hover{border-color:var(--accent);transform:translateY(-1px);}
+.cart-id{font-weight:700;color:var(--accent);font-size:0.65rem;}
+.cart-name{margin-top:2px;color:var(--text);font-size:0.75rem;}
+
+/* Ecosystem map */
+.eco-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px;}
+.eco-item{
+  background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:8px;text-align:center;font-size:0.7rem;
+  transition:all 0.15s;
+}
+.eco-item:hover{border-color:var(--gold);}
+.eco-icon{font-size:1.5rem;}
+.eco-name{margin-top:4px;font-weight:600;font-size:0.7rem;}
+
+/* Token block */
+.token-block{
+  background:var(--surface);border:2px solid var(--gold);border-radius:10px;
+  padding:12px;margin:12px;text-align:center;
+}
+.token-block h2{color:var(--gold);}
+.token-price{font-size:1.5rem;font-weight:800;color:var(--gold);margin:8px 0;}
+.buy-btn{
+  display:inline-block;padding:10px 24px;background:var(--gold);color:#000;
+  border:none;border-radius:8px;font-weight:700;font-size:0.9rem;cursor:pointer;
+  text-decoration:none;
+}
+
+/* Chat widget */
+.chat-fab{
+  position:fixed;right:12px;bottom:12px;z-index:999;
+  background:rgba(0,0,0,0.85);color:#fff;border:1px solid var(--border);
+  border-radius:999px;padding:10px 14px;font-weight:700;font-size:0.8rem;
+  cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+.chat-panel{
+  position:fixed;right:8px;bottom:56px;z-index:999;
+  width:calc(100vw - 16px);max-width:400px;height:min(400px,60vh);
+  background:rgba(11,15,20,0.95);border:1px solid var(--border);border-radius:12px;
+  display:none;flex-direction:column;overflow:hidden;
+}
+.chat-head{padding:8px 12px;font-weight:700;font-size:0.85rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;}
+.chat-body{flex:1;overflow-y:auto;padding:8px;font-family:monospace;font-size:0.75rem;}
+.chat-line{margin:4px 0;white-space:pre-wrap;}
+.chat-bar{display:flex;gap:6px;padding:8px;border-top:1px solid var(--border);}
+.chat-in{flex:1;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:#fff;outline:none;font-size:0.8rem;}
+.chat-send{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:6px 12px;font-weight:700;cursor:pointer;font-size:0.8rem;}
+
+.footer{text-align:center;padding:16px;font-size:0.7rem;color:var(--muted);border-top:1px solid var(--border);}
 </style>
 </head>
 <body>
-<div class="box">
-<h1>Octave :: smug_look</h1>
-<p>Design style: octave-grid</p>
-<div class="grid">
-  <div class="card">🧱 Research</div>
-  <div class="card">⭐ Acceleration</div>
-  <div class="card">🍄 Growth</div>
-  <div class="card">❤️ Memory</div>
-</div>
-<div style="margin-top: 20px; text-align: center;">
-  <a href="mrw-animated-terminal.html" style="display: inline-block; padding: 15px 30px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; text-decoration: none; border-radius: 10px; font-weight: bold; border: 2px solid #FFD700; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-    🎮 Launch MRW Animated Terminal 🍄
-  </a>
-</div>
-  <a href="public/mario-jukebox.html" style="display: inline-block; padding: 12px 24px; background: linear-gradient(135deg, #5a67d8 0%, #7e22ce 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: bold; border: 2px solid #ffd700;">🎮 Mario Bros Jukebox 🎵</a>
-</div>
-</div>
 
-<!-- 🎮 Mario Jukebox Integration -->
-<div class="box" style="margin-top: 20px; border: 2px solid #EAB308;">
-<h2>🍄🎮 Mario Bros Jukebox 🎮🍄</h2>
-<p style="margin: 10px 0;">Infinity Legend System Integration - Interactive Audio Experience</p>
-<div style="margin: 15px 0;">
-  <a href="mario-jukebox.html" style="display: inline-block; padding: 12px 24px; background: #EAB308; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; transition: all 0.2s;">
-    🕹️ LAUNCH JUKEBOX 🕹️
-  </a>
-</div>
-<p style="font-size: 12px; color: #8b949e; margin-top: 10px;">
-  👑 CROWN INDEX • 🦾 ROBOT CORE • 🪐 MEMORY NODE • ⭐ RUNTIME • 🕹️ CONTROLLER<br>
-  🧱 ENCODE • 👁️ TOKEN VIEWER • 🎵 SYNC • 🪡 WEAVER • 🔀 FLOW • 🔗 SEMANTIC<br>
-  🍄 AUDITOR • 🎛️ MODULATOR • 💫 STAR • ✨ MULTISTAR • ⛓️ CHAIN • 🔀 SPINE
-</p>
-<p style="font-size: 11px; color: #8b949e; margin-top: 8px;">
-  🍄🍄👲🏻🏰🏰👸🏼🍄🐢💗⚡⚡⚡🌟👻🎮🕹️👾
-</p>
-</div>
-
-<!-- NEW: Infinity Jukebox Link -->
-<div class="box" style="margin-top:20px;background:linear-gradient(135deg, #0088ff, #00ff00);border:3px solid #ffd700;">
-<h2 style="color:#ffd700;text-align:center;">🎵 NEW: Infinity Jukebox</h2>
-<p style="text-align:center;margin-bottom:15px;">Adaptive Multi-Theme Music System with Internet Archive Integration</p>
-<div style="text-align:center;">
-  <a href="mario-jukebox/index.html" style="display:inline-block;padding:15px 30px;background:#ffd700;color:#000;text-decoration:none;border-radius:10px;font-weight:bold;font-size:1.1rem;">
-    🍄 Launch Jukebox 🎸
-  </a>
-</div>
-<p style="text-align:center;margin-top:10px;font-size:0.9rem;opacity:0.9;">
-  Choose from 6 themes: Mario 🍄 | Rock 🎸 | Jazz 🎷 | EDM 🎧 | Classical 🎻 | Hip-Hop 🎤
-</p>
-</div>
-
-<!-- MRW Terminal Link -->
-<div class="box" style="margin-top: 20px;">
-<h2>🍄 MRW Interactive Terminal</h2>
-<p>Advanced Multi-Interest Jukebox with Animated Characters</p>
-<a href="mrw-terminal/index.html" style="display:inline-block;margin-top:12px;padding:12px 24px;background:#3fb950;color:#fff;text-decoration:none;border-radius:6px;font-weight:bold;">
-  Launch MRW Terminal 🎮
-</a>
-<div style="margin-top:16px;font-size:14px;color:#8b949e;">
-  <p>✨ Features:</p>
-  <ul style="list-style:none;padding-left:0;margin-top:8px;">
-    <li>🔌 Electronics Lab - Signal Processing & Circuits</li>
-    <li>🧪 Chemistry Lab - Molecular Science</li>
-    <li>📐 Mathematics Studio - Equations & Graphs</li>
-    <li>🤖 Robotics Workshop - Automation</li>
-    <li>🏗️ Construction Site - Engineering</li>
-    <li>👨🏻 Mario & Luigi - Interactive Guides</li>
-    <li>🎮 Joystick Controls - Real Work Actions</li>
-    <li>🍄 Mushroom Physics - Code Compression</li>
-  </ul>
-</div>
-</div>
-</body>
-<!-- C13B0_CHAT_WIDGET_BEGIN -->
-<style>
-  .c13b0-chatfab{position:fixed;right:18px;bottom:18px;z-index:99999;border-radius:999px;padding:12px 14px;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,.25);cursor:pointer;user-select:none}
-  .c13b0-chatpanel{position:fixed;right:18px;bottom:72px;width:min(520px,calc(100vw - 36px));height:min(560px,calc(100vh - 120px));z-index:99999;border-radius:18px;overflow:hidden;box-shadow:0 14px 40px rgba(0,0,0,.35);display:none}
-  .c13b0-chathead{padding:10px 12px;font-weight:800;display:flex;align-items:center;justify-content:space-between}
-  .c13b0-chatbody{height:calc(100% - 94px);overflow:auto;padding:10px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:13px}
-  .c13b0-chatline{white-space:pre-wrap;margin:8px 0}
-  .c13b0-chatbar{display:flex;gap:8px;padding:10px 12px;border-top:1px solid rgba(255,255,255,.10)}
-  .c13b0-chatin{flex:1;border-radius:12px;padding:10px 12px;border:1px solid rgba(255,255,255,.12);outline:none}
-  .c13b0-chatbtn{border-radius:12px;padding:10px 12px;font-weight:800;border:0;cursor:pointer}
-</style>
-
-<div id="c13b0_chat_fab" class="c13b0-chatfab">🧱💬🧱 CHAT</div>
-
-<div id="c13b0_chat_panel" class="c13b0-chatpanel" role="dialog" aria-label="C13B0 Chat">
-  <div class="c13b0-chathead">
-    <div>🧱💬🧱 Repo Terminal</div>
-    <div style="display:flex;gap:8px;align-items:center">
-      <small id="c13b0_chat_repo" style="opacity:.8">repo: (auto)</small>
-      <button id="c13b0_chat_close" class="c13b0-chatbtn">✕</button>
-    </div>
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-top">
+    <div class="logo"><em>Octave</em> :: smug_look</div>
+    <div class="hdr-meta">🧱 Kris 🔑</div>
   </div>
-  <div id="c13b0_chat_body" class="c13b0-chatbody"></div>
-  <div class="c13b0-chatbar">
-    <input id="c13b0_chat_in" class="c13b0-chatin" placeholder="Ask this repo... (returns tokenized answer)" />
-    <button id="c13b0_chat_send" class="c13b0-chatbtn">SEND</button>
+  <div class="nav" id="nav">
+    <a href="https://pewpi-infinity.github.io/infinity-crown-index/">👑 Crown Index</a>
+    <a href="https://pewpi-infinity.github.io/infinity-master-hub/">🌐 Hub</a>
+    <a href="https://pewpi-infinity.github.io/infinity-spark-market/">💰 Market</a>
+    <a href="https://pewpi-infinity.github.io/MARIO-TOKENS/">🎮 Mario</a>
+    <a href="mrw-animated-terminal.html">🖥️ MRW Terminal</a>
+    <a href="mario-jukebox.html">🎵 Jukebox</a>
+    <a href="mario-jukebox/index.html">🍄 Infinity Jukebox</a>
+    <a href="mrw-terminal/index.html">🤖 MRW v2</a>
+    <a href="rogers-ai-console.html">🧠 AI Console</a>
+  </div>
+</div>
+
+<!-- LAUNCHES -->
+<div class="launches">
+  <a class="launch-btn" href="mrw-animated-terminal.html" style="background:linear-gradient(135deg,#667eea,#764ba2);">🎮 MRW Terminal</a>
+  <a class="launch-btn" href="mario-jukebox/index.html" style="background:linear-gradient(135deg,#0088ff,#00cc44);">🎵 Jukebox</a>
+  <a class="launch-btn" href="mrw-terminal/index.html" style="background:linear-gradient(135deg,#3fb950,#2ea043);">🤖 MRW v2</a>
+  <a class="launch-btn" href="rogers-ai-console.html" style="background:linear-gradient(135deg,#e94560,#c026d3);">🧠 AI Console</a>
+</div>
+
+<!-- ECOSYSTEM MAP -->
+<div class="section">
+  <h2>🔗 Infinity Ecosystem</h2>
+  <div class="eco-grid" id="eco-grid">
+    <div class="eco-item"><div class="eco-icon">👑</div><div class="eco-name">Crown Index</div></div>
+    <div class="eco-item"><div class="eco-icon">🌐</div><div class="eco-name">Master Hub</div></div>
+    <div class="eco-item"><div class="eco-icon">💰</div><div class="eco-name">Marketplace</div></div>
+    <div class="eco-item"><div class="eco-icon">🧠</div><div class="eco-name">Brain Scanner</div></div>
+    <div class="eco-item"><div class="eco-icon">🔬</div><div class="eco-name">Research Engine</div></div>
+    <div class="eco-item"><div class="eco-icon">🎮</div><div class="eco-name">Mario Tokens</div></div>
+    <div class="eco-item"><div class="eco-icon">⚡</div><div class="eco-name">Spark Core</div></div>
+    <div class="eco-item"><div class="eco-icon">🔗</div><div class="eco-name">Spark Bridge</div></div>
+    <div class="eco-item"><div class="eco-icon">🖥️</div><div class="eco-name">Terminal</div></div>
+    <div class="eco-item"><div class="eco-icon">🏭</div><div class="eco-name">Forge</div></div>
+    <div class="eco-item"><div class="eco-icon">🔐</div><div class="eco-name">Vault</div></div>
+    <div class="eco-item"><div class="eco-icon">📡</div><div class="eco-name">Signal</div></div>
+  </div>
+</div>
+
+<!-- CART MODULES (the 200+ brain) -->
+<div class="section">
+  <h2>🛒 C13B0 Cart Modules</h2>
+  <div style="margin-bottom:8px;font-size:0.75rem;color:var(--muted);" id="cart-count"></div>
+  <div class="cart-grid" id="cart-grid"></div>
+</div>
+
+<!-- MRW Features -->
+<div class="section">
+  <h2>🍄 MRW Terminal Features</h2>
+  <div class="eco-grid">
+    <div class="eco-item"><div class="eco-icon">🔌</div><div class="eco-name">Electronics Lab</div></div>
+    <div class="eco-item"><div class="eco-icon">🧪</div><div class="eco-name">Chemistry</div></div>
+    <div class="eco-item"><div class="eco-icon">📐</div><div class="eco-name">Math Studio</div></div>
+    <div class="eco-item"><div class="eco-icon">🤖</div><div class="eco-name">Robotics</div></div>
+    <div class="eco-item"><div class="eco-icon">🏗️</div><div class="eco-name">Construction</div></div>
+    <div class="eco-item"><div class="eco-icon">🍄</div><div class="eco-name">Mushroom Physics</div></div>
+    <div class="eco-item"><div class="eco-icon">🎮</div><div class="eco-name">Joystick Control</div></div>
+    <div class="eco-item"><div class="eco-icon">🎵</div><div class="eco-name">Multi-Theme Audio</div></div>
+  </div>
+</div>
+
+<!-- TOKEN LICENSE -->
+<div class="token-block">
+  <h2>🧱 Index License Token</h2>
+  <p style="color:var(--muted);font-size:0.8rem;">Operator: Kris Watson</p>
+  <div class="token-price">$118 USD</div>
+  <p style="color:var(--muted);font-size:0.7rem;margin-bottom:10px;">Value increases daily via Infinity Plus + Mongoose growth</p>
+  <a class="buy-btn" href="https://www.paypal.com/paypalme/marvaseater/118" target="_blank">Buy License Token</a>
+  <p style="color:var(--muted);font-size:0.65rem;margin-top:8px;">Token grants right to display/use/operate this index for business. No ownership transfer.</p>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Octave :: smug_look &mdash; C13B0 Autonomous Build Engine &mdash; Part of Infinity Crown System<br/>
+  <a href="https://pewpi-infinity.github.io/infinity-crown-index/">Crown Index</a> |
+  <a href="https://pewpi-infinity.github.io/infinity-spark-market/">Marketplace</a> |
+  <a href="https://pewpi-infinity.github.io/infinity-master-hub/">Hub</a>
+</div>
+
+<!-- CHAT WIDGET -->
+<div class="chat-fab" id="chat-fab">🧱 CHAT</div>
+<div class="chat-panel" id="chat-panel">
+  <div class="chat-head">
+    <span>🧱 Repo Terminal</span>
+    <span id="chat-close" style="cursor:pointer;">✕</span>
+  </div>
+  <div class="chat-body" id="chat-body">
+    <div class="chat-line" style="color:var(--gold);">Welcome to smug_look terminal.</div>
+    <div class="chat-line" style="color:var(--muted);">Type a command or question. Try: help, list carts, status</div>
+  </div>
+  <div class="chat-bar">
+    <input class="chat-in" id="chat-in" placeholder="Ask this repo..." />
+    <button class="chat-send" id="chat-send">SEND</button>
   </div>
 </div>
 
 <script>
-(function(){
-  // Theme: tries to inherit page colors; keeps your design intact.
-  const fab = document.getElementById("c13b0_chat_fab");
-  const panel = document.getElementById("c13b0_chat_panel");
-  const body = document.getElementById("c13b0_chat_body");
-  const input = document.getElementById("c13b0_chat_in");
-  const send = document.getElementById("c13b0_chat_send");
-  const close = document.getElementById("c13b0_chat_close");
-  const repoLabel = document.getElementById("c13b0_chat_repo");
+// ═══════════════════════════════════════
+// CART MODULE SCANNER
+// ═══════════════════════════════════════
+const CART_NAMES = {
+  "000":"Run All","001A":"Infinity Commands","002":"Engineering","003":"Computers",
+  "004":"Nuances","005":"Code","006":"Python","007":"Tokens","008":"Government",
+  "009":"Power","010":"Components","011":"Speakeasy","012":"Solutes",
+  "013":"Mercury Aluminum","014":"Mercury Vapor","015":"Hydrogen Engine",
+  "016":"Hot Cold TEG","017":"Spiderweb Engine","018":"Zip Hashing",
+  "019":"Token Generation","020":"Unzip Strategy","021":"Token Tiers",
+  "022":"Bank Grade Tokens","023":"Idea Merger","024":"Quantum Transport",
+  "025":"AI Watcher Login","026":"Aluminum Oxide","027":"Robotics",
+  "028":"Machines","029":"Crystal Truths","030":"Superchemistry",
+  "031":"Exoskeleton","032":"Ecosystem","033":"Nature","034":"Drones",
+  "035":"Signal Trace","036":"RF Generation","037":"Brain Mapping",
+  "038":"Genetics","039":"DNA Engine","040":"Gas Shell Code",
+  "041":"Hydrogen Expansion","201":"Search Terms","202":"Equations",
+  "203":"Websites","204":"Master Dictionary","205":"Pair Fusion",
+  "206":"Trio Fusion","207":"Quad Fusion","208":"Omni Fusion",
+  "209":"Cross Domain","210":"Arxiv Scraper","211":"Science Scraper",
+  "212":"Medical Scraper","213":"Tech AI Scraper","214":"Ancient Text",
+  "215":"Materials Scraper","218":"Grand Master Builder","219":"Grand Master Zip",
+  "220":"Scientific Vectorizer","221":"Historical Vectorizer","222":"Material Science",
+  "223":"Geometry Expansion","224":"SciFi Science","225":"Equation Domain",
+  "226":"Entropy Scorer","227":"Semantic Graph","228":"Crossover Calibrator",
+  "229":"Seed Generator","230":"Finalizer Freeze","250":"Topic Matrix",
+  "301":"Summarizer","302":"Research Threader","303":"Research Weaver",
+  "304":"Short Paper","305":"Long Paper","306":"Color Transformer",
+  "307":"Crossover Writer","308":"Semantic Analyzer","309":"Multi Synthesizer",
+  "310":"Scientific Justification","311":"Evidence Writer","312":"Narrative Science",
+  "313":"Historical Lens","314":"Material Lens","315":"Geometry Lens",
+  "316":"SciFi Reality","317":"Domain Bridge","318":"RL Improver",
+  "319":"Multi Perspective","320":"Infinity Vector","321":"Telemetry Pattern",
+  "322":"Scientific Calendar","323":"Hypothesis Generator","324":"Experiment Planner",
+  "325":"Resource Planner","326":"Longform Multi","327":"Crossover Matrix",
+  "328":"Graph Narrative","329":"Enhancement Describer","330":"Full Research Bundle",
+  "351":"Link Feed","352":"Term Feed","353":"Equation Feed",
+  "403":"Batch Distributor","405":"Color Router","406":"Masterzip Staging",
+  "408":"Masterzip Builder","409":"Masterzip Indexer","410":"Batch Zip",
+  "411":"Masterzip Router","412":"Copy Layers","413":"Category Index",
+  "414":"Color Interface","415":"Grand Master Zip",
+  "421":"GitHub Init","422":"Credential Loader","423":"GitHub Push",
+  "424":"Token Metadata","425":"Token Signature","426":"Token Lineage",
+  "427":"Token Version","428":"Token Register","429":"Token Vault","430":"Token Exporter",
+  "501":"Autonomous Kernel","502":"Event Watcher","503":"Rebuild Trigger",
+  "504":"Watchdog","505":"Auto Scheduler","506":"Calculator Engine",
+  "507":"Auto Rebuilder","508":"Hazard Recovery","509":"Calc Loop","510":"Full Autonomy",
+  "601":"Term Evolution","602":"Color Mutator","603":"Crossover Evolution",
+  "604":"Evolution History","605":"Evolution Scheduler",
+  "651":"Production Gatekeeper","652":"Freeze Mode","653":"Writer Mode",
+  "701":"Website Folder","702":"Index Builder","703":"Category Pages",
+  "704":"Research Preview","706":"Color UI","707":"Crossover Visualizer",
+  "708":"Zip Explorer","709":"Navigation","710":"Pages Deployer",
+  "801":"Terminal Engine","802":"Button Routing","803":"Writer Engine",
+  "804":"Feed Generator","805":"Wallet Engine","806":"Command Parser",
+  "807":"Token Viewer","808":"Writer UI","809":"Reward Engine",
+  "810":"Button Logic","811":"Command Dispatch","812":"Conversate Writer",
+  "813":"Research Compiler","814":"Feed Injector","815":"Token Register",
+  "821":"IPFS Client","822":"IPFS Publisher","823":"World Ledger",
+  "824":"Local Sync","825":"User Capsule","826":"Gateway Selector",
+  "831":"Action Runner","900":"MRW Terminal","901":"Capsule Template",
+  "902":"Crypto","903":"Account Create","904":"Login","905":"Capsule Backup","906":"User Manager",
+  "1010":"Capsule Export","1015":"Sync Tokens","1016":"Sync Ledger","1017":"Sync Runner",
+  "11002":"Integrity Audit",
+  "A":"Arxiv Multiterm","B":"Word Colorizer","C":"Cross Context","D":"Long Term Trajectory",
+  "E":"Scientific Density","F":"Emotional Tone","G":"Hydrogen Element","H":"Term Pair",
+  "I":"Term Trio","J":"Term Cluster","K":"Research Depth","L":"AI Symbiosis",
+  "M1":"Pitch Engine","M2":"Note Mapper","M3":"MIDI Writer","M4":"Staff Renderer","M5":"Music Brain",
+  "M":"Anomaly Detector","N":"Divergence","O":"Tool Profiler","P":"Blueprint Integration",
+  "Q":"Color Memory","R":"Color Output","S":"Shape Normalizer","T":"Color Rebuilder",
+};
 
-  const repo = (location.pathname.split("/")[1] || "").trim(); // for org pages it’s the repo root on pages
-  repoLabel.textContent = "repo: " + (repo || "(root)");
+// Color by series
+function cartColor(id) {
+  const n = parseInt(id);
+  if (isNaN(n)) return "#a78bfa"; // letter carts
+  if (n < 100) return "#3fb950";  // core
+  if (n < 300) return "#6366f1";  // import/fusion
+  if (n < 400) return "#e94560";  // writers
+  if (n < 500) return "#f5c542";  // zip/deploy
+  if (n < 600) return "#0ea5e9";  // autonomous
+  if (n < 700) return "#ec4899";  // evolution
+  if (n < 800) return "#f97316";  // website
+  if (n < 900) return "#14b8a6";  // terminal
+  return "#8b5cf6"; // system
+}
 
-  // Minimal styling decisions; avoid fighting your CSS
-  fab.style.background = "rgba(0,0,0,.82)";
-  fab.style.color = "white";
-  panel.style.background = "rgba(0,0,0,.90)";
-  panel.style.color = "white";
-  document.querySelector(".c13b0-chathead").style.borderBottom = "1px solid rgba(255,255,255,.10)";
-  input.style.background = "rgba(255,255,255,.06)";
-  input.style.color = "white";
-  send.style.background = "rgba(255,255,255,.14)";
-  send.style.color = "white";
-  close.style.background = "rgba(255,255,255,.14)";
-  close.style.color = "white";
+function buildCartGrid() {
+  const grid = document.getElementById("cart-grid");
+  const entries = Object.entries(CART_NAMES);
+  document.getElementById("cart-count").textContent = `${entries.length} modules loaded`;
 
-  function line(txt){
-    const div=document.createElement("div");
-    div.className="c13b0-chatline";
-    div.textContent=txt;
+  grid.innerHTML = entries.map(([id, name]) => {
+    const c = cartColor(id);
+    return `<div class="cart-card" style="border-left:3px solid ${c};">
+      <div class="cart-id">Cart ${id}</div>
+      <div class="cart-name">${name}</div>
+    </div>`;
+  }).join("");
+}
+
+// ═══════════════════════════════════════
+// CHAT TERMINAL (local, no API needed)
+// ═══════════════════════════════════════
+(function() {
+  const fab = document.getElementById("chat-fab");
+  const panel = document.getElementById("chat-panel");
+  const body = document.getElementById("chat-body");
+  const input = document.getElementById("chat-in");
+  const send = document.getElementById("chat-send");
+  const close = document.getElementById("chat-close");
+
+  function line(txt, color) {
+    const div = document.createElement("div");
+    div.className = "chat-line";
+    if (color) div.style.color = color;
+    div.textContent = txt;
     body.appendChild(div);
     body.scrollTop = body.scrollHeight;
   }
 
-  function open(){ panel.style.display="block"; input.focus(); }
-  function shut(){ panel.style.display="none"; }
+  fab.onclick = () => { panel.style.display = "flex"; input.focus(); };
+  close.onclick = () => { panel.style.display = "none"; };
 
-  fab.addEventListener("click", open);
-  close.addEventListener("click", shut);
-  window.addEventListener("click",(e)=>{
-    if(panel.style.display==="block"){
-      // click outside closes
-      if(!panel.contains(e.target) && e.target!==fab) shut();
-    }
-  });
+  function process() {
+    const q = (input.value || "").trim().toLowerCase();
+    if (!q) return;
+    line("> " + q, "var(--accent)");
+    input.value = "";
 
-  async function ask(){
-    const q=(input.value||"").trim();
-    if(!q) return;
-
-    line("> " + q);
-    input.value="";
-
-    // Router endpoint (you’ll create it in your router repo)
-    // expected response: { ok:true, repo:"x", answer:"...", token:{id:"...", value:"...", type:"..."} }
-    try{
-      const res = await fetch("/router/ask", {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({ repo, query:q, t: Date.now() })
-      });
-      const data = await res.json();
-      if(!data || !data.ok){
-        line("⚠️ Router error: " + (data && data.error ? data.error : "unknown"));
-        return;
-      }
-      if(data.answer) line(data.answer);
-      if(data.token){
-        line("🧱🟡🧱 TOKEN → " + JSON.stringify(data.token));
+    if (q === "help") {
+      line("Commands: help, list carts, status, count, search <term>, ecosystem", "var(--muted)");
+    } else if (q === "list carts" || q === "carts") {
+      const names = Object.values(CART_NAMES).slice(0, 20);
+      line(`Showing 20/${Object.keys(CART_NAMES).length} carts:`, "var(--gold)");
+      names.forEach(n => line("  " + n));
+    } else if (q === "status") {
+      line(`🧱 smug_look: ONLINE`, "var(--green)");
+      line(`  Carts: ${Object.keys(CART_NAMES).length}`);
+      line(`  Ecosystem: Crown + Hub + Market + Brain + Research`);
+      line(`  Token: 🧱Kris🔑 | $118 USD`);
+    } else if (q === "count") {
+      line(`${Object.keys(CART_NAMES).length} cart modules loaded`, "var(--gold)");
+    } else if (q.startsWith("search ")) {
+      const term = q.slice(7);
+      const matches = Object.entries(CART_NAMES).filter(([id, name]) => name.toLowerCase().includes(term));
+      if (matches.length) {
+        line(`Found ${matches.length} matches:`, "var(--gold)");
+        matches.forEach(([id, name]) => line(`  Cart ${id}: ${name}`));
       } else {
-        line("🧱📍🧱 no token returned");
+        line("No matches found.", "var(--red)");
       }
-    }catch(err){
-      line("⚠️ fetch failed: " + err);
+    } else if (q === "ecosystem") {
+      line("🔗 Infinity Ecosystem:", "var(--gold)");
+      ["Crown Index", "Master Hub", "Marketplace", "Brain Scanner", "Research Engine", "Mario Tokens", "Spark Core", "Spark Bridge", "Terminal", "Forge", "Vault", "Signal"].forEach(n => line("  " + n));
+    } else {
+      line("🧱 Unknown command. Type 'help' for options.", "var(--muted)");
     }
   }
 
-  send.addEventListener("click", ask);
-  input.addEventListener("keydown",(e)=>{ if(e.key==="Enter") ask(); });
+  send.onclick = process;
+  input.onkeydown = (e) => { if (e.key === "Enter") process(); };
 })();
+
+// INIT
+buildCartGrid();
 </script>
-<!-- C13B0_CHAT_WIDGET_END -->
-</html>
-
-
-<!-- INDEX_VALUE_START -->
-<div class="box">
-<h2>🧱 Index License Token</h2>
-<p><strong>Operator:</strong> Kris Watson</p>
-<p><strong>License Value (monotonic):</strong> $118 USD</p>
-<p><small>Value increases daily via Infinity Plus + Mongoose growth.</small></p>
-<form action="https://www.paypal.com/paypalme/marvaseater@gmail.com/118" method="get" target="_blank">
-  <button type="submit">Buy License Token</button>
-</form>
-<p><small>Token grants right to display/use/operate this index for business. No ownership transfer.</small></p>
-<p><small>Contact: 808-342-9974</small></p>
-</div>
-<!-- INDEX_VALUE_END -->
-
-<!-- C13B0:MAP_VIEWER -->
-<section>
-  <h3>🧱🔗🧱 Infinity Ecosystem</h3>
-  <select onchange="location=this.value">
-    <!-- populated by bots -->
-  </select>
-</section>
-
-<!-- C13B0:PAYPAL_BLOCK -->
-<section>
-  <h3>🧱💰🧱 Acquire Access License</h3>
-  <p>Starting price shown below. Value increases with growth.</p>
-  <button>Buy Now (PayPal)</button>
-</section>
-
-<!-- Pewpi Shared Services Initialization -->
-<script type="module" src="./src/pewpi-init.js"></script>
-
 </body>
 </html>
